@@ -18,4 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', 'blog.views.index'),
+    url(r'^notice/', 'blog.views.notice_list'),
+    url(r'^notice/(?P<pk>\d+)/$', 'blog.views.notice_detail'),
 ]
