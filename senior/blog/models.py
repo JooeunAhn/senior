@@ -17,3 +17,11 @@ class Notice(models.Model):
     content = models.TextField()
     # tags = models.ManyToManyField('Tag', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class FreeBoard(models.Model):
+	title = models.CharField(max_length=100,
+			validators=[min_length_validator],
+			help_text='포스팅 제목을 100자 이내로 써주세요.')
+	author = models.CharField(max_length=10)
+	content = models.TextField()
+	created_at = models.DateTimeField(auto_now_add=True)
