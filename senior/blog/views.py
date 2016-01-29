@@ -8,7 +8,6 @@ from django.contrib import messages
 def index(request):
     return render(request, 'blog/index.html')
 
-
 def notice_list(request):
     notice_list = Notice.objects.all()
     params = {'notice_list': notice_list}
