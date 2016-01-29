@@ -1,7 +1,7 @@
 from blog.models import Notice, FreeBoard
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
-
+from django.contrib import messages
 
 # Create your views here.
 
