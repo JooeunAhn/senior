@@ -25,3 +25,9 @@ class FreeBoard(models.Model):
 	author = models.CharField(max_length=10)
 	content = models.TextField()
 	created_at = models.DateTimeField(auto_now_add=True)
+
+class Thanks(models.Model):
+    title = models.ForeignKey()
+    author
+    content
+    created_at
