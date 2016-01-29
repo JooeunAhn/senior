@@ -2,13 +2,12 @@ from blog.models import Notice, FreeBoard
 from blog.forms import FreeBoardForm, CommentForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
-
+from django.contrib import messages
 
 # Create your views here.
 
 def index(request):
     return render(request, 'blog/index.html')
-
 
 def notice_list(request):
     notice_list = Notice.objects.all()
@@ -22,6 +21,7 @@ def freeboard_list(request):
 	return render(request, 'blog/freeboard_list.html', params)
 
 notice_detail = DetailView.as_view(model = Notice)
+<<<<<<< HEAD
 freeboard_detail = DetailView.as_view(model = FreeBoard)
 
 
@@ -86,3 +86,6 @@ def comment_edit(request, post_pk, pk):
     return render(request, 'blog/comment_form.html', {
         'form': form,
         })
+=======
+freeboard_detail = DetailView.as_view(models = FreeBoard)
+>>>>>>> origin/master

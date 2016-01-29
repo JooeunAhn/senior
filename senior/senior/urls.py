@@ -19,8 +19,12 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', 'blog.views.index'),
-    url(r'^notice/', 'blog.views.notice_list'),
+    url(r'^notice/$', 'blog.views.notice_list'),
     url(r'^notice/(?P<pk>\d+)/$', 'blog.views.notice_detail'),
-    url(r'^freeboard/', 'blog.views.freeboard_list'),
+    url(r'^freeboard/$', 'blog.views.freeboard_list'),
     url(r'^freeboard/(?P<pk>\d+)/$', 'blog.views.freeboard_list'),
+    url(r'^column/$', 'blog.views.column_list'),
+    url(r'^column/(?P<pk>\d+)/$', 'blog.views.column_detail'),
+    url(r'^example/$', 'blog.views.example_detail'),
+
 ]

@@ -26,9 +26,16 @@ class FreeBoard(models.Model):
 	content = models.TextField()
 	created_at = models.DateTimeField(auto_now_add=True)
 
+<<<<<<< HEAD
 class Comment(models.Model):
     post = models.ForeignKey(Post)
     message = models.TextField()
 
     def __str__(self):
         return self.message
+=======
+
+
+
+
+>>>>>>> origin/master
