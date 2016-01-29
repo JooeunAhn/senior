@@ -25,3 +25,10 @@ class FreeBoard(models.Model):
 	author = models.CharField(max_length=10)
 	content = models.TextField()
 	created_at = models.DateTimeField(auto_now_add=True)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.message
