@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
-from blog.models import Notice, FreeBoard, Comment
+from blog.models import Notice, FreeBoard, Comment, Thanks
 from blog.forms import FreeBoardForm, CommentForm
 
 # Create your views here.
@@ -22,15 +22,15 @@ def freeboard_list(request):
 
 def thanks_list(request):
 	thanks_list = Thanks.objects.all()
-	params = {'thanks_list' = thanks_list}
+	params = {'thanks_list' : thanks_list}
 	return render(request, 'blog/thanks_list.html', params)
 
 
 notice_detail = DetailView.as_view(model = Notice)
-<<<<<<< HEAD
-freeboard_detail = DetailView.as_view(models = FreeBoard)
-thanks_detail = DetailView.as_view(models = Thanks)
-=======
+
+freeboard_detail = DetailView.as_view(model = FreeBoard)
+thanks_detail = DetailView.as_view(model = Thanks)
+
 freeboard_detail = DetailView.as_view(model = FreeBoard)
 
 
@@ -73,14 +73,14 @@ def comment_new(request, freeboard_pk):
             messages.info(request, '새로운 댓글을 등록했습니다.')
             return redirect('blog.views.freeboard_detail', freeboard_pk)
     else:
-        form = CommentForm()    
+        form = CommentForm()
     return render(request, 'blog/comment_form.html', {
         'form': form,
         })
 
 
 def comment_edit(request, freeboard_pk, pk):
-    # 자유게시판 댓글 수정 
+    # 자유게시판 댓글 수정
     comment = get_object_or_404(Comment, pk=pk)
 
     if request.method == 'POST':
@@ -93,4 +93,4 @@ def comment_edit(request, freeboard_pk, pk):
     return render(request, 'blog/comment_form.html', {
         'form': form,
         })
->>>>>>> origin/master
+
