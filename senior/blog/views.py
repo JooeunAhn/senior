@@ -1,8 +1,8 @@
-from blog.models import Notice, FreeBoard
-from blog.forms import FreeBoardForm, CommentForm
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
-from django.contrib import messages
+from blog.models import Notice, FreeBoard, Comment
+from blog.forms import FreeBoardForm, CommentForm
 
 # Create your views here.
 
@@ -35,23 +35,21 @@ def freeboard_new(request):
         form = FreeBoardForm()
     return render(request, 'blog/freeboard_form.html', {
         'form': form,
-    })
-
+        })
 
 def freeboard_edit(request, pk):
-	# 자유게시판 글 수정
+    # 자유게시판 글 수정
     freeboard = get_object_or_404(FreeBoard, pk=pk)
-	if request.method == 'POST':
-		form = FreeBoardForm(request.POST, instance=freeboard)
-		if form.is_valid():
-			freeboard = form.save()
-            return redirect('blog.views.freeboard_detail', freeboard.pk)
+    if request.method == 'POST':
+        form = FreeBoardForm(request.POST, instance = freeboard)
+        if form.is_valid():
+            freeboard = form.save()
+            return redirect('blog.view.freeboard_detail', freeboard.pk)
     else:
-        form = FreeBoardForm(instance=freeboard)
-    return render(request, 'blog/freeboard_form.html', {
+        form = FreeBoardForm(instance=freboard)
+    return render(request, 'blog/freeboard_form.html',{
         'form': form,
-    })
-
+        })
 
 def comment_new(request, freeboard_pk):
     # 자유게시판 댓글 추가
@@ -68,7 +66,7 @@ def comment_new(request, freeboard_pk):
         form = CommentForm()    
     return render(request, 'blog/comment_form.html', {
         'form': form,
-    })
+        })
 
 
 def comment_edit(request, freeboard_pk, pk):

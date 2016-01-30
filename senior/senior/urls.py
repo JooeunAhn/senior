@@ -22,9 +22,9 @@ urlpatterns = [
     url(r'^notice/$', 'blog.views.notice_list'),
     url(r'^notice/(?P<pk>\d+)/$', 'blog.views.notice_detail'),
     url(r'^freeboard/$', 'blog.views.freeboard_list'),
-    url(r'^freeboard/(?P<pk>\d+)/$', 'blog.views.freeboard_list'),
-    url(r'^column/$', 'blog.views.column_list'),
-    url(r'^column/(?P<pk>\d+)/$', 'blog.views.column_detail'),
-    url(r'^example/$', 'blog.views.example_detail'),
+    url(r'^freeboard/(?P<pk>\d+)/$', 'blog.views.freeboard_detail'),
+    #url(r'^column/$', 'blog.views.column_list'),
+    #url(r'^column/(?P<pk>\d+)/$', 'blog.views.column_detail'),
+    #url(r'^example/$', 'blog.views.example_detail'),
 
 ]
