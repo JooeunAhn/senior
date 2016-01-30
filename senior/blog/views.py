@@ -19,5 +19,12 @@ def freeboard_list(request):
 	params = {'freeboard_list' : freeboard_list}
 	return render(request, 'blog/freeboard_list.html', params)
 
+def thanks_list(request):
+	thanks_list = Thanks.objects.all()
+	params = {'thanks_list' = thanks_list}
+	return render(request, 'blog/thanks_list.html', params)
+
+
 notice_detail = DetailView.as_view(model = Notice)
 freeboard_detail = DetailView.as_view(models = FreeBoard)
+thanks_detail = DetailView.as_view(models = Thanks)
