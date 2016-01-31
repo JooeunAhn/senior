@@ -39,3 +39,41 @@ class Comment(models.Model):
     def __str__(self):
         return self.message
 
+
+
+
+class Mentor(models.Model):
+    name = models.CharField(max_length = 20)
+    photo = models.ImageField(blank = True)
+    self_word = models.CharField(max_length = 100)
+    content = models.ImageField(blank = True)
+
+class Mentee(models.Model):
+    name = models.CharField(max_length = 20)
+    photo = models.ImageField(blank =True)
+    self_word = models.CharField(max_length = 100)
+
+class Question(models.Model):
+    title = models.CharField(max_length = 30)
+    content = models.CharField(max_length = 500)
+    mentor = models.ManyToManyField(Mentor)
+    mentee = models.ManyToManyField(mentee)
+
+class review(models.Model):
+    content = models.CharField(max_length = 140)
+    question = models.OneToOneField(Question)
+
+class reply(models.Model):
+    content = models.CharField(max_length = 500)
+    question = models.OneToOneField(Question)
+
+
+
+
+
+
+
+
+
+
+
