@@ -61,7 +61,9 @@ ROOT_URLCONF = 'senior.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+        os.path.join (BASE_DIR,'senior','templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

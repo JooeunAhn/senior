@@ -18,6 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+<<<<<<< HEAD
     url(r'^$', 'blog:index'),
     url(r'^notice/$', 'blog:notice_list'),
     url(r'^notice/(?P<pk>\d+)/$', 'blog:notice_detail'),
@@ -26,3 +27,19 @@ urlpatterns = [
     url(r'^freeboard/$', 'blog:freeboard_list'),
     url(r'^freeboard/(?P<pk>\d+)/$', 'blog:freeboard_detail'),
 ]
+=======
+    url(r'^$', 'blog.views.index'),
+    url(r'^notice/$', 'blog.views.notice_list'),
+    url(r'^notice/(?P<pk>\d+)/$', 'blog.views.notice_detail'),
+
+    url(r'^freeboard/', 'blog.views.freeboard_list'),
+    url(r'^freeboard/(?P<pk>\d+)/$', 'blog.views.freeboard_detail'),
+    url(r'^thanks/', 'blog.views.thanks_list'),
+    url(r'^thanks/(?P<pk>\d+)/$', 'blog.views.thanks_detail'),
+    url(r'^freeboard/$', 'blog.views.freeboard_list'),
+    #url(r'^column/$', 'blog.views.column_list'),
+    #url(r'^column/(?P<pk>\d+)/$', 'blog.views.column_detail'),
+    #url(r'^example/$', 'blog.views.example_detail'),
+
+]
+>>>>>>> origin/master
