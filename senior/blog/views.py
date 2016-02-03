@@ -40,7 +40,7 @@ def freeboard_new(request):
         form = FreeBoardForm(request.POST, requset.FILES)
         if form.is_valid():
             freebaord = form.save()
-            return redirect('blog.views.freeboard_detail', freeboard.pk)
+            return redirect('blog:freeboard_detail', freeboard.pk)
     else:
         form = FreeBoardForm()
     return render(request, 'blog/freeboard_form.html', {
@@ -71,7 +71,7 @@ def comment_new(request, freeboard_pk):
             comment.post = get_object_or_404(FreeBoard, pk=freeboard_pk)
             comment.save()
             messages.info(request, '새로운 댓글을 등록했습니다.')
-            return redirect('blog.views.freeboard_detail', freeboard_pk)
+            return redirect('blog:freeboard_detail', freeboard_pk)
     else:
         form = CommentForm()    
     return render(request, 'blog/comment_form.html', {
@@ -87,7 +87,7 @@ def comment_edit(request, freeboard_pk, pk):
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
-            return redirect('blog.views.FreeBoard_detail', freeboard_pk)
+            return redirect('blog:FreeBoard_detail', freeboard_pk)
     else:
         form = CommentForm(instance=comment)
     return render(request, 'blog/comment_form.html', {
