@@ -29,7 +29,12 @@ def profile(request):
     else :
         return render(request, 'blog/index.html')
 
-
+@login_required
+def account_delete(request):
+    
+    account = Profile.objects.get(user = request.user)
+    account.user.delete()
+    return redirect('blog:index')
 
 def signup(request):
     if request.method == 'POST':
@@ -80,6 +85,3 @@ def signup_confirm(request,uidb64,token):
     else:
         messages.error(request, '잘못된경로임')
         return redirect(settings.LOGIN_URL)
-
-
-

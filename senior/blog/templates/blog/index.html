@@ -8,18 +8,17 @@
 <!-- User 인스턴스 -->
 
 {% if user.is_authenticated %}
-    로그아웃
+    <a href = "accounts/logout">로그아웃</a>
     {%if user.profile.is_mentor %}
         닌멘토염
     {% else %}
-        <a href ="www.naver.com" >
-        멘토등록</a>
         난멘티얌
     {% endif %}
+    <a href="accounts/account_delete">회원탈퇴</a>
 
 {% else %}
-    로그인
-    회원가입
+    <a href = "accounts/login">로그인</a>
+    <a href = "accounts/signup">회원가입</a>
 {% endif %}
 
 

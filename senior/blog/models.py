@@ -9,3 +9,5 @@ def min_length_validator(value):
     if len(value) > 100:
         raise forms.ValidationError('100글자 이내로 입력하라고 !!!')
 
+def asfdasdfs(value):
+	pass

@@ -47,5 +47,3 @@ def create_profile(sender, **kwargs):
     if kwargs["created"]:
         user_profile = Profile(user=user, is_mentor =user.is_mentor)
         user_profile.save()
-
-
