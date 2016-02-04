@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 
-### bootstrap3 추가
+# bootstrap3
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'accounts',
     "debug_toolbar",
     "bootstrap3",
 
