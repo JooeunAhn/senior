@@ -25,9 +25,9 @@ def profile(request):
     print (profile.is_mentor)
 
     if profile.is_mentor :
-        return render(request, 'accounts/profile.html')
+        return render(request, 'blog/index.html')
     else :
-        return render(request, 'accounts/profile_mentee.html')
+        return render(request, 'blog/index.html')
 
 
 
@@ -47,7 +47,7 @@ def signup(request):
             #auth_login(request, user)
 
             messages.info(request, '환영합니다')
-            return redirect(settings.LOGIN_REDIRECT_URL)
+            return redirect('blog:index')
 
             #회원가입 시에, 이메일 승인
             #user = form.save(commit = False)
