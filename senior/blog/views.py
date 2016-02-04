@@ -5,11 +5,13 @@ from accounts.models import Profile
 # Create your views here.
 
 def index(request):
-
     return render(request, 'blog/index.html')
 
+
 def mentor_list(request):
-    return render(request, 'blog/mentor_list')
+    mentor_list = Profile.objects.filter(is_mentor = True)
+    return render(request, 'blog/mentor_list.html', {'mentor_list' : mentor_list})
+
 
 def mentor_detail(request, pk):
     mentor = Profile.objects.get(pk=pk)
@@ -24,3 +26,4 @@ urlpatterns = [
 
     ]
 """
+
