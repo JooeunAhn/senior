@@ -40,6 +40,9 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     is_mentor = models.BooleanField()
 
+    def __str__ (self):
+        return
+
 
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)
 def create_profile(sender, **kwargs):
@@ -47,5 +50,4 @@ def create_profile(sender, **kwargs):
     if kwargs["created"]:
         user_profile = Profile(user=user, is_mentor =user.is_mentor)
         user_profile.save()
-
 

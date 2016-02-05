@@ -21,13 +21,18 @@ from accounts.models import Profile
 # Create your views here.
 @login_required
 def profile(request):
-    profile = Profile.objects.get(user = request.user)
-    print (profile.is_mentor)
+    if request.user.is_superuser :
+        print("여기잇나?")
+        return render(request, 'blog/index.html')
+    else:
+        print("여기잇어")
+        profile = Profile.objects.get(user = request.user)
+        print (profile.is_mentor)
 
-    if profile.is_mentor :
-        return render(request, 'blog/index.html')
-    else :
-        return render(request, 'blog/index.html')
+        if profile.is_mentor :
+            return render(request, 'blog/index.html')
+        else :
+            return render(request, 'blog/index.html')
 
 
 

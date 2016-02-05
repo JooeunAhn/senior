@@ -4,19 +4,22 @@
 {%block content%}
 우재바보
 
-<h1>{{user}}'s profile</h1>
+<h1>index</h1>
 <!-- User 인스턴스 -->
 
 {% if user.is_authenticated %}
     로그아웃
-    {%if user.profile.is_mentor %}
-        닌멘토염
+    {%if user.is_superuser %}
+        닌 슈퍼유저야
     {% else %}
-        <a href ="www.naver.com" >
-        멘토등록</a>
-        난멘티얌
+        {%if user.profile.is_mentor %}
+            닌멘토염
+        {% else %}
+            <a href ="www.naver.com" >
+            멘토등록</a>
+            난멘티얌12
+        {% endif %}
     {% endif %}
-
 {% else %}
     로그인
     회원가입
