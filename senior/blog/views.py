@@ -10,7 +10,6 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 def index(request):
-    print (request.user.profile.is_mentor)
     return render(request, 'blog/index.html')
 
 

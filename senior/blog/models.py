@@ -10,7 +10,6 @@ def min_length_validator(value):
         raise forms.ValidationError('100글자 이내로 입력하라고 !!!')
 
 
-
 class Question(models.Model):
     mentor = models.ForeignKey(Profile, related_name = "mentor", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': True},)
     mentee = models.ForeignKey(Profile, related_name = "mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
@@ -19,7 +18,6 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
-
 
 
 
