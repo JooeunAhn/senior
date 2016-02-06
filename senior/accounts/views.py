@@ -30,13 +30,13 @@ def profile(request):
         print (profile.is_mentor)
 
         if profile.is_mentor :
-            return render(request, 'blog/index.html')
+            return render(request, 'accounts/profile_mentor.html')
         else :
-            return render(request, 'blog/index.html')
+            return render(request, 'accounts/profile_mentee.html')
 
 @login_required
 def account_delete(request):
-    
+
     account = Profile.objects.get(user = request.user)
     account.user.delete()
     return redirect('blog:index')
