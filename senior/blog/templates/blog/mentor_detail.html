@@ -17,4 +17,26 @@
                 </div>
             </div>
 
+ </div>
+
+ <div>
+        <a href="{% url 'blog:review_new' mentor.id %}" class="btn btn-primary btn-block%}">
+                새 리뷰 쓰기
+        </a>
+
+            <ul>
+                {{mentor.review_set.all}}
+                {% for review in mentor.review_mentor.all %}
+                    <li>
+                        {{ review.mentee.user.username}}
+                        {{ review.message }}
+                <a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
+                    </li>
+                {% empty %}
+                    <li>등록된 리뷰 없습니다.</li>
+                {% endfor %}
+            </ul>
+</div>
+
+
 {% endblock %}

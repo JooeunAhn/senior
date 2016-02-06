@@ -19,6 +19,12 @@ class Question(models.Model):
     def __str__(self):
         return self.title
 
+class Review(models.Model):
+    mentee = models.ForeignKey(Profile, related_name = "review_mentee", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': False})
+    mentor = models.ForeignKey(Profile, related_name = "review_mentor", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': True})
+    message = models.TextField(max_length = 100)
+
+
 
 
 
