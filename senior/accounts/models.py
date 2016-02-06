@@ -39,15 +39,14 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     is_mentor = models.BooleanField()
-
+    user_photo = models.ImageField(upload_to = 'uploaded/user_photo/%Y/%m/%d', default = "uploaded/user_photo/default.png")
     def __str__ (self):
-        return
-
+        return self.user.username
 
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
-        user_profile = Profile(user=user, is_mentor =user.is_mentor)
+        user_profile = Profile(user=user, is_mentor =user.is_mentor, user_photo = user.user_photo)
         user_profile.save()
 

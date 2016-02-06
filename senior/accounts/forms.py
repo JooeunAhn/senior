@@ -53,19 +53,16 @@ class SignupForm(UserCreationForm):
 
 class SignupForm2(UserCreationForm):
      email = forms.EmailField(required = False)
-     OPTIONS = (
-         ("mentor", "mentor"),
-         ("mentee", "mentee"),
-         )
-
      #is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
      is_mentor = forms.BooleanField(required = False)
+     user_photo = forms.ImageField(required = False)
 
      ### 이렇게하면 일단 DB에 저장은 안함 뒤에함수 호출 필요
      def save(self, commit=True):
          user = super(SignupForm2, self).save(commit=False)
          user.email = self.cleaned_data['email']   #### cleaned_data????
          user.is_mentor = self.cleaned_data['is_mentor']
+         user.user_photo = self.cleaned_data['user_photo']
          if commit:
              user.save()
          return user

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="container">
     <div class="row">
@@ -11,9 +10,9 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     {{ mentor.user.username }}
+                    <img src = "{{MEDIA_ROOT}}{{mentor.user_photo.url}}">
                 </div>
                 <div class="panel-body">
-                    <!--    <img src="{{ post.photo.url }}" /> -->
                 </div>
             </div>
 

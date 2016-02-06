@@ -21,7 +21,7 @@ def mentor_list(request):
 
 def mentor_detail(request, pk):
     mentor = Profile.objects.get(pk=pk)
-    return render(request, 'blog/mentor_detail.html', {'mentor': mentor})
+    return render(request, 'blog/mentor_detail.html', {'mentor': mentor })
 
 
 @login_required
