@@ -19,29 +19,8 @@ from blog import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-<<<<<<< HEAD
-<<<<<<< HEAD
-    url(r'^$', 'blog:index'),
-    url(r'^notice/$', 'blog:notice_list'),
-    url(r'^notice/(?P<pk>\d+)/$', 'blog:notice_detail'),
-    url(r'^thanks/', 'blog.views.freeboard_list'),
-    url(r'^thanks/(?P<pk>\d+)/$', 'blog:thanks_detail'),
-    url(r'^freeboard/$', 'blog:freeboard_list'),
-    url(r'^freeboard/(?P<pk>\d+)/$', 'blog:freeboard_detail'),
-]
-=======
-    url(r'^$', 'blog.views.index'),
-    url(r'^notice/$', 'blog.views.notice_list'),
-    url(r'^notice/(?P<pk>\d+)/$', 'blog.views.notice_detail'),
-=======
     url(r'^accounts/', include('accounts.urls')),
     url(r'', include('blog.urls', namespace = 'blog')),
 ]
->>>>>>> JooEun_Test
 
 
-<<<<<<< HEAD
-]
->>>>>>> origin/master
-=======
->>>>>>> JooEun_Test
