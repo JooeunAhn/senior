@@ -1,13 +1,14 @@
 from django import forms
-from blog.models import FreeBoard, Comment
+from blog.models import Question, Review
 
 
-class FreeBoardForm(forms.ModelForm):
-	class Meta:
-		model = FreeBoard
-		fields = '__all__'
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['title','message']
 
-class CommentForm(forms.ModelForm):
-	class Meta:
-		model = Comment
-		fields = ['message']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['message']

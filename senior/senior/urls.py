@@ -13,11 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from blog import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+<<<<<<< HEAD
 <<<<<<< HEAD
     url(r'^$', 'blog:index'),
     url(r'^notice/$', 'blog:notice_list'),
@@ -31,15 +33,15 @@ urlpatterns = [
     url(r'^$', 'blog.views.index'),
     url(r'^notice/$', 'blog.views.notice_list'),
     url(r'^notice/(?P<pk>\d+)/$', 'blog.views.notice_detail'),
+=======
+    url(r'^accounts/', include('accounts.urls')),
+    url(r'', include('blog.urls', namespace = 'blog')),
+]
+>>>>>>> JooEun_Test
 
-    url(r'^freeboard/', 'blog.views.freeboard_list'),
-    url(r'^freeboard/(?P<pk>\d+)/$', 'blog.views.freeboard_detail'),
-    url(r'^thanks/', 'blog.views.thanks_list'),
-    url(r'^thanks/(?P<pk>\d+)/$', 'blog.views.thanks_detail'),
-    url(r'^freeboard/$', 'blog.views.freeboard_list'),
-    #url(r'^column/$', 'blog.views.column_list'),
-    #url(r'^column/(?P<pk>\d+)/$', 'blog.views.column_detail'),
-    #url(r'^example/$', 'blog.views.example_detail'),
 
+<<<<<<< HEAD
 ]
 >>>>>>> origin/master
+=======
+>>>>>>> JooEun_Test

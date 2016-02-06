@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>mentor_list</h1>
+    </div>
+</div>
+
+<ul>
+{% for mentor in mentor_list%}
+<li>
+    {{mentor.id}}
+    <a href ="/mentors/{{mentor.id}}/">
+    {{mentor.user.username}}
+    </a>
+</li>
+{% endfor %}
+</ul>
+{%endblock%}
