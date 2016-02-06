@@ -32,7 +32,8 @@ body {
     background-size: cover;
     -o-background-size: cover;
 }
-
+.scroll {
+}
 footer {
     margin: 50px 0;
 }
