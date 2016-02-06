@@ -71,7 +71,7 @@ def review_new(request, mentor_pk):
     user = Profile.objects.get(user = request.user)
     if user.is_mentor :
         messages.info(request, "잘못된 접근입니다")
-        return redirect('blog:mentor_detail')
+        return redirect('blog:mentor_detail', mentor_pk)
     else:
         if request.method == 'POST':
             form = ReviewForm(request.POST)
