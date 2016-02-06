@@ -128,11 +128,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 ### 정적파일
+
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'senior', 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static'),
-    ]
 
 ### 메세지
 from django.contrib.messages import constants as messages_constants

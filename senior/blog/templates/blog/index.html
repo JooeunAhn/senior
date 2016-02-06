@@ -1,35 +1,38 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
 
 
 {%block content%}
-우재바보
 
-<h1>index</h1>
-<!-- User 인스턴스 -->
 
 {% if user.is_authenticated %}
-    로그아웃
     {%if user.is_superuser %}
-        닌 슈퍼유저야
+    <li>
+        <a>슈퍼유저님ㅎㅇ</a>
+    </li>
     {% else %}
         {%if user.profile.is_mentor %}
-            닌멘토염
+        <li>
+            <a>멘토님ㅎㅇ</a>
+        </li>
         {% else %}
-            <a href ="www.naver.com" >
-            멘토등록</a>
-            난멘티얌12
+        <li>
+            <a>멘티님ㅎㅇ</a>
+        </li>
         {% endif %}
     {% endif %}
-    <a href = "accounts/logout">로그아웃</a>
-    {%if user.profile.is_mentor %}
-        닌멘토염
-    {% else %}
-        난멘티얌
-    {% endif %}
-    <a href="accounts/account_delete">회원탈퇴</a>
+    <li>
+        <a href ="accounts/logout">로그아웃</a>
+    </li>
+    <li>
+        <a href= "accounts/account_delete">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+    </li>
 {% else %}
-    <a href = "accounts/login">로그인</a>
-    <a href = "accounts/signup">회원가입</a>
+    <li>
+        <a href = "accounts/login">로그인</a>
+    </li>
+    <li>
+        <a href = "accounts/signup">회원가입</a>
+    </li>
 {% endif %}
 
 
