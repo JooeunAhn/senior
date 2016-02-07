@@ -39,7 +39,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     is_mentor = models.BooleanField()
-    user_photo = models.ImageField(upload_to = 'uploaded/user_photo/%Y/%m/%d', default = "uploaded/user_photo/default.png")
+    user_photo = models.ImageField(upload_to='%Y/%m/%d')
     def __str__ (self):
         return self.user.username
 

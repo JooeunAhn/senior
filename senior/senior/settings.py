@@ -130,7 +130,7 @@ USE_TZ = True
 ### 정적파일
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'senior', 'staticfiles')
 
@@ -141,9 +141,8 @@ messages_constants.ERROR: 'danger',
 }
 
 ### 미디어 주소
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
-
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 LOGIN_REDIRECT_URL = "/"

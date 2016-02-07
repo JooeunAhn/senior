@@ -43,7 +43,8 @@ def account_delete(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignupForm2(request.POST)
+        form = SignupForm2(request.POST, request.FILES)
+        print (form.user_photo)
         if form.is_valid():
             user = form.save()
             authenticated_user = authenticate(

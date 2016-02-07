@@ -55,7 +55,7 @@ class SignupForm2(UserCreationForm):
      email = forms.EmailField(required = False)
      #is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
      is_mentor = forms.BooleanField(required = False)
-     user_photo = forms.ImageField(required = False)
+     user_photo = forms.ImageField()
 
      ### 이렇게하면 일단 DB에 저장은 안함 뒤에함수 호출 필요
      def save(self, commit=True):
