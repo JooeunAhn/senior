@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>공지사항</h1>
+    </div>
+</div>
+
+<div class="container">
+	<div class="jumbotron">
+		<ul>
+		{% for notice in notice%}
+		<li>
+		    {{notice.id}}
+		    <a href ="/notice/{{notice.id}}/">
+		    {{notice.title}}
+		    </a>
+		</li>
+		{% endfor %}
+		</ul>
+	</div>
+</div>
+{%endblock%}
+
+
+

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>자유게시판</h1>
+    </div>
+</div>
+
+<div class="container">
+  <div class="jumbotron">
+  <ul>
+  {% for freeboard in freeboard%}
+  <li>
+      {{freeboard.id}}
+      <a href ="/freeboard/{{freeboard.id}}/">
+      {{freeboard.title}}
+      </a>
+  </li>
+  {% endfor %}
+  </ul>
+  </div>
+</div>
+{%endblock%}
+

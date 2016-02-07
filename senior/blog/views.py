@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
 from accounts.models import Profile
-from blog.models import Question, Review
-from blog.forms import QuestionForm, ReviewForm
+from blog.models import Question, Review, Notice, Freeboard
+from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -101,3 +101,87 @@ def review_edit(request, mentor_pk, pk):
         form = ReviewForm()
     return render(request, 'blog/review_form.html', {'form':form,})
 
+
+def notice(request):
+    notice = Notice.objects.all()
+    return render(request, 'blog/notice.html', {'notice':notice})
+
+
+def notice_new(request):
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = NoticeForm(request.POST)
+            if form.is_valid():
+                notice = form.save()
+                return redirect('blog:notice')
+        else:
+            form = NoticeForm()
+        return render(request, 'blog/notice_form.html', {'form':form})
+    else:
+        messages.info(request, "잘못된경로임")
+        return redirect('blog:index')
+
+
+class NoticeDetailView(DetailView):
+    def get_object(self, queryset=None):
+        try:
+            return Notice.objects.get(pk=self.kwargs['pk'])
+        except Notice.DoesNotExist:
+            raise Http404
+
+        return get_object_or_404(Notice, pk=pk)
+
+notice_detail = NoticeDetailView.as_view(model=Notice)
+
+
+def notice_edit(request, pk):
+    notice = Notice.objects.get(pk=pk)
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = NoticeForm(request.POST, instance=notice)
+            if form.is_valid():
+                notice=form.save()
+                return redirect('blog:notice_detail', pk)
+        else:
+            form = NoticeForm(instance=notice)
+        return render(request, 'blog/notice_form.html', {'form' : form,})
+
+
+def freeboard(request):
+    freeboard = Freeboard.objects.all()
+    return render(request, 'blog/freeboard.html', {'freeboard':freeboard})
+
+
+def freeboard_new(request):
+    if request.method == 'POST':
+        form = FreeboardForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog:freeboard')
+    else:
+        form = FreeboardForm()
+    return render(request, 'blog/freeboard_form.html', {'form':form})
+
+
+def freeboard_edit(request, pk):
+    freeboard = Freeboard.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = FreeboardForm(request.POST, instance=freeboard)
+        if form.is_valid():
+            freeboard = form.save()
+            return redirect('blog:freeboard_detail', pk)
+    else:
+        form = FreeboardForm(instance=freeboard)
+    return render(request, 'blog/freeboard_form.html', {'form':form})
+
+
+class FreeboardDetailView(DetailView):
+    def get_object(self, queryset=None):
+        try:
+            return Freeboard.objects.get(pk=self.kwargs['pk'])
+        except Freeboard.DoesNotExist:
+            raise Http404
+
+        return get_object_or_404(Freeboard, pk=pk)
+
+freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
