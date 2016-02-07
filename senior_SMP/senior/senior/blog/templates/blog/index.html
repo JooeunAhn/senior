@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{%block content%}
+
+
+{% if user.is_authenticated %}
+    {%if user.is_superuser %}
+    <li>
+        <a>슈퍼유저님ㅎㅇ</a>
+    </li>
+    {% else %}
+        {%if user.profile.is_mentor %}
+        <li>
+            <a>멘토님ㅎㅇ</a>
+        </li>
+        {% else %}
+        <li>
+            <a>멘티님ㅎㅇ</a>
+        </li>
+        {% endif %}
+    {% endif %}
+    <li>
+        <a href ="accounts/logout">로그아웃</a>
+    </li>
+    <li>
+        <a href= "accounts/account_delete">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+    </li>
+{% else %}
+    <li>
+        <a href = "accounts/login">로그인</a>
+    </li>
+    <li>
+        <a href = "accounts/signup">회원가입</a>
+    </li>
+{% endif %}
+
+
+{% endblock %}

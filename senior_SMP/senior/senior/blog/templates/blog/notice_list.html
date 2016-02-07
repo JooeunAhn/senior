@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>Post_list</h1>
+    </div>
+</div>
+
+<ul>
+{% for notice in notice_list%}
+<li>
+    {{notice.id}}
+    <a href ="/notice/{{notice.id}}/">
+    {{notice.title}}
+    </a>
+</li>
+{% endfor %}
+</ul>
+{%endblock%}
+
+
+

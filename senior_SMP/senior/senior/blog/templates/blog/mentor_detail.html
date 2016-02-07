@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+                <a href="{% url 'blog:mentor_list' %}" class="btn btn-default">멘토목록</a>
+            </p>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    {{ mentor.user.username }}
+                    {{ mentor.user.email }}
+                    {{ mentor.category.title}}
+                    <img src ="{{mentor.user_photo.url}}">
+
+                </div>
+                <div class="panel-body">
+                </div>
+            </div>
+
+ </div>
+
+ <div>
+        <a href="{% url 'blog:review_new' mentor.id %}" class="btn btn-primary btn-block%}">
+                새 리뷰 쓰기
+        </a>
+
+            <ul>
+                {{mentor.review_set.all}}
+                {% for review in mentor.review_mentor.all %}
+                    <li>
+                        {{ review.mentee.user.username}}
+                        {{ review.message }}
+                <a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
+                    </li>
+                {% empty %}
+                    <li>등록된 리뷰 없습니다.</li>
+                {% endfor %}
+            </ul>
+</div>
+
+
+{% endblock %}
