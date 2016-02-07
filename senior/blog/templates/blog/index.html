@@ -1,61 +1,39 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=devicewidth,
-initial-scale=1.0,minimum-scale=1.0,maximumscale=
-1.0,user-scalable=no" />
-<title>Senior Blog</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.7/css/bootstrap-material-design.min.css"/>
-<style>
-body {
-    padding-top: 60px;
-}
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  background-color: #f5f5f5;
-}
-
-.alert-debug {
-background-color: #eeeeee;
-border-color: #eeeeee;
-color: #333;
-}
-
-</style>
+{% extends "base.html" %}
 
 
-</head>
-<body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-
-        </div>
-    </div>
-</div>
-<div id ="content">
+{%block content%}
 
 
+{% if user.is_authenticated %}
+    {%if user.is_superuser %}
+    <li>
+        <a>슈퍼유저님ㅎㅇ</a>
+    </li>
+    {% else %}
+        {%if user.profile.is_mentor %}
+        <li>
+            <a>멘토님ㅎㅇ</a>
+        </li>
+        {% else %}
+        <li>
+            <a>멘티님ㅎㅇ</a>
+        </li>
+        {% endif %}
+    {% endif %}
+    <li>
+        <a href ="accounts/logout">로그아웃</a>
+    </li>
+    <li>
+        <a href= "accounts/account_delete">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+    </li>
+{% else %}
+    <li>
+        <a href = "accounts/login">로그인</a>
+    </li>
+    <li>
+        <a href = "accounts/signup">회원가입</a>
+    </li>
+{% endif %}
 
-</div>
-<div class="footer">
-    <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
-    </div>
-</div>
 
-</body>
-</html>
+{% endblock %}
