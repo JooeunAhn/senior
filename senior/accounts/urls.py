@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'^logout/$', logout, {'next_page': 'blog:index'}),
     url(r'^account_delete/$', views.account_delete),
     url(r'^mypage/$', views.profile,),
+    url(r'^account_edit/$', views.account_edit,)
 ]
+
+
