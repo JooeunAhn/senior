@@ -35,18 +35,26 @@ from django.dispatch import receiver
 #     USERNAME_FIELD = 'username'
 #     REQUIRED_FIELDS = ['is_mentor']
 
+class Category(models.Model):
+    title = models.CharField(max_length = 20)
+
+    def __str__(self):
+        return self.title
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     is_mentor = models.BooleanField()
     user_photo = models.ImageField(upload_to='%Y/%m/%d')
+    category = models.ForeignKey(Category)
+
     def __str__ (self):
         return self.user.username
+
 
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
-        user_profile = Profile(user=user, is_mentor =user.is_mentor, user_photo = user.user_photo)
+        user_profile = Profile(user=user, is_mentor =user.is_mentor, user_photo = user.user_photo, category = user.category,)
         user_profile.save()
 
