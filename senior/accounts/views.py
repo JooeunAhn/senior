@@ -74,7 +74,7 @@ def account_edit(request):
 
 
 def signup(request):
-    if not request.user.is_anonymous:
+    if request.user.is_anonymous:
         if request.method == 'POST':
             form = SignupForm2(request.POST, request.FILES,initial = {
                 "user_photo" : "default/default.png",
