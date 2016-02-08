@@ -33,6 +33,10 @@ body {
     -o-background-size: cover;
 }
 .scroll {
+    margin-top: 70px;
+}
+.basecolor {
+    background-color: #e6e6e6;
 }
 footer {
     margin: 50px 0;
