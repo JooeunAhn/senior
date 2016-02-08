@@ -50,7 +50,6 @@ class Profile(models.Model):
     def __str__ (self):
         return self.user.username
 
-
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]

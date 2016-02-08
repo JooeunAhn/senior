@@ -185,3 +185,8 @@ class FreeboardDetailView(DetailView):
         return get_object_or_404(Freeboard, pk=pk)
 
 freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
+
+
+
+
+
