@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
 from accounts.models import Profile
-from blog.models import Question, Review, Notice, Freeboard
-from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm
+from blog.models import Question, Review, Notice, Freeboard, Comment
+from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -29,7 +29,7 @@ def owner_required_freeboard(model_cls, user_field_name = 'author'):
             """
             if request.instance.author.user != request.user:
                 ##if getattr(request.instance.author, user_field_name) != request.user:
-                return HttpResponseForbidden('forbidden')
+                return HttpResponseForbidden('작성자만 가능합니다')
             return fn(request, *args, **kwargs)
         return inner_wrap
     return wrap
@@ -205,7 +205,6 @@ def freeboard_edit(request, pk):
         form = FreeboardForm(instance=freeboard)
     return render(request, 'blog/freeboard_form.html', {'form':form})
 
-
 class FreeboardDetailView(DetailView):
     def get_object(self, queryset=None):
         try:
@@ -216,6 +215,40 @@ class FreeboardDetailView(DetailView):
         return get_object_or_404(Freeboard, pk=pk)
 
 freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
+
+
+@login_required
+@owner_required_freeboard(Freeboard, 'author')
+def freeboard_delete(request, pk):
+    freeboard = get_object_or_404(Freeboard, pk = pk)
+    if request.method == "POST":
+        freeboard.delete()
+        messages.success(request, '삭제완료')
+        return redirect("blog:freeboard")
+    return render(request, 'blog/freeboard_confirm_delete.html', {'freeboard':freeboard})
+
+def comment_new(request, freeboard_pk):
+    freeboard = get_object_or_404(Freeboard, pk = freeboard_pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit = False)
+            comment.freeboard = freeboard
+            comment.author = Profile.objects.get(user=request.user)
+            comment.save()
+            return redirect('blog:freeboard_detail', freeboard_pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/comment_form.html', {"form":form})
+
+
+
+
+
+
+
+
+
 
 
 
