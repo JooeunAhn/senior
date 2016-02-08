@@ -17,8 +17,25 @@
                 <div class="panel-body">
                     {{ freeboard.content|linebreaks }}
                 </div>
+                <p><a href="{% url "blog:comment_new" freeboard.pk %}" class="btn btn-primary btn-block">New Comment</a></p>
+
+                    {% for comment in freeboard.comment_set.all %}
+                        <div class="media">
+                            <div class="media-body">
+                                <p>{{ comment.message }} <small>by {{ comment.author }}</small></p>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="alert alert-info">등록된 댓글이 없습니다.</p>
+                    {% endfor %}
 
             </div>
+            <a href="{% url 'blog:freeboard_edit' freeboard.id %}" class="btn btn-primary btn-block%}">
+                게시물 수정
+            </a>
+            <a href="{% url "blog:freeboard_delete" freeboard.id %}" class="btn btn-danger">
+                Delete
+            </a>
         </div>
     </div>
 </div>

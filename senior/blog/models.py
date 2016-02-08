@@ -44,3 +44,13 @@ class Freeboard(models.Model):
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    freeboard = models.ForeignKey(Freeboard)
+    author = models.ForeignKey(Profile)
+    message = models.TextField(max_length = 500)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+
+    def __str__(self):
+        return self.title

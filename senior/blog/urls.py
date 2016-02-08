@@ -16,9 +16,11 @@ urlpatterns =[
     url(r'^notice/new/$', views.notice_new, name='notice_new'),
     url(r'^notice/(?P<pk>\d+)/$', views.notice_detail, name = 'notice_detail'),
     url(r'^notice/(?P<pk>\d+)/edit/$', views.notice_edit, name = 'notice_edit'),
-    url(r'^freeboard/$', views.freeboard, name='freeboard'),
-    url(r'^freeboard/new/$', views.freeboard_new, name='freeboard_new'),
-    url(r'^freeboard/(?P<pk>\d+)/$', views.freeboard_detail, name='freeboard_detail'),
-    url(r'^freeboard/(?P<pk>\d+)/edit/$', views.freeboard_edit, name='freeboard_edit'),
+    url(r'^freeboard/$', views.freeboard, name ='freeboard'),
+    url(r'^freeboard/new/$', views.freeboard_new, name ='freeboard_new'),
+    url(r'^freeboard/(?P<pk>\d+)/$', views.freeboard_detail, name = 'freeboard_detail'),
+    url(r'^freeboard/(?P<pk>\d+)/edit/$', views.freeboard_edit, name = 'freeboard_edit'),
+    url(r'^freeboard/(?P<pk>\d+)/delete/$', views.freeboard_delete, name = 'freeboard_delete'),
+    url(r'^freeboard/(?P<freeboard_pk>\d+)/comments/new/$', views.comment_new, name = 'comment_new'),
     ]
 
