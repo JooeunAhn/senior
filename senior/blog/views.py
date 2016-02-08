@@ -7,8 +7,32 @@ from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.http import Http404, HttpResponseForbidden
 
 # Create your views here.
+
+
+def owner_required_freeboard(model_cls, user_field_name = 'author'):
+
+    def wrap(fn):
+        def inner_wrap(request, *args, **kwargs):
+            #print (getattr(request.instance, user_field_name))
+            request.instance = get_object_or_404(model_cls, pk=kwargs['pk'])
+            """
+            삽질의 결과 ㅋㅋㅋㅋ 우리 팀원 모두 값 찍어보고 실행하시길!
+            print(request.instance)
+            print(type(request.instance))
+            print(type(request.instance.author.user))
+            print(type(request.user))
+            print(request.instance.author.user)
+            print(request.user)
+            """
+            if request.instance.author.user != request.user:
+                ##if getattr(request.instance.author, user_field_name) != request.user:
+                return HttpResponseForbidden('forbidden')
+            return fn(request, *args, **kwargs)
+        return inner_wrap
+    return wrap
 
 def index(request):
     return render(request, 'blog/index.html')
@@ -67,7 +91,7 @@ def question_detail(request,pk):
 #def review_list (request, mentor_pk):
 #   review = Review.objects.filter(mentor = mentor_pk)
 #  return render(request, 'blog/review_list.html', {'review_list' : review_list})
-
+@login_required
 def review_new(request, mentor_pk):
     user = Profile.objects.get(user = request.user)
     if user.is_mentor :
@@ -86,7 +110,7 @@ def review_new(request, mentor_pk):
         else:
             form = ReviewForm()
         return render(request, 'blog/review_form.html', {'form': form})
-
+@login_required
 def review_edit(request, mentor_pk, pk):
     review = Review.objects.get(pk = pk)
     if request.method == 'POST':
@@ -135,6 +159,7 @@ class NoticeDetailView(DetailView):
 notice_detail = NoticeDetailView.as_view(model=Notice)
 
 
+@login_required
 def notice_edit(request, pk):
     notice = Notice.objects.get(pk=pk)
     if request.user.is_superuser:
@@ -155,18 +180,21 @@ def freeboard(request):
     freeboard = Freeboard.objects.all()
     return render(request, 'blog/freeboard.html', {'freeboard':freeboard})
 
-
+@login_required
 def freeboard_new(request):
     if request.method == 'POST':
         form = FreeboardForm(request.POST)
         if form.is_valid():
-            form.save()
+            freeboard = form.save(commit = False)
+            freeboard.author = Profile.objects.get(user = request.user)
+            freeboard.save()
             return redirect('blog:freeboard')
     else:
         form = FreeboardForm()
     return render(request, 'blog/freeboard_form.html', {'form':form})
 
-
+@login_required
+@owner_required_freeboard(Freeboard, 'author')
 def freeboard_edit(request, pk):
     freeboard = Freeboard.objects.get(pk=pk)
     if request.method == 'POST':

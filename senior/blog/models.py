@@ -36,6 +36,7 @@ class Notice(models.Model):
 
 
 class Freeboard(models.Model):
+    author = models.ForeignKey(Profile)
     title = models.CharField(max_length=50)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

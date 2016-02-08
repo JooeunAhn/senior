@@ -11,6 +11,8 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     {{ freeboard.title }}
+                    <br></br>
+                    작성자 {{ freeboard.author.user.username}}
                 </div>
                 <div class="panel-body">
                     {{ freeboard.content|linebreaks }}
