@@ -85,7 +85,6 @@ def question_detail(request,pk):
         return render(request, 'blog/question_detail.html', {"question": question},)
     else :
         question = Question.objects.filter(mentee = user, pk = pk)
-        print (question)
         return render(request, 'blog/question_detail.html', {"question": question},)
 
 #def review_list (request, mentor_pk):
