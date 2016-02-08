@@ -1,6 +1,7 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="utf-8">
@@ -36,9 +37,45 @@
     {% endfor %}
 {%endif%}
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid basecolor">
+            <div class="container">
+                    <u1 class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        {%if user.is_superuser %}
+                        <li>
+                            <a>슈퍼유저님ㅎㅇ</a>
+                        </li>
+                        {% else %}
+                            {%if user.profile.is_mentor %}
+                            <li>
+                                <a>멘토님ㅎㅇ</a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a>멘티님ㅎㅇ</a>
+                            </li>
+                            {% endif %}
+                        {% endif %}
+                        <li>
+                            <a href ="{% url "accounts:logout" %}">로그아웃</a>
+                        </li>
+                        <li>
+                            <a href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href = "{% url "accounts:login" %}">로그인</a>
+                        </li>
+                        <li>
+                            <a href = "{% url "accounts:signup" %}">회원가입</a>
+                        </li>
+                    {% endif %}
+                    </u1>
+                </div>
             <!-- Brand and toggle get grouped for better mobile display -->
+            </div>
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -50,34 +87,32 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <u1 class="nav navbar-nav navbar-left">
-                <li>
-                    <a href = "#">멘토들의 이야기</a>
-                </li>
-                <li>
-                    <a href = "#">주은바보</a>
-                </li>
-                <li>
-                    <a href = "#">지은바보</a>
-                </li>
-                </u1>
-
                 <ul class="nav navbar-nav navbar-right">
-
+                <li>
+                    <a href = "{% url "blog:mentor_list" %}">멘토목록</a>
+                </li>
+                <li>
+                    <a href = "{% url "blog:notice" %}">게시판</a>
+                </li>
+                <li>
+                    <a href = "#">로하우 가이드</a>
+                </li>
+                <li>
+                    <a href = "#">멘토 칼럼</a>
+                </li>
                 </ul>
+
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
-    <!-- Page Content -->
-
-    {% block content%}
+    <!-- Half Page Image Background Carousel Header -->
+    {% block content %}
     {% endblock %}
-
+    <!-- Page Content -->
     <div class="container">
 
-        <hr>
         <!-- Footer -->
         <footer>
             <div class="row">
