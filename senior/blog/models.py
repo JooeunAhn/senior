@@ -11,8 +11,8 @@ def min_length_validator(value):
 
 
 class Question(models.Model):
-    mentor = models.ForeignKey(Profile, related_name = "mentor", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': True},)
-    mentee = models.ForeignKey(Profile, related_name = "mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
+    mentor = models.ForeignKey(Profile, related_name = "question_mentor", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': True},)
+    mentee = models.ForeignKey(Profile, related_name = "qustion_mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
     title = models.CharField(max_length = 30)
     message = models.TextField(max_length = 500)
 

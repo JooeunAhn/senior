@@ -29,7 +29,6 @@
         </a>
 
             <ul>
-                {{mentor.review_set.all}}
                 {% for review in mentor.review_mentor.all %}
                     <li>
                         {{ review.mentee.user.username}}

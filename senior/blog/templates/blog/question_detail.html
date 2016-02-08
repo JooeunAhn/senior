@@ -7,17 +7,18 @@
             <p>
                 <a href="{% url 'blog:question_list' %}" class="btn btn-default">질문목록</a>
             </p>
-
+            {% for question in question%}
             <div class="panel panel-info">
                 <div class="panel-heading">
-                {% for question in question%}
+
                     {{question.title}}
-                    {{question.message}}
-                {% endfor %}
+
+
                 </div>
                 <div class="panel-body">
+                {{question.message}}
                     <!--    <img src="{{ post.photo.url }}" /> -->
                 </div>
             </div>
-
+            {% endfor %}
 {% endblock %}

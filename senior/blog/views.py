@@ -52,6 +52,7 @@ def question_list(request):
         questions = Question.objects.filter(mentee = user)
         return render(request, 'blog/question_list.html', {'question_list': questions})
 
+@login_required
 def question_detail(request,pk):
     user = Profile.objects.get(user = request.user)
 
@@ -145,6 +146,9 @@ def notice_edit(request, pk):
         else:
             form = NoticeForm(instance=notice)
         return render(request, 'blog/notice_form.html', {'form' : form,})
+    else:
+        messages.info(request, "잘못된 접근입니다")
+        return redirect("blog:index")
 
 
 def freeboard(request):

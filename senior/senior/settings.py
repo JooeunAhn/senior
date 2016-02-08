@@ -139,6 +139,7 @@ from django.contrib.messages import constants as messages_constants
 MESSAGE_TAGS = {
 messages_constants.ERROR: 'danger',
 }
+MESSAGE_LEVEL = messages_constants.DEBUG
 
 ### 미디어 주소
 MEDIA_URL = '/uploads/'
