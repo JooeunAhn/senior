@@ -205,6 +205,15 @@ def freeboard_edit(request, pk):
         form = FreeboardForm(instance=freeboard)
     return render(request, 'blog/freeboard_form.html', {'form':form})
 
+def freeboard_detail(request, pk):
+    freeboard = get_object_or_404(Freeboard, pk=pk)
+    return render(request, 'blog/freeboard_detail.html', {
+        'freeboard': freeboard,
+        'comment_form': CommentForm(),
+     })
+
+"""
+김지은 detailview
 class FreeboardDetailView(DetailView):
     def get_object(self, queryset=None):
         try:
@@ -215,7 +224,7 @@ class FreeboardDetailView(DetailView):
         return get_object_or_404(Freeboard, pk=pk)
 
 freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
-
+"""
 
 @login_required
 @owner_required_freeboard(Freeboard, 'author')
@@ -227,6 +236,7 @@ def freeboard_delete(request, pk):
         return redirect("blog:freeboard")
     return render(request, 'blog/freeboard_confirm_delete.html', {'freeboard':freeboard})
 
+@login_required
 def comment_new(request, freeboard_pk):
     freeboard = get_object_or_404(Freeboard, pk = freeboard_pk)
     if request.method == "POST":
@@ -241,6 +251,38 @@ def comment_new(request, freeboard_pk):
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {"form":form})
 
+@login_required
+def comment_edit(request,freeboard_pk,pk):
+    comment = get_object_or_404(Comment, pk = pk)
+
+    if comment.author.user != request.user:
+        messages.warning(request, "권한이 없습니다")
+        return redirect("blog:freeboard_detail", freeboard_pk)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance = comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "수정완료!")
+            return redirect("blog:freeboard_detail", freeboard_pk)
+    else:
+        form = CommentForm(instance = comment)
+
+    return render(request, 'blog/comment_form.html', {'form':form})
+
+@login_required
+def comment_delete(request,freeboard_pk,pk):
+    comment = get_object_or_404(Comment, pk = pk)
+
+    if comment.author.user != request.user:
+        messages.warning(request, "권한이 없습니다")
+        return redirect("blog:freeboard_detail", freeboard_pk)
+
+    if request.method == "POST":
+        comment.delete()
+        messages.success(request, '삭제완료')
+        return redirect("blog:freeboard_detail", freeboard_pk)
+    return render(request, 'blog/comment_confirm_delete.html', {'comment':comment,})
 
 
 
