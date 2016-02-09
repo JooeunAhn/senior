@@ -20,6 +20,7 @@
                 <div class="panel-body">
                 </div>
             </div>
+            <a href="{% url 'blog:question_new' mentor.pk %}" class="btn btn-default">질문하기</a>
 
  </div>
 
@@ -29,7 +30,6 @@
         </a>
 
             <ul>
-                {{mentor.review_set.all}}
                 {% for review in mentor.review_mentor.all %}
                     <li>
                         {{ review.mentee.user.username}}
