@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseForbidden
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 
@@ -34,18 +35,29 @@ def owner_required_freeboard(model_cls, user_field_name = 'author'):
         return inner_wrap
     return wrap
 
+
+
 def index(request):
     return render(request, 'blog/index.html')
 
 
 def mentor_list(request):
     mentor_list = Profile.objects.filter(is_mentor = True)
+    paginator = Paginator(mentor_list, 10)
+    page = request.GET.get('page')
+    try:
+        mentor_list = paginator.page(page)
+    except PageNotAnInteger:
+        mentor_list = paginator.page(1)
+    except EmptyPage:
+        mentor_list = paginator.page(paginator.num_pages)
+
     return render(request, 'blog/mentor_list.html', {'mentor_list' : mentor_list})
 
 
 def mentor_detail(request, pk):
     mentor = Profile.objects.get(pk=pk)
-    return render(request, 'blog/mentor_detail.html', {'mentor': mentor })
+    return render(request, 'blog/mentor_detail.html', {'mentor': mentor, 'review_form': ReviewForm()})
 
 
 @login_required
@@ -87,6 +99,22 @@ def question_detail(request,pk):
         question = Question.objects.filter(mentee = user, pk = pk)
         return render(request, 'blog/question_detail.html', {"question": question},)
 
+@login_required
+def question_delete(request, pk):
+    question = get_object_or_404(Question, pk = pk)
+    if question.mentee.user != request.user:
+        messages.warning(request, "권한이 없습니다")
+        return redirect("blog:quesetion_list")
+    else:
+        if request.method == "POST":
+            question.delete()
+            messages.success(request, '삭제완료')
+            return redirect("blog:question_list")
+        return render(request, 'blog/question_confirm_delete.html', {'quesiton' : question ,})
+
+
+
+
 #def review_list (request, mentor_pk):
 #   review = Review.objects.filter(mentor = mentor_pk)
 #  return render(request, 'blog/review_list.html', {'review_list' : review_list})
@@ -112,22 +140,52 @@ def review_new(request, mentor_pk):
 @login_required
 def review_edit(request, mentor_pk, pk):
     review = Review.objects.get(pk = pk)
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, instance = review)
-        if form.is_valid():
-            review = form.save(commit =False)
-            review.mentee = Profile.objects.get(user__username = str(request.user))
-            review.mentor = get_object_or_404(Profile, pk = mentor_pk)
-            review.save()
-            messages.info(request, '리뷰를 수정했습니다')
-            return redirect('blog:mentor_detail', mentor_pk)
+
+    if review.mentee.user != request.user:
+        messages.warning(request, "작성자가 아닙니다")
+        redirect("blog:mentor_detail", mentor_pk)
     else:
-        form = ReviewForm()
-    return render(request, 'blog/review_form.html', {'form':form,})
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, instance = review)
+            if form.is_valid():
+                review = form.save(commit =False)
+                review.mentee = Profile.objects.get(user__username = str(request.user))
+                review.mentor = get_object_or_404(Profile, pk = mentor_pk)
+                review.save()
+                messages.info(request, '리뷰를 수정했습니다')
+                return redirect('blog:mentor_detail', mentor_pk)
+        else:
+            form = ReviewForm(instance = review)
+        return render(request, 'blog/review_form.html', {'form':form,})
+
+@login_required
+def review_delete(request, mentor_pk, pk):
+    review = get_object_or_404(Review, pk = pk)
+
+    if review.mentee.user != request.user:
+        messages.warning(request, "권한이 없습니다")
+        return redirect("blog:review_list")
+    else:
+        if request.method == "POST":
+            review.delete()
+            messages.success(request, '삭제완료')
+            return redirect("blog:mentor_detail", mentor_pk)
+        return render(request, 'blog/review_confirm_delete.html', {'review':review,})
+
+
 
 
 def notice(request):
-    notice = Notice.objects.all()
+    notice_list = Notice.objects.all()
+    paginator = Paginator(notice_list, 10)
+    page = request.GET.get('page')
+    try:
+        notice = paginator.page(page)
+    except PageNotAnInteger:
+        notice = paginator.page(1)
+    except EmptyPage:
+        notice = paginator.page(paginator.num_pages)
+
     return render(request, 'board_base.html', {'notice':notice})
 
 
@@ -176,8 +234,20 @@ def notice_edit(request, pk):
 
 
 def freeboard(request):
-    freeboard = Freeboard.objects.all()
-    return render(request, 'blog/freeboard.html', {'freeboard':freeboard})
+    freeboard_list = Freeboard.objects.all()
+    paginator = Paginator(freeboard_list, 10)
+    page = request.GET.get('page')
+    try:
+        freeboard = paginator.page(page)
+    except PageNotAnInteger:
+        freeboard = paginator.page(1)
+    except EmptyPage:
+        freeboard = paginator.page(paginator.num_pages)
+
+    context = {
+    'freeboard' : freeboard,
+    }
+    return render(request, 'blog/freeboard.html', context)
 
 @login_required
 def freeboard_new(request):
@@ -189,25 +259,23 @@ def freeboard_new(request):
             freeboard.save()
             return redirect('blog:freeboard')
     else:
-        messages.info(request, "먼저 로그인 해주세요")
-        return redirect('accounts.views.commit')
+        form = FreeboardForm()
+    return render(request, 'blog/freeboard_form.html', {'form':form})
+
 
 @login_required
 @owner_required_freeboard(Freeboard, 'author')
 def freeboard_edit(request, pk):
     freeboard = Freeboard.objects.get(pk=pk)
-    if request.user == freeboard.auth:
-        if request.method == 'POST':
-            form = FreeboardForm(request.POST, instance=freeboard)
-            if form.is_valid():
-                freeboard = form.save()
-                return redirect('blog:freeboard_detail', pk)
-        else:
-            form = FreeboardForm(instance=freeboard)
-        return render(request, 'blog/freeboard_form.html', {'form':form})
+    if request.method == 'POST':
+        form = FreeboardForm(request.POST, instance=freeboard)
+        if form.is_valid():
+            freeboard = form.save()
+            return redirect('blog:freeboard_detail', pk)
     else:
-        messages.error(request, "잘못된경로임")
-        return redirect('blog:freeboard')
+        form = FreeboardForm(instance=freeboard)
+    return render(request, 'blog/freeboard_form.html', {'form':form})
+
 
 def freeboard_detail(request, pk):
     freeboard = get_object_or_404(Freeboard, pk=pk)
@@ -229,6 +297,7 @@ class FreeboardDetailView(DetailView):
 
 freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
 """
+
 def guide(request, pk):
     return render(reqeust, 'blog/guide.html')
 
@@ -290,3 +359,27 @@ def comment_delete(request,freeboard_pk,pk):
         messages.success(request, '삭제완료')
         return redirect("blog:freeboard_detail", freeboard_pk)
     return render(request, 'blog/comment_confirm_delete.html', {'comment':comment,})
+
+
+
+def question_edit(request, pk):
+    user = Profile.objects.get(user = request.user)
+    question = Question.objects.get(pk = pk)
+
+    if question.mentee != user:
+        messages.warning(request, "작성자가 아닙니다.")
+        return redirect("blog:question_detail", pk)
+    else:
+        if user.is_mentor :
+            messages.warning(request, "권한이 없습니다")
+            return redirect("blog:question_detail", pk)
+        else:
+            if request.method == "POST":
+                form = QuestionForm(request.POST, instance = question)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "질문이 수정되었습니다")
+                    return redirect("blog:question_detail", pk)
+            else:
+                form = QuestionForm(instance = question)
+            return render(request, 'blog/question_form.html', {'form':form})
