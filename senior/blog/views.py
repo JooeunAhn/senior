@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseForbidden
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 
@@ -166,7 +167,16 @@ def review_delete(request, mentor_pk, pk):
 
 
 def notice(request):
-    notice = Notice.objects.all()
+    notice_list = Notice.objects.all()
+    paginator = Paginator(notice_list, 10)
+    page = request.GET.get('page')
+    try:
+        notice = paginator.page(page)
+    except PageNotAnInteger:
+        notice = paginator.page(1)
+    except EmptyPage:
+        notice = paginator.page(paginator.num_pages)
+
     return render(request, 'blog/notice.html', {'notice':notice})
 
 
@@ -215,8 +225,20 @@ def notice_edit(request, pk):
 
 
 def freeboard(request):
-    freeboard = Freeboard.objects.all()
-    return render(request, 'blog/freeboard.html', {'freeboard':freeboard})
+    freeboard_list = Freeboard.objects.all()
+    paginator = Paginator(freeboard_list, 10)
+    page = request.GET.get('page')
+    try:
+        freeboard = paginator.page(page)
+    except PageNotAnInteger:
+        freeboard = paginator.page(1)
+    except EmptyPage:
+        freeboard = paginator.page(paginator.num_pages)
+
+    context = {
+    'freeboard' : freeboard,
+    }
+    return render(request, 'blog/freeboard.html', context)
 
 @login_required
 def freeboard_new(request):

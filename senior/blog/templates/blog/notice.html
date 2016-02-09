@@ -20,6 +20,20 @@
 		</ul>
 	</div>
 </div>
+
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if notice.has_previous %}
+                                <a href="?page={{ notice.previous_page_number}}">previous</a>
+                            {% endif %}
+                            <span class="current">
+                                Page {{ notice.number }} of {{ notice.paginator.num_pages }}.
+                            </span>
+                            {% if freeboard.has_next %}
+                                <a href="?page={{ notice.next_page_number}}">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
 {%endblock%}
 
 
