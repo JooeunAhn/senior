@@ -35,6 +35,7 @@
                         {{ review.mentee.user.username}}
                         {{ review.message }}
                 <a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
+                <a href="{% url "blog:review_delete"  mentor.pk review.pk %}">삭제</a>
                     </li>
                 {% empty %}
                     <li>등록된 리뷰 없습니다.</li>
