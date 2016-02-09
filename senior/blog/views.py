@@ -57,7 +57,7 @@ def mentor_list(request):
 
 def mentor_detail(request, pk):
     mentor = Profile.objects.get(pk=pk)
-    return render(request, 'blog/mentor_detail.html', {'mentor': mentor })
+    return render(request, 'blog/mentor_detail.html', {'mentor': mentor, 'review_form': ReviewForm()})
 
 
 @login_required
@@ -297,6 +297,7 @@ class FreeboardDetailView(DetailView):
 
 freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
 """
+
 def guide(request, pk):
     return render(reqeust, 'blog/guide.html')
 

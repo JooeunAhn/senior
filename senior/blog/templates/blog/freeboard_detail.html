@@ -17,7 +17,7 @@
                 <div class="panel-body">
                     {{ freeboard.content|linebreaks }}
                 </div>
-                     <form action="{% url "blog:comment_new" freeboard.pk %}" method="post">
+            <form action="{% url "blog:comment_new" freeboard.pk %}" method="post">
 
                 {% csrf_token %}
 

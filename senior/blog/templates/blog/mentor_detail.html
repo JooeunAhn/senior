@@ -25,9 +25,21 @@
  </div>
 
  <div>
-        <a href="{% url 'blog:review_new' mentor.id %}" class="btn btn-primary btn-block%}">
+
+
+        <form action="{% url "blog:review_new" mentor.pk %}" method="post">
+
+                {% csrf_token %}
+
+                {{ review_form }}
+
+                <input type="submit" value="리뷰쓰기" class="btn btn-block btn-primary" />
+
+            </form>
+
+        <!--<a href="{% url 'blog:review_new' mentor.id %}" class="btn btn-primary btn-block%}">
                 새 리뷰 쓰기
-        </a>
+        </a>-->
 
             <ul>
                 {% for review in mentor.review_mentor.all %}
