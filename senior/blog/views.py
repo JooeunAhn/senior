@@ -126,6 +126,8 @@ def review_edit(request, mentor_pk, pk):
     return render(request, 'blog/review_form.html', {'form':form,})
 
 
+
+
 def notice(request):
     notice = Notice.objects.all()
     return render(request, 'blog/notice.html', {'notice':notice})
