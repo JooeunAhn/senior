@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="flash_notices_area"></div>
+<body class="notices index">
+<main>
+	<div class = "dark-bg img-bg-softer" style='background-image: url("~~~~");'>
+		<div class="container inner-xs inner-top-sm">
+			<div class="row">
+				<div class="col-sm-12 center-block text-center">
+					<header>
+						<h2><span>게시판</span></h2>
+					</header>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class = "container inner-xs">
+		<div class = "row">
+			<div class = "col-sm-3">
+				<ul class = "sidenav clearfix" style ="list-style:none;">
+					<li class = "active col-sm-12 col-xs-4 sidebar-li"><a href="#"><div class="new-label-wrapper-no"></div>공지사항</a></li>
+
+					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="#"><div class="new-label-wrapper-no"></div>자유게시판</a></li>
+
+					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="#"><div class="new-label-wrapper-no"></div>주은, 지은 바보</a></li>
+				</ul>
+			</div>
+			<div class = "col-sm-9">
+				<h2 class= "sidelines text-center"><span>공지사항</span></h2>
+				<div class="board mobile-version">
+						<div class="board-list">
+							<div class="board_top">
+								<div class="board-no"></div>
+								<div class="board-category">[공지]</div>
+								<div class="board-title" style="text-decoration: none;"><a href="#">[공지] 로~~하우!에 오신걸 환영함.</a></div>
+								<div class="board-date">2016.02.09/</div>
+								<div class="writer">로하우 개발팀</div>
+								<div class="view-count">몰라염<i class="fa fa-commenting-o">0 </i></div></div>
+							<div class="board_nomal">
+								<div class="board-no">1212</div>
+								<div class="board-category">[공지]</div>
+								<div class="board-title"><a href="#">[공지] 로~~하우!에 오신걸 환영함.</a></div>
+								<div class="board-date">2016.02.09/</div>
+								<div class="writer">로하우 개발팀</div>
+								<div class="view-count">몰라염<i class="fa fa-commenting-o">0 </i></div></div>
+					</div>
+				</div>
+				<table class="table table-list table-hover">
+					<thead>
+						<tr>
+							<th class="col-xs-1 board-no">번호</th>
+							<th class="col-xs-1 board-category">분류</th>
+							<th class="col-xs-6 board-title">제목</th>
+							<th class="col-xs-1 text-center writer">작성자</th>
+							<th class="col-xs-1 text-center view-count">조회수</th>
+							<th class="col-xs-2 text-center board-date">등록시간</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style = "background-color : rgb(241,236,226)">
+						 	<td class="col-xs-1 text-center board-no"></td>
+						 	<td class="col-xs-1 board-category">공지</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">[공지]주은, 지은은 바보인걸로!!</a></td>
+						 	<td class="col-xs-1 text-center writer">로하우 개발팀</td>
+						 	<td class="col-xs-1 text-center view-count">123123</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.09</td>
+						</tr>
+						<tr>
+						 	<td class="col-xs-1 text-center board-no"></td>
+						 	<td class="col-xs-1 board-category">공지</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">[공지]주은, 지은은 바보인걸로!!</a></td>
+						 	<td class="col-xs-1 text-center writer">로하우 개발팀</td>
+						 	<td class="col-xs-1 text-center view-count">123123</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.09</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagination_wrapper text-center">
+					<ul class="pagination">
+						<li class="page active"><a href="#">1</a> </li>
+						<li class="page"><a href="#" rel="next">2</a></li>
+						<li class="page"><a href="#">3</a> </li>
+						<li class="page"><a href="#">4</a> </li>
+						<li class="next_page"><a href="#">다음〉</a> </li>
+						<li class="last next"><a href="#">마지막 》</a> </li>
+					</ul>
+				</div>
+				<div class="text-right"></div>
+			</div>
+		</div>
+	</div>
+</main>
+</body>
+
+{% endblock %}

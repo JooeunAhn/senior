@@ -128,7 +128,7 @@ def review_edit(request, mentor_pk, pk):
 
 def notice(request):
     notice = Notice.objects.all()
-    return render(request, 'blog/notice.html', {'notice':notice})
+    return render(request, 'board_base.html', {'notice':notice})
 
 
 def notice_new(request):
