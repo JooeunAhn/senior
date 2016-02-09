@@ -46,6 +46,7 @@ class Profile(models.Model):
     is_mentor = models.BooleanField()
     user_photo = models.ImageField(upload_to='%Y/%m/%d')
     category = models.ForeignKey(Category, blank = True)
+    self_intro = models.TextField(max_length = 500)
 
     def __str__ (self):
         return self.user.username
@@ -54,6 +55,6 @@ class Profile(models.Model):
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
-        user_profile = Profile(user=user, is_mentor =user.is_mentor, user_photo = user.user_photo, category = user.category,)
+        user_profile = Profile(user=user, is_mentor =user.is_mentor, user_photo = user.user_photo, category = user.category, self_intro = user.self_intro)
         user_profile.save()
 

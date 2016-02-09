@@ -12,7 +12,7 @@ def min_length_validator(value):
 
 class Question(models.Model):
     mentor = models.ForeignKey(Profile, related_name = "question_mentor", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': True},)
-    mentee = models.ForeignKey(Profile, related_name = "qustion_mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
+    mentee = models.ForeignKey(Profile, related_name = "question_mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
     title = models.CharField(max_length = 30)
     message = models.TextField(max_length = 500)
 
@@ -39,7 +39,6 @@ class Freeboard(models.Model):
     author = models.ForeignKey(Profile)
     title = models.CharField(max_length=50)
     content = models.TextField()
-    auth = models.ForeignKey(Profile, related_name="Freeboard_auth")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

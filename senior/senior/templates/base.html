@@ -17,7 +17,9 @@
 
     <!-- Custom CSS -->
     <link href="{% static 'css/half-slider.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/font.min.css' %}" rel="stylesheet" />
 
+    <link href="{% static 'css/notice.css' %}" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,6 +38,7 @@
         alert("예, 사실입니다.");
     }
     </script>
+
 </head>
 <body>
 
@@ -47,47 +50,49 @@
     </div>
     {% endfor %}
 {%endif%}
+
+
     <!-- Navigation -->
     <nav id = "psst" class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid basecolor">
             <div class="container">
-                    <u1 class="nav navbar-nav navbar-right">
-                    {% if user.is_authenticated %}
-                        {%if user.is_superuser %}
+                <u1 class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    {%if user.is_superuser %}
+                    <li>
+                        <a>슈퍼유저님ㅎㅇ</a>
+                    </li>
+                    {% else %}
+                        {%if user.profile.is_mentor %}
                         <li>
-                            <a>슈퍼유저님ㅎㅇ</a>
+                            <a>멘토님ㅎㅇ</a>
                         </li>
                         {% else %}
-                            {%if user.profile.is_mentor %}
-                            <li>
-                                <a>멘토님ㅎㅇ</a>
-                            </li>
-                            {% else %}
-                            <li>
-                                <a>멘티님ㅎㅇ</a>
-                            </li>
-                            {% endif %}
+                        <li>
+                            <a>멘티님ㅎㅇ</a>
+                        </li>
                         {% endif %}
-                        <li>
-                            <a href ="{% url "accounts:logout" %}">로그아웃</a>
-                        </li>
-                        <li>
-                            <a href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
-                        </li>
-                        <li>
-                            <a href = "{% url "accounts:mypage"%}">MyPage</a>
-                    {% else %}
-                        <li>
-                            <a href = "{% url "accounts:login" %}">로그인</a>
-                        </li>
-                        <li>
-                            <a href = "{% url "accounts:signup" %}">회원가입</a>
-                        </li>
                     {% endif %}
-                    </u1>
-                </div>
-            <!-- Brand and toggle get grouped for better mobile display -->
+                    <li>
+                        <a href ="{% url "accounts:logout" %}">로그아웃</a>
+                    </li>
+                    <li>
+                        <a href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+                    </li>
+                    <li>
+                        <a href = "{% url "accounts:mypage"%}">MyPage</a>
+                {% else %}
+                    <li>
+                        <a href = "{% url "accounts:login" %}">로그인</a>
+                    </li>
+                    <li>
+                        <a href = "{% url "accounts:signup" %}">회원가입</a>
+                    </li>
+                {% endif %}
+                </u1>
             </div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+        </div>
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -142,6 +147,7 @@
         </footer>
         <br/><br/><br/><br/><br/><br/>
         <marquee><button class="btn btn-danger" onclick="isjooeunfool()"><h1>안주은 바보</h1></button></marquee>
+
     </div>
     <!-- /.container -->
 
