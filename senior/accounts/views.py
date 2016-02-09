@@ -32,10 +32,12 @@ def profile(request):
 
 @login_required
 def account_delete(request):
-
     account = Profile.objects.get(user = request.user)
-    account.user.delete()
-    return redirect('blog:index')
+    if request.method == "POST":
+        account.user.delete()
+        messages.success(request, '삭제완료')
+        return redirect("blog:index")
+    return render(request, 'accounts/account_confirm_delete.html', {'account':account,})
 
 @login_required
 def account_edit(request):
