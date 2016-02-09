@@ -1,4 +1,3 @@
-1
 # Create your views here.
 from django.conf import settings
 
@@ -16,23 +15,20 @@ from django.utils.http import urlsafe_base64_decode
 
 from accounts.forms import SignupForm, SignupForm2
 from accounts.forms import send_signup_confirm_email
-from accounts.models import Profile
+from accounts.models import Profile, Category
 
 # Create your views here.
 @login_required
 def profile(request):
     if request.user.is_superuser :
-        print("여기잇나?")
+        messages.info(request, "슈퍼유저는 프로필 ㄴㄴ")
         return render(request, 'blog/index.html')
     else:
-        print("여기잇어")
         profile = Profile.objects.get(user = request.user)
-        print (profile.is_mentor)
-
         if profile.is_mentor :
-            return render(request, 'accounts/profile_mentor.html')
+            return render(request, 'accounts/profile_mentor.html', {'profile':profile})
         else :
-            return render(request, 'accounts/profile_mentee.html')
+            return render(request, 'accounts/profile_mentee.html', {'profile':profile})
 
 @login_required
 def account_delete(request):
@@ -45,7 +41,11 @@ def account_delete(request):
 def account_edit(request):
     user = Profile.objects.get(user = request.user)
     if request.method == 'POST':
-        form = SignupForm(request.POST, request.FILES)
+        form = SignupForm(request.POST, request.FILES,
+            initial = {
+            "user_photo" : "default/default.png",
+            "category" :  Category.objects.get(title = "경제")
+            })
         if form.is_valid():
             user = form.save()
             authenticated_user = authenticate(
@@ -74,34 +74,39 @@ def account_edit(request):
 
 
 def signup(request):
-    if request.method == 'POST':
-        form = SignupForm2(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save()
-            authenticated_user = authenticate(
-                username = form.cleaned_data['username'],
-                password = form.cleaned_data['password1'])
-            auth_login(request, authenticated_user)
-            #회원가입 승인
-            #backend_cls = get_backends()[0].__class__
-            #backend_path = backend_cls.__module__ + '.' + backend_cls.__name__
-            #user.backend = backend_path
-            #auth_login(request, user)
+    if request.user.is_anonymous:
+        if request.method == 'POST':
+            form = SignupForm2(request.POST, request.FILES,initial = {
+                "user_photo" : "default/default.png",
+                })
+            if form.is_valid():
+                user = form.save()
+                authenticated_user = authenticate(
+                    username = form.cleaned_data['username'],
+                    password = form.cleaned_data['password1'])
+                auth_login(request, authenticated_user)
+                #회원가입 승인
+                #backend_cls = get_backends()[0].__class__
+                #backend_path = backend_cls.__module__ + '.' + backend_cls.__name__
+                #user.backend = backend_path
+                #auth_login(request, user)
 
-            messages.info(request, '환영합니다')
-            return redirect('blog:index')
+                messages.info(request, '환영합니다')
+                return redirect('blog:index')
 
-            #회원가입 시에, 이메일 승인
-            #user = form.save(commit = False)
-            #user.is_active = False ##user 에게 권한주는 것의 핵심
-            #user.save()
-            #send_signup_confirm_email(request, user)
-            #return redirect(settings.LOGIN_URL)
+                #회원가입 시에, 이메일 승인
+                #user = form.save(commit = False)
+                #user.is_active = False ##user 에게 권한주는 것의 핵심
+                #user.save()
+                #send_signup_confirm_email(request, user)
+                #return redirect(settings.LOGIN_URL)
+        else:
+            form = SignupForm2()
+        return render(request, 'accounts/signup.html',
+            {'form': form,})
     else:
-        form = SignupForm2()
-    return render(request, 'accounts/signup.html',
-        {'form': form,})
-
+        messages.info(request,"잘못된 접근입니다.")
+        return redirect('blog:index')
 def signup_confirm(request,uidb64,token):
 
     User = get_user_model()
