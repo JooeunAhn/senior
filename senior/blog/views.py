@@ -34,6 +34,8 @@ def owner_required_freeboard(model_cls, user_field_name = 'author'):
         return inner_wrap
     return wrap
 
+
+
 def index(request):
     return render(request, 'blog/index.html')
 
@@ -112,6 +114,11 @@ def review_new(request, mentor_pk):
 @login_required
 def review_edit(request, mentor_pk, pk):
     review = Review.objects.get(pk = pk)
+
+    if review.mentee.user != request.user:
+        messages.warning(request, "작성자가 아닙니다")
+        redirect("blog:mentor_detail", mentor_pk)
+
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance = review)
         if form.is_valid():
@@ -292,3 +299,31 @@ def comment_delete(request,freeboard_pk,pk):
         messages.success(request, '삭제완료')
         return redirect("blog:freeboard_detail", freeboard_pk)
     return render(request, 'blog/comment_confirm_delete.html', {'comment':comment,})
+
+
+
+def question_edit(request, pk):
+    user = Profile.objects.get(user = request.user)
+    question = Question.objects.get(pk = pk)
+
+    if question.mentee != user:
+        messages.warning(request, "작성자가 아닙니다.")
+        return redirect("blog:question_detail", pk)
+
+    if user.is_mentor :
+        messages.warning(request, "권한이 없습니다")
+        return redirect("blog:question_detail", pk)
+    else:
+        if request.method == "POST":
+            form = QuestionForm(request.POST, instance = question)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "질문이 수정되었습니다")
+                return redirect("blog:question_detail", pk)
+        else:
+            form = QuestionForm(instance = question)
+        return render(request, 'blog/question_form.html', {'form':form})
+
+
+
+

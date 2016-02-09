@@ -9,6 +9,8 @@ urlpatterns =[
     url(r'^questions/(?P<mentor_pk>\d+)/$', views.question_new, name = 'question_new'),
     url(r'^questions/views/$', views.question_list, name = 'question_list'),
     url(r'^questions/views/detail/(?P<pk>\d+)/$', views.question_detail, name = 'question_detail'),
+    url(r'^questions/views/detail/(?P<pk>\d+)/edit/$', views.question_edit, name = "question_edit"),
+    #url(r'^questions/views/detail/(?P<pk>\d+)/delete/$', views,question_delete, name = 'question_delete'),
     #url(r'^mentors/(?P<mentor_pk>\d+)/reviews//$', views.review_list, name = 'review_list'),
     url(r'^mentors/(?P<mentor_pk>\d+)/reviews/new/$', views.review_new, name = 'review_new'),
     url(r'^mentors/(?P<mentor_pk>\d+)/reviews/(?P<pk>\d+)/edit/$', views.review_edit, name = 'review_edit'),
@@ -26,5 +28,6 @@ urlpatterns =[
     url(r'^freeboard/(?P<freeboard_pk>\d+)/comments/(?P<pk>\d+)/edit/$', views.comment_edit, name = 'comment_edit'),
     url(r'^freeboard/(?P<freeboard_pk>\d+)/comments/(?P<pk>\d+)/delete/$', views.comment_delete, name = 'comment_delete'),
     url(r'^guide/$', views.guide, name='views.guide'),
+
     ]
 
