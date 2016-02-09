@@ -100,7 +100,7 @@ def question_delete(request, pk):
             question.delete()
             messages.success(request, '삭제완료')
             return redirect("blog:question_list")
-        return render(request, 'blog/question_confirm_delete.html', {'quesiton':quesiton,})
+        return render(request, 'blog/question_confirm_delete.html', {'quesiton' : question ,})
 
 
 
