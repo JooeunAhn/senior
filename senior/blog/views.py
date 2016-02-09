@@ -196,21 +196,25 @@ def freeboard_new(request):
             freeboard.save()
             return redirect('blog:freeboard')
     else:
-        form = FreeboardForm()
-    return render(request, 'blog/freeboard_form.html', {'form':form})
+        messages.info(request, "먼저 로그인 해주세요")
+        return redirect('accounts.views.commit')
 
 @login_required
 @owner_required_freeboard(Freeboard, 'author')
 def freeboard_edit(request, pk):
     freeboard = Freeboard.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = FreeboardForm(request.POST, instance=freeboard)
-        if form.is_valid():
-            freeboard = form.save()
-            return redirect('blog:freeboard_detail', pk)
+    if request.user == freeboard.auth:
+        if request.method == 'POST':
+            form = FreeboardForm(request.POST, instance=freeboard)
+            if form.is_valid():
+                freeboard = form.save()
+                return redirect('blog:freeboard_detail', pk)
+        else:
+            form = FreeboardForm(instance=freeboard)
+        return render(request, 'blog/freeboard_form.html', {'form':form})
     else:
-        form = FreeboardForm(instance=freeboard)
-    return render(request, 'blog/freeboard_form.html', {'form':form})
+        messages.error(request, "잘못된경로임")
+        return redirect('blog:freeboard')
 
 def freeboard_detail(request, pk):
     freeboard = get_object_or_404(Freeboard, pk=pk)
@@ -232,6 +236,9 @@ class FreeboardDetailView(DetailView):
 
 freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
 """
+def guide(request, pk):
+    return render(reqeust, 'blog/guide.html')
+
 
 @login_required
 @owner_required_freeboard(Freeboard, 'author')
@@ -292,6 +299,7 @@ def comment_delete(request,freeboard_pk,pk):
     return render(request, 'blog/comment_confirm_delete.html', {'comment':comment,})
 
 
+
 def question_edit(request, pk):
     user = Profile.objects.get(user = request.user)
     question = Question.objects.get(pk = pk)
@@ -313,13 +321,6 @@ def question_edit(request, pk):
         else:
             form = QuestionForm(instance = question)
         return render(request, 'blog/question_form.html', {'form':form})
-
-
-
-
-
-
-
 
 
 

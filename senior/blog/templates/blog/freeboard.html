@@ -16,6 +16,7 @@
   {% for freeboard in freeboard%}
   <li>
       {{freeboard.id}}
+      {{freeboard.auth}}
       <a href ="/freeboard/{{freeboard.id}}/">
       {{freeboard.title}}
       </a>

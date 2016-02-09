@@ -24,8 +24,9 @@ urlpatterns =[
     url(r'^freeboard/(?P<pk>\d+)/edit/$', views.freeboard_edit, name = 'freeboard_edit'),
     url(r'^freeboard/(?P<pk>\d+)/delete/$', views.freeboard_delete, name = 'freeboard_delete'),
     url(r'^freeboard/(?P<freeboard_pk>\d+)/comments/new/$', views.comment_new, name = 'comment_new'),
-    url(r'^freeboard/(?P<freeboard_pk>\d+)/comments/(?P<pk>\d+)/edit/$', views.comment_edit, name = 'comment_edit'),
-    url(r'^freeboard/(?P<freeboard_pk>\d+)/comments/(?P<pk>\d+)/delete/$', views.comment_delete, name = 'comment_delete'),
+    url(r'^freeboard/(?P<freeboard_pk>\d+)/comments/(?P<pk>\d+)/edit', views.comment_edit, name = 'comment_edit'),
+    url(r'^freeboard/(?P<freeboard_pk>\d+)/comments/(?P<pk>\d+)/delete', views.comment_delete, name = 'comment_delete'),
+    url(r'^guide/$', views.guide, name='views.guide'),
 
     ]
 
