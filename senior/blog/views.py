@@ -89,10 +89,10 @@ def question_detail(request,pk):
         question = Question.objects.filter(mentee = user, pk = pk)
         return render(request, 'blog/question_detail.html', {"question": question},)
 
-
+@login_required
 def question_delete(request, pk):
     question = get_object_or_404(Question, pk = pk)
-    if Question.mentee.user != request.user:
+    if question.mentee.user != request.user:
         messages.warning(request, "권한이 없습니다")
         return redirect("blog:quesetion_list")
     else:
@@ -145,20 +145,21 @@ def review_edit(request, mentor_pk, pk):
                 messages.info(request, '리뷰를 수정했습니다')
                 return redirect('blog:mentor_detail', mentor_pk)
         else:
-            form = ReviewForm()
+            form = ReviewForm(instance = review)
         return render(request, 'blog/review_form.html', {'form':form,})
 
-
-def review_delete(request, pk):
+@login_required
+def review_delete(request, mentor_pk, pk):
     review = get_object_or_404(Review, pk = pk)
-    if Review.mentee.user != request.user:
+
+    if review.mentee.user != request.user:
         messages.warning(request, "권한이 없습니다")
         return redirect("blog:review_list")
     else:
         if request.method == "POST":
-            question.delete()
+            review.delete()
             messages.success(request, '삭제완료')
-            return redirect("blog:review_list")
+            return redirect("blog:mentor_detail", mentor_pk)
         return render(request, 'blog/review_confirm_delete.html', {'review':review,})
 
 
