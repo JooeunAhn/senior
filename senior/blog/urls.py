@@ -10,11 +10,11 @@ urlpatterns =[
     url(r'^questions/views/$', views.question_list, name = 'question_list'),
     url(r'^questions/views/detail/(?P<pk>\d+)/$', views.question_detail, name = 'question_detail'),
     url(r'^questions/views/detail/(?P<pk>\d+)/edit/$', views.question_edit, name = "question_edit"),
-    #url(r'^questions/views/detail/(?P<pk>\d+)/delete/$', views,question_delete, name = 'question_delete'),
+    url(r'^questions/views/detail/(?P<pk>\d+)/delete/$', views.question_delete, name = 'question_delete'),
     #url(r'^mentors/(?P<mentor_pk>\d+)/reviews//$', views.review_list, name = 'review_list'),
     url(r'^mentors/(?P<mentor_pk>\d+)/reviews/new/$', views.review_new, name = 'review_new'),
     url(r'^mentors/(?P<mentor_pk>\d+)/reviews/(?P<pk>\d+)/edit/$', views.review_edit, name = 'review_edit'),
-
+    url(r'^mentors/(?P<mentor_pk>\d+)/reviews/(?P<pk>\d+)/edit/delete/$',views.review_delete, name = 'review_delete'),
     url(r'^notice/$', views.notice, name='notice'),
     url(r'^notice/new/$', views.notice_new, name='notice_new'),
     url(r'^notice/(?P<pk>\d+)/$', views.notice_detail, name = 'notice_detail'),

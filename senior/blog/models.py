@@ -39,7 +39,6 @@ class Freeboard(models.Model):
     author = models.ForeignKey(Profile)
     title = models.CharField(max_length=50)
     content = models.TextField()
-    auth = models.ForeignKey(Profile, related_name="Freeboard_auth")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
