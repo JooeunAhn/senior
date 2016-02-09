@@ -20,5 +20,6 @@ urlpatterns =[
     url(r'^freeboard/new/$', views.freeboard_new, name='freeboard_new'),
     url(r'^freeboard/(?P<pk>\d+)/$', views.freeboard_detail, name='freeboard_detail'),
     url(r'^freeboard/(?P<pk>\d+)/edit/$', views.freeboard_edit, name='freeboard_edit'),
+    url(r'^guide/$', views.guide, name='views.guide'),
     ]
 

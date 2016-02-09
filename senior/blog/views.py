@@ -153,26 +153,36 @@ def freeboard(request):
 
 
 def freeboard_new(request):
-    if request.method == 'POST':
-        form = FreeboardForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('blog:freeboard')
+    if request.user == Profile.objects.get(user=reqeust.user):
+        request.user = Profile.objects.get(user__username=str(request.user))
+        if request.method == 'POST':
+            form = FreeboardForm(request.POST)
+            if form.is_valid():
+                freeboard.auth = request.user.username
+                form.save()
+                return redirect('blog:freeboard')
+        else:
+            form = FreeboardForm()
+        return render(request, 'blog/freeboard_form.html', {'form':form})
     else:
-        form = FreeboardForm()
-    return render(request, 'blog/freeboard_form.html', {'form':form})
+        messages.info(request, "먼저 로그인 해주세요")
+        return redirect('accounts.views.commit')
 
 
 def freeboard_edit(request, pk):
     freeboard = Freeboard.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = FreeboardForm(request.POST, instance=freeboard)
-        if form.is_valid():
-            freeboard = form.save()
-            return redirect('blog:freeboard_detail', pk)
+    if request.user == freeboard.auth:
+        if request.method == 'POST':
+            form = FreeboardForm(request.POST, instance=freeboard)
+            if form.is_valid():
+                freeboard = form.save()
+                return redirect('blog:freeboard_detail', pk)
+        else:
+            form = FreeboardForm(instance=freeboard)
+        return render(request, 'blog/freeboard_form.html', {'form':form})
     else:
-        form = FreeboardForm(instance=freeboard)
-    return render(request, 'blog/freeboard_form.html', {'form':form})
+        messages.error(request, "잘못된경로임")
+        return redirect('blog:freeboard')
 
 
 class FreeboardDetailView(DetailView):
@@ -185,3 +195,7 @@ class FreeboardDetailView(DetailView):
         return get_object_or_404(Freeboard, pk=pk)
 
 freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
+
+
+def guide(request, pk):
+    return render(reqeust, 'blog/guide.html')
