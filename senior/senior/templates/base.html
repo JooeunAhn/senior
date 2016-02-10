@@ -91,7 +91,7 @@
                         <a href = "{% url "accounts:mypage"%}">MyPage</a>
                 {% else %}
                     <li>
-                        <a href = "{% url "accounts:login" %}">로그인</a>
+                        <a href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
                     </li>
                     <li>
                         <a href = "{% url "accounts:signup" %}">회원가입</a>
@@ -110,7 +110,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href= "{% url "blog:index"%}">老하우</a>
+                <a class="navbar-brand" href= "{% url "blog:index"%}"><img id="logo" src="{% static 'pics/lohow.png' %}" width=50 height=25/></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -157,19 +157,18 @@
     <!-- /.container -->
 
     <script type="text/JavaScript">
-    if (jQuery.browser.mobile)
-    {
-        alert("짱! 휴대폰 개통하셨네요!");
-        $('#psst').attr('class','navbar navbar-inverse');
-    }
-    else
-    {
-        alert("모바일로 들어와 보시죠!");
-        $('#psst').attr('class','navbar navbar-default');
-    }
     $('.carousel').carousel({
-        interval: 4000 //changes the speed
+        interval: 5000 //changes the speed
     })
+    {% if mobileuser %}
+        alert("짱! 휴대폰 개통하셨네요!");
+        $('#psst').attr('class','navbar navbar-default');
+        $('#logo').attr('src',"{% static 'pics/lohow.png' %}");
+    {% else %}
+        alert("모바일로 들어와 보시죠!");
+        $('#psst').attr('class','navbar navbar-inverse');
+        $('#logo').attr('src',"{% static 'pics/lohoww.png' %}");
+    {% endif %}
     $(function(){});
             // will execute when page is ready
     </script>
