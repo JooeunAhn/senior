@@ -403,18 +403,16 @@ def question_edit(request, pk):
 @login_required
 def reply_new(request, question_pk):
     question = get_object_or_404(Question, pk = question_pk)
-
     if question.mentor.user != request.user:
         messages.warning(request, "담당멘토가 아닙니다")
         return redirect("blog:question_detail", question_pk)
-
     if request.method == "POST":
         form = ReplyForm(request.POST)
         if form.is_valid():
-            form.save(commit = False)
-            form.question = question
-            form.save()
-            redirect("blog:question_detail", question_pk)
+            reply = form.save(commit = False)
+            reply.question = question
+            reply.save()
+            return redirect("blog:question_detail", question_pk)
     else:
         form = ReplyForm()
     return render(request, "blog/reply_form.html", {"form": form})
@@ -424,7 +422,7 @@ def reply_edit(request, question_pk, pk):
     question = get_object_or_404(Question, pk = question_pk)
     reply = get_object_or_404(Reply, pk = pk)
 
-    if reply.question.mentor != request.user:
+    if reply.question.mentor.user != request.user:
         messages.warning(request, "작성자가 아닙니다")
         return redirect("blog:question_detail", question_pk)
 
@@ -433,7 +431,7 @@ def reply_edit(request, question_pk, pk):
         if form.is_valid():
             form.save()
             messages.info(request, "답변이 수정되었습니다.")
-            redirect("blog:question_detail", question_pk)
+            return redirect("blog:question_detail", question_pk)
     else:
         form = ReplyForm(instance = reply)
     return render(request, "blog/reply_form.html",{"form":form})
@@ -442,21 +440,13 @@ def reply_edit(request, question_pk, pk):
 def reply_delete(request, question_pk, pk):
     reply = get_object_or_404(Reply, pk=pk)
 
-    if reply.question.mentor != request.user:
+    if reply.question.mentor.user != request.user:
         messages.warning(request, "작성자가 아닙니다")
         return redirect("blog:question_detail", question_pk)
 
     if request.method == "POST":
         reply.delete()
-        messages.success("삭제성공!")
-        return redirect("blog:mypage")
-    return redirect(request, "blog/review_confirm_delete.html", {"reply":reply})
+        messages.success(request, "삭제성공!")
+        return redirect("blog:question_detail", question_pk)
+    return render(request, "blog/review_confirm_delete.html", {"reply":reply,})
 
-
-
-
-"""
-    url(r'^questions/views/detail/(?<question_pk>\d+)/reply/new/$', views.reply_new, name = 'reply_new'),
-    url(r'^questions/views/detail/(?<question_pk>\d+)/reply/(?<pk>\d+)/edit/$', views.reply_edit, name = 'reply_edit'),
-    url(r'^questions/views/detail/(?<question_pk>\d+)/reply/(?<pk>\d+)/delete/$', views.reply_delete, name = 'reply_delete'),
-"""

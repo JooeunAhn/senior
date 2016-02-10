@@ -20,8 +20,20 @@
                     <!--    <img src="{{ post.photo.url }}" /> -->
                 </div>
             </div>
+            <a href="{% url "blog:reply_new" question.id %}"  class="btn btn-default">답변하기</a>
+             {% for reply in question.reply.all %}
+                    <li>
+                    {{reply.pk}}
+                    {{reply.title}}
+                    {{reply.content}}
+                    <a href="{% url "blog:reply_edit"  question.pk reply.pk %}">수정</a>
+                    <a href="{% url "blog:reply_delete"  question.pk reply.pk %}">삭제</a>
+
+                    </li>
+                {% empty %}
+                    <li>등록된 답변 없습니다.</li>
+                {% endfor %}
             {% endfor %}
 
 
-            <a href="{% url "blog:reply_new" question.id %}"  class="btn btn-default">답변하기</a>
 {% endblock %}

@@ -58,6 +58,6 @@ class Comment(models.Model):
 
 
 class Reply(models.Model):
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, related_name = "reply")
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=500)
