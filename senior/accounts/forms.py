@@ -9,7 +9,9 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from accounts.models import Category
-
+import re
+from django.core.validators import RegexValidator
+from django.shortcuts import redirect
 
 
 
@@ -59,6 +61,7 @@ class SignupForm2(UserCreationForm):
     user_photo = forms.ImageField(required = False,)
     category = forms.ModelChoiceField(queryset=Category.objects.all(),)
     self_intro = forms.CharField(widget=forms.Textarea, required = False)
+    phone = forms.CharField()
     """
     def clean_photo(self):
         print (self['user_photo'].html_name)
@@ -75,6 +78,8 @@ class SignupForm2(UserCreationForm):
         user.user_photo = self.cleaned_data['user_photo']
         user.category = self.cleaned_data['category']
         user.self_intro = self.cleaned_data['self_intro']
+        user.phone = self.cleaned_data['phone']
+
         if commit:
             user.save()
         return user

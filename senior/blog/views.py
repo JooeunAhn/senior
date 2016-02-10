@@ -58,7 +58,6 @@ def index(request):
 
 
 def mentor_list(request):
-    print (request.META)
     mentor_list = Profile.objects.filter(is_mentor = True)
     paginator = Paginator(mentor_list, 10)
     page = request.GET.get('page')
