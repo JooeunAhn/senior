@@ -4,13 +4,17 @@
 <h1>{{user}}'s profile</h1>
 <!-- User 인스턴스 -->
 
-{% if user.is_authenticated %}
-    로그아웃
-    멘토 ㅇㅇ
+<p> 질문목록
+{% for question in profile.question_mentor.all %}
+    <li>
+        <a href = "{% url 'blog:question_detail' question.pk %}">{{question.mentee.user.username}}의 질문</a>
+    </li>
+    {% empty %}
+    <li>등록된 질문이 없습니다.</li>
 
-{% else%}
-    로그인
-    회원가입
-{% endif %}
+</p>
+
+<a href = "{% url "accounts:account_edit" %}" > 계정수정 </a>
+{% endfor %}
 
 {% endblock %}

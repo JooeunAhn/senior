@@ -1,15 +1,20 @@
-{% extends "base.html"}
+{% extends "base.html" %}
 
 {% block content %}
 <h1>{{user}}'s profile</h1>
 <!-- User 인스턴스 -->
+멘티야
+<p> 질문목록
+{% for question in profile.question_mentee.all %}
+    <li>
+        <a href = "{% url 'blog:question_detail' question.pk %}">{{question.mentor.user.username}}에게 질문</a>
+    </li>
+    {% empty %}
+    <li>등록한 질문이 없습니다.</li>
 
-{% if user.is_authenticated %}
-    로그아웃
-    멘티 ㅇㅇ
+</p>
+{% endfor %}
 
-{% else %}
-    로그인
-    회원가입
-{% endif %}
+<a href = "{% url "accounts:account_edit" %}" > 계정수정 </a>
+
 {% endblock %}

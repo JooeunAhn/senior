@@ -1,39 +1,62 @@
+
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block content%}
 
+<header id="myCarousel" class="carousel scroll">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <style>
+        h2
+        {
+            color:#ff0;
+        }
+        </style>
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <!-- Set the first background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('{% static 'pics/1.jpg' %}');"></div>
+                <div class="carousel-caption">
+                    <h2>회의중</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the second background image using inline CSS below. -->
+                <a href="http://yourstage.com"><div class="fill" style="background-image:url('{% static 'pics/3.jpg' %}');"></div></a>
+                <div class="carousel-caption">
+                    <h2>꿈과 희망의 사이트 yourstage 로</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('{% static 'pics/2.jpg' %}');"></div>
+                <div class="carousel-caption">
+                    <h2>멋쟁이 우재씨</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Four');"></div>
+                <div class="carousel-caption">
+                    <h2>일단 빈 이미지</h2>
+                </div>
+            </div>
+        </div>
 
-{%block content%}
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
 
-
-{% if user.is_authenticated %}
-    {%if user.is_superuser %}
-    <li>
-        <a>슈퍼유저님ㅎㅇ</a>
-    </li>
-    {% else %}
-        {%if user.profile.is_mentor %}
-        <li>
-            <a>멘토님ㅎㅇ</a>
-        </li>
-        {% else %}
-        <li>
-            <a>멘티님ㅎㅇ</a>
-        </li>
-        {% endif %}
-    {% endif %}
-    <li>
-        <a href ="accounts/logout">로그아웃</a>
-    </li>
-    <li>
-        <a href= "accounts/account_delete">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
-    </li>
-{% else %}
-    <li>
-        <a href = "accounts/login">로그인</a>
-    </li>
-    <li>
-        <a href = "accounts/signup">회원가입</a>
-    </li>
-{% endif %}
-
+    </header>
 
 {% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<div class="container">
+
+<div class="row">
+
+    <div class="col-sm-12">
+
+        <form action="" method="POST">
+
+            {% csrf_token %}
+
+           <div class="alert alert-danger">
+
+               <h4>{{ review.mentee.user }}님께서 작성하신 글</h4>
+
+                  정말 삭제하시겠습니까???
+
+                </div>
+
+                <a href="{% url "blog:mentor_detail" review.mentor.pk %}" class="btn btn-success">돌아가기</a>
+
+                <input type="submit" class="btn btn-danger" value="삭제염" />
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

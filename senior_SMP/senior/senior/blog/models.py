@@ -11,8 +11,8 @@ def min_length_validator(value):
 
 
 class Question(models.Model):
-    mentor = models.ForeignKey(Profile, related_name = "mentor", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': True},)
-    mentee = models.ForeignKey(Profile, related_name = "mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
+    mentor = models.ForeignKey(Profile, related_name = "question_mentor", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': True},)
+    mentee = models.ForeignKey(Profile, related_name = "question_mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
     title = models.CharField(max_length = 30)
     message = models.TextField(max_length = 500)
 
@@ -25,6 +25,39 @@ class Review(models.Model):
     message = models.TextField(max_length = 100)
 
 
+class Notice(models.Model):
+    category = models.CharField(max_length=8)
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 
+class Freeboard(models.Model):
+    author = models.ForeignKey(Profile)
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
+
+class Comment(models.Model):
+    freeboard = models.ForeignKey(Freeboard)
+    author = models.ForeignKey(Profile)
+    message = models.TextField(max_length = 500)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+
+    def __str__(self):
+        return self.title
+
+
+class Reply(models.Model):
+    question = models.ForeignKey(Question)
+    title = models.CharField(max_length=50)
+    content = models.TextField(max_length=500)
