@@ -58,7 +58,13 @@
     </div>
     {% endfor %}
 {%endif%}
-
+<p>
+{%if mobileuser %}
+    나는 모바일이다!!
+{%else %}
+    나는 모바일 아니다!!!
+{%endif%}
+</p>
 
     <!-- Navigation -->
     <nav id = "psst" class="navbar navbar-inverse" role="navigation">
