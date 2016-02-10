@@ -10,7 +10,7 @@
 <div class="container">
 	<div class="jumbotron">
 		<ul>
-		{% for notice in notice%}
+		{% for notice in notice_list%}
 		<li>
 		    {{notice.id}}
 		    <a href ="/notice/{{notice.id}}/">
