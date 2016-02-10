@@ -13,6 +13,10 @@ import re
 from django.core.validators import RegexValidator
 from django.shortcuts import redirect
 
+def phone_validator(value):
+    number = ''.join(re.findall(r'\d+', value))
+    return RegexValidator(r'^01[016789]\d{7,8}$', message= '번호를 입력해주세요')(number)
+
 
 
 def send_signup_confirm_email(request, user):
@@ -61,7 +65,7 @@ class SignupForm2(UserCreationForm):
     user_photo = forms.ImageField(required = False,)
     category = forms.ModelChoiceField(queryset=Category.objects.all(),)
     self_intro = forms.CharField(widget=forms.Textarea, required = False)
-    phone = forms.CharField()
+    phone = forms.CharField(validators = [phone_validator])
     """
     def clean_photo(self):
         print (self['user_photo'].html_name)
