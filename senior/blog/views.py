@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
 from accounts.models import Profile
-from blog.models import Question, Review, Notice, Freeboard, Comment
-from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm
+from blog.models import Question, Review, Notice, Freeboard, Comment, Reply
+from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm, ReplyForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -25,9 +25,9 @@ reg_v = re.compile(r"1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er
 #    v = reg_v.search(user_agent[0:4])
 #    if b or v:
 ##        mobileuser = True
- #   else:
+#   else:
 #        mobileuser = False
- #   return render(request, 'blog/index.html')
+#   return render(request, 'blog/index.html')
 
 def owner_required_freeboard(model_cls, user_field_name = 'author'):
 
@@ -58,7 +58,7 @@ def index(request):
 
 
 def mentor_list(request):
-
+    print (request.META)
     mentor_list = Profile.objects.filter(is_mentor = True)
     paginator = Paginator(mentor_list, 10)
     page = request.GET.get('page')
@@ -377,7 +377,6 @@ def comment_delete(request,freeboard_pk,pk):
         return redirect("blog:freeboard_detail", freeboard_pk)
     return render(request, 'blog/comment_confirm_delete.html', {'comment':comment,})
 
-
 @login_required
 def question_edit(request, pk):
     user = Profile.objects.get(user = request.user)
@@ -400,3 +399,64 @@ def question_edit(request, pk):
             else:
                 form = QuestionForm(instance = question)
             return render(request, 'blog/question_form.html', {'form':form})
+
+@login_required
+def reply_new(request, question_pk):
+    question = get_object_or_404(Question, pk = question_pk)
+
+    if question.mentor.user != request.user:
+        messages.warning(request, "담당멘토가 아닙니다")
+        return redirect("blog:question_detail", question_pk)
+
+    if request.method == "POST":
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            form.save(commit = False)
+            form.question = question
+            form.save()
+            redirect("blog:question_detail", question_pk)
+    else:
+        form = ReplyForm()
+    return render(request, "blog/reply_form.html", {"form": form})
+
+@login_required
+def reply_edit(request, question_pk, pk):
+    question = get_object_or_404(Question, pk = question_pk)
+    reply = get_object_or_404(Reply, pk = pk)
+
+    if reply.question.mentor != request.user:
+        messages.warning(request, "작성자가 아닙니다")
+        return redirect("blog:question_detail", question_pk)
+
+    if request.method == "POST":
+        form = ReplyForm(instance = reply)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "답변이 수정되었습니다.")
+            redirect("blog:question_detail", question_pk)
+    else:
+        form = ReplyForm(instance = reply)
+    return render(request, "blog/reply_form.html",{"form":form})
+
+@login_required
+def reply_delete(request, question_pk, pk):
+    reply = get_object_or_404(Reply, pk=pk)
+
+    if reply.question.mentor != request.user:
+        messages.warning(request, "작성자가 아닙니다")
+        return redirect("blog:question_detail", question_pk)
+
+    if request.method == "POST":
+        reply.delete()
+        messages.success("삭제성공!")
+        return redirect("blog:mypage")
+    return redirect(request, "blog/review_confirm_delete.html", {"reply":reply})
+
+
+
+
+"""
+    url(r'^questions/views/detail/(?<question_pk>\d+)/reply/new/$', views.reply_new, name = 'reply_new'),
+    url(r'^questions/views/detail/(?<question_pk>\d+)/reply/(?<pk>\d+)/edit/$', views.reply_edit, name = 'reply_edit'),
+    url(r'^questions/views/detail/(?<question_pk>\d+)/reply/(?<pk>\d+)/delete/$', views.reply_delete, name = 'reply_delete'),
+"""

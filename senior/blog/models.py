@@ -28,7 +28,6 @@ class Review(models.Model):
 class Notice(models.Model):
     category = models.CharField(max_length=8)
     title = models.CharField(max_length=50)
-    writer = models.CharField(max_length=30)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -56,3 +55,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Reply(models.Model):
+    question = models.ForeignKey(Question)
+    title = models.CharField(max_length=50)
+    content = models.TextField(max_length=500)

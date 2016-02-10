@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import Question, Review, Notice, Freeboard, Comment
+from blog.models import Question, Review, Notice, Freeboard, Comment, Reply
 
 
 class QuestionForm(forms.ModelForm):
@@ -29,3 +29,8 @@ class CommentForm(forms.ModelForm):
   class Meta:
     model = Comment
     fields = ['message']
+
+class ReplyForm(forms.ModelForm):
+  class Meta:
+    model = Reply
+    fields = ['title', 'content']
