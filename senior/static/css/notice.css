@@ -1,0 +1,779 @@
+.dark-bg.img-bg-soft::before {
+	opacity: 0.57; background-color: rgb(64, 64, 64);
+}
+.dark-bg.img-bg-softer::before {
+	opacity: 0.97; background-color: rgb(64, 64, 64);
+}
+.dark-bg .sidelines {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .sidelines span {
+	background: rgb(64, 64, 64);
+}
+.dark-bg {
+	background-color: rgb(64, 64, 64);
+}
+.dark-bg {
+	color: rgb(241, 241, 241);
+}
+.dark-bg p {
+	color: rgb(241, 241, 241);
+}
+.dark-bg .item-details li::before {
+	color: rgb(241, 241, 241);
+}
+.dark-bg h1 {
+	color: rgb(255, 255, 255);
+}
+.dark-bg h2 {
+	color: rgb(255, 255, 255);
+}
+.dark-bg h3 {
+	color: rgb(255, 255, 255);
+}
+.dark-bg h4 {
+	color: rgb(255, 255, 255);
+}
+.dark-bg .widget h1 {
+	color: rgb(255, 255, 255);
+}
+.dark-bg .widget h2 {
+	color: rgb(255, 255, 255);
+}
+.dark-bg .widget h3 {
+	color: rgb(255, 255, 255);
+}
+.dark-bg .widget h4 {
+	color: rgb(255, 255, 255);
+}
+.light-color .dark-bg {
+	color: rgb(255, 255, 255) !important;
+}
+footer.dark-bg {
+	color: rgb(177, 177, 177);
+}
+.dark-bg .bordered .info h3 {
+	color: rgb(80, 80, 80);
+}
+.dark-bg .bordered .info h4 {
+	color: rgb(80, 80, 80);
+}
+.dark-bg .bordered .info p {
+	color: rgb(135, 135, 135);
+}
+.dark-bg .border {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-lg {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-md {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-sm {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-xs {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-top-lg {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-top-md {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-top-sm {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-top-xs {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-top {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-right-lg {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-right-md {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-right-sm {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-right-xs {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-right {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-bottom-lg {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-bottom-md {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-bottom-sm {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-bottom-xs {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-bottom {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-left-lg {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-left-md {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-left-sm {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-left-xs {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .border-left {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .panel-group .panel {
+	border-color: rgb(72, 88, 103);
+}
+.dark-bg .panel-group .panel-heading + .panel-collapse .panel-body {
+	border-color: rgb(72, 88, 103);
+}
+.dark-bg .panel-group .panel {
+	background: rgb(58, 74, 89);
+}
+.dark-bg .panel-title > a.collapsed {
+	background: rgb(86, 100, 115);
+}
+.dark-bg .panel-title > a {
+	background: rgb(72, 88, 103);
+}
+.dark-bg .panel-title > a:hover {
+	background: rgb(72, 88, 103);
+}
+.dark-bg .panel-title > a {
+	color: rgb(255, 255, 255);
+}
+.dark-bg .panel-title > a span {
+	color: rgb(255, 255, 255);
+}
+.dark-bg .blank .panel-title > a.collapsed {
+	background: rgb(64, 64, 64);
+}
+.dark-bg .blank .panel-title > a.collapsed {
+	border-color: rgb(86, 100, 115);
+}
+.dark-bg .blank .panel-title > a {
+	border-color: rgb(86, 100, 115);
+}
+.dark-bg .blank .panel-title > a {
+	background: rgb(72, 88, 103);
+}
+.dark-bg .blank .panel-title > a:hover {
+	background: rgb(72, 88, 103);
+}
+.dark-bg .panel-group .bordered {
+	background: rgb(247, 247, 247);
+}
+.dark-bg .filter::before {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .filter li {
+	background: rgb(64, 64, 64);
+}
+#owl-main .caption .dark-bg {
+	background: none; padding-right: 0.5em; padding-left: 0.5em;
+}
+#owl-main .caption h1.dark-bg span {
+	background: rgb(80, 80, 80); box-shadow: -0.5em 0px 0px #505050, 0.5em 0px 0px #505050;
+}
+#owl-main .caption p.dark-bg span {
+	background: rgb(80, 80, 80); box-shadow: -0.5em 0px 0px #505050, 0.5em 0px 0px #505050;
+}
+.dark-bg input {
+	color: rgb(177, 177, 177);
+}
+.dark-bg button {
+	color: rgb(177, 177, 177);
+}
+.dark-bg select {
+	color: rgb(177, 177, 177);
+}
+.dark-bg textarea {
+	color: rgb(177, 177, 177);
+}
+.dark-bg :-ms-input-placeholder.form-control {
+	color: rgb(130, 142, 153);
+}
+#hero #owl-main .caption h1.dark-bg {
+	font-size: 73px;
+}
+.inner-all-xxs {
+	padding: 20px;
+}
+.inner {
+	padding-top: 120px; padding-bottom: 120px;
+}
+.inner-md {
+	padding-top: 100px; padding-bottom: 100px;
+}
+.inner-sm {
+	padding-top: 80px; padding-bottom: 80px;
+}`
+.inner-xs {
+	padding-top: 40px; padding-bottom: 40px;
+}
+.inner-xxs {
+	padding-top: 40px; padding-bottom: 20px;
+}
+.inner-top {
+	padding-top: 120px;
+}
+.inner-top-md {
+	padding-top: 100px;
+}
+.inner-top-sm {
+	padding-top: 80px;
+}
+.inner-top-xs {
+	padding-top: 40px;
+}
+.inner-bottom {
+	padding-bottom: 120px;
+}
+.inner-bottom-md {
+	padding-bottom: 100px;
+}
+.inner-bottom-sm {
+	padding-bottom: 80px;
+}
+.inner-bottom-xs {
+	padding-bottom: 40px;
+}
+.inner-left {
+	padding-left: 75px;
+}
+.inner-left-md {
+	padding-left: 60px;
+}
+.inner-left-sm {
+	padding-left: 45px;
+}
+.inner-left-xs {
+	padding-left: 30px;
+}
+.inner-right {
+	padding-right: 75px;
+}
+.inner-right-md {
+	padding-right: 60px;
+}
+.inner-right-sm {
+	padding-right: 45px;
+}
+.inner-right-xs {
+	padding-right: 30px;
+}
+.outer {
+	margin-top: 120px; margin-bottom: 120px;
+}
+.outer-md {
+	margin-top: 100px; margin-bottom: 100px;
+}
+.outer-sm {
+	margin-top: 80px; margin-bottom: 80px;
+}
+.outer-xs {
+	margin-top: 40px; margin-bottom: 40px;
+}
+.outer-top {
+	margin-top: 120px;
+}
+.outer-top-md {
+	margin-top: 100px;
+}
+.outer-top-sm {
+	margin-top: 80px;
+}
+.outer-top-xs {
+	margin-top: 40px;
+}
+.outer-bottom {
+	margin-bottom: 120px;
+}
+.outer-bottom-md {
+	margin-bottom: 100px;
+}
+.outer-bottom-sm {
+	margin-bottom: 80px;
+}
+.outer-bottom-xs {
+	margin-bottom: 40px;
+}
+.center-block {
+	float: none;
+}
+.height-xs {
+	height: 30vh;
+}
+.height-sm {
+	height: 44vh;
+}
+.height-md {
+	height: 61vh;
+}
+.height-lg {
+	height: 90vh;
+}
+.dropcap {
+	background: rgb(245, 245, 245); margin: 6px 15px 0px 0px; width: 44px; height: 44px; text-align: center; color: rgb(80, 80, 80); line-height: 44px; font-size: 28px; font-weight: 700; float: left; display: inline-block;
+}
+.dropcap-lg {
+	background: rgb(245, 245, 245); margin: 6px 15px 0px 0px; width: 70px; height: 70px; text-align: center; color: rgb(80, 80, 80); line-height: 70px; font-size: 48px; font-weight: 700; float: left; display: inline-block;
+}
+.sidebar {
+	padding-left: 25px !important;
+}
+.sidebar.left-sidebar {
+	padding: 15px !important;
+}
+.sidebox + .sidebox {
+	margin-top: 60px;
+}
+.sidebox h3 {
+	font-size: 16px; margin-bottom: 15px;
+}
+.sidebox.widget form {
+	margin: 0px;
+}
+.sidebox.widget input {
+	margin: 0px;
+}
+.sidebox.widget input {
+	border-radius: 3px;
+}
+.widget .list {
+	list-style: none; margin: 0px;
+}
+.sidenav {
+	background: rgb(247, 247, 247); margin: 0px; padding: 0px; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;
+}
+.sidenav li {
+	border-bottom-color: rgb(233, 233, 233); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.sidenav li a {
+	padding: 13px 18px; color: rgb(80, 80, 80); text-transform: uppercase; line-height: 20px; font-size: 14px; font-weight: 700; display: block; position: relative;
+}
+.sidenav li a:hover {
+	background: rgb(250, 108, 101); color: rgb(255, 255, 255);
+}
+.sidenav li a::after {
+	transition:200ms ease-out; right: 18px; font-family: "fontello"; font-size: 18px; position: absolute; content: "\e762"; opacity: 0; -webkit-transition: all 200ms ease-out; -o-transition: all 200ms ease-out; -moz-transition: all 200ms ease-out;
+}
+.sidenav li a:hover::after {
+	opacity: 1;
+}
+.sidenav li a:hover {
+	background-color: rgb(250, 108, 101);
+}
+@media all and (max-width:768px)
+{
+#sidebar .sidenav li a.guide-menu {
+	line-height: 38px;
+}
+}
+.sidebar .sidenav {
+	border: currentColor; border-image: none;
+}
+#sidebar .sidenav li.active a {
+	color: white; background-color: rgb(250, 108, 101);
+}
+.sidenav li a:hover::after {
+	opacity: 0;
+}
+.new-label-list-wrapper {
+	display: inline-block; position: relative;
+}
+.new-label-list-wrapper .board_index_new_label {
+	width: 33px; margin-top: -4px; margin-left: 4px;
+}
+.new-label-wrapper {
+	display: inline-block; position: relative;
+}
+.new-label-wrapper .board_new_label {
+	width: 33px; margin-top: -4px; margin-left: 4px;
+}
+.new-label-wrapper .board_index_new_label {
+	width: 33px; margin-top: -4px; margin-left: 4px;
+}
+.new-label-wrapper .new-label {
+	padding: 0px 3px 1px; border-radius: 10px; top: -12px; color: white; font-size: 10px; font-weight: 700; position: absolute; background-color: rgb(250, 108, 101); -webkit-border-radius: 10px; -moz-border-radius: 10px;
+}
+.new-label-wrapper .new-label.new-label--side {
+	left: 3px; top: -15px;
+}
+@media all and (max-width:768px)
+{
+.new-label-wrapper {
+	width: 100%; float: left; display: block; position: relative;
+}
+.new-label-wrapper .board_new_label {
+	margin-top: 0px; margin-left: 0px; position: relative;
+}
+.new-label-wrapper-no {
+	width: 100%; padding-top: 10px; float: left; display: block; position: relative;
+}
+.new-label-wrapper-no .new-label {
+	padding: 0px; top: -12px; color: rgb(250, 108, 101); font-size: 10px; font-weight: 700; position: absolute; background-color: transparent;
+}
+.new-label-wrapper-no .new-label.new-label--side {
+	left: -22px; top: -27px;
+}
+}
+.sidelines {
+	line-height: 100%; margin-top: 0.5em; margin-bottom: 2em; border-bottom-color: rgb(206, 215, 224); border-bottom-width: 1px; border-bottom-style: solid; position: relative;
+}
+@media all and (max-width:768px)
+{
+.sidelines {
+	margin-top: 0px; margin-bottom: 25px;
+}
+}
+.sidelines span {
+	background: rgb(255, 255, 255); padding: 0px 0.5em 0px 0px; top: 0.5em; position: relative;
+}
+.sidelines.text-right span {
+	padding: 0px 0px 0px 0.5em;
+}
+.text-right .sidelines span {
+	padding: 0px 0px 0px 0.5em;
+}
+.sidelines.text-center span {
+	padding: 0px 0.5em; letter-spacing: -0.02em;
+}
+.text-center .sidelines span {
+	padding: 0px 0.5em; letter-spacing: -0.02em;
+}
+.team-headline.sidelines {
+	margin-top: -20px; margin-bottom: 40px;
+}
+.light-bg .sidelines {
+	border-color: rgb(199, 199, 199);
+}
+.light-bg .sidelines span {
+	background: rgb(245, 245, 245);
+}
+.dark-bg .sidelines {
+	border-color: rgb(135, 135, 135);
+}
+.dark-bg .sidelines span {
+	background: rgb(64, 64, 64);
+}
+.board.mobile-version {
+	width: 100%; float: left; display: block; position: relative;
+}
+.board-list {
+	width: 100%; border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid; float: left; position: relative;
+}
+.board_top {
+	padding: 10px 5px; width: 100%; clear: both; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: solid; float: left; position: relative; background-color: rgb(241, 236, 226);
+}
+.board_top .board-category {
+	font-weight: 600; float: left; position: relative;
+}
+.board_top .board-title {
+	font-weight: 600; position: relative;
+}
+.board_top .writer {
+	float: left; position: relative;
+}
+.board_top .view-count {
+	float: right; position: relative;
+}
+.board_top .board-date {
+	clear: both; float: left; position: relative;
+}
+.board_nomal {
+	padding: 10px 5px; width: 100%; clear: both; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: solid; float: left; position: relative;
+}
+.board_nomal .board-no {
+	float: left; position: relative;
+}
+.board_nomal .board-category {
+	float: left; display: inline; position: relative;
+}
+.board_nomal .board-title {
+	font-weight: 600; margin-bottom: 5px; display: inline; position: relative;
+}
+.board_nomal .writer {
+	margin-left: 3px; float: left; position: relative;
+}
+.board_nomal .view-count {
+	float: right; position: relative;
+}
+.board_nomal .view-count .fa {
+	font-size: 13px;
+}
+.board_nomal .board-date {
+	clear: both; float: left; position: relative;
+}
+.pc-version {
+	display: none;
+}
+.table-list th {
+	background-color: rgb(247, 247, 247);
+}
+.table-list th h5 {
+	margin-bottom: 0px;
+}
+.pagination_wrapper {
+	margin-top: 30px;
+}
+.pagination_wrapper {
+	padding-top: 30px; clear: both; position: relative;
+}
+.sidebar-li {
+	padding: 0px;
+}
+@media all and (max-width:768px)
+{
+.sidebar {
+	padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px !important;
+}
+.sidebar .sidenav {
+	border: currentColor; border-image: none;
+}
+.sidebar-li {
+	border-bottom-color: currentColor; border-left-color: white; border-bottom-width: medium; border-left-width: 1px; border-bottom-style: none; border-left-style: solid;
+}
+.sidebar-li a {
+	padding: 10px 0px !important; height: 60px; text-align: center; font-size: 13px;
+}
+:first-child.sidebar-li {
+	border-left-color: currentColor; border-left-width: medium; border-left-style: none;
+}
+.clearfix::before {
+	display: table; content: " ";
+}
+.clearfix::after {
+	display: table; content: " ";
+}
+.clearfix::after {
+	clear: both;
+}
+.pagination {
+	margin: 20px 0px; border-radius: 4px; padding-left: 0px; display: inline-block;
+}
+.pagination > li {
+	display: inline;
+}
+.pagination > li > a {
+	padding: 6px 12px; border: 1px solid rgb(221, 221, 221); border-image: none; color: rgb(225, 139, 202); line-height: 1.4285; text-decoration: none; margin-left: -1px; float: left; position: relative; background-color: white;
+}
+.pagination > li > span {
+	padding: 6px 12px; border: 1px solid rgb(221, 221, 221); border-image: none; color: rgb(225, 139, 202); line-height: 1.4285; text-decoration: none; margin-left: -1px; float: left; position: relative; background-color: white;
+}
+.pagination > li:first-child > a {
+	margin-left: 0px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;
+}
+.pagination > li:first-child > span {
+	margin-left: 0px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;
+}
+.pagination > li:last-child > a {
+	border-top-right-radius: 4px; border-bottom-right-radius: 4px;
+}
+.pagination > li:last-child > span {
+	border-top-right-radius: 4px; border-bottom-right-radius: 4px;
+}
+.pagination > li > a:hover {
+	border-color: rgb(221, 221, 221); color: rgb(42, 100, 150); background-color: rgb(238, 238, 238);
+}
+.pagination > li > a:focus {
+	border-color: rgb(221, 221, 221); color: rgb(42, 100, 150); background-color: rgb(238, 238, 238);
+}
+.pagination > li > span:hover {
+	border-color: rgb(221, 221, 221); color: rgb(42, 100, 150); background-color: rgb(238, 238, 238);
+}
+.pagination > li > span:focus {
+	border-color: rgb(221, 221, 221); color: rgb(42, 100, 150); background-color: rgb(238, 238, 238);
+}
+.pagination > .active > a {
+	border-color: rgb(66, 139, 202); color: white; z-index: 2; cursor: default; background-color: rgb(66, 139, 202);
+}
+.pagination > .active > a:hover {
+	border-color: rgb(66, 139, 202); color: white; z-index: 2; cursor: default; background-color: rgb(66, 139, 202);
+}
+.pagination > .active > a:focus {
+	border-color: rgb(66, 139, 202); color: white; z-index: 2; cursor: default; background-color: rgb(66, 139, 202);
+}
+.pagination > .active > span {
+	border-color: rgb(66, 139, 202); color: white; z-index: 2; cursor: default; background-color: rgb(66, 139, 202);
+}
+.pagination > .active > span:hover {
+	border-color: rgb(66, 139, 202); color: white; z-index: 2; cursor: default; background-color: rgb(66, 139, 202);
+}
+.pagination > .active > span:focus {
+	border-color: rgb(66, 139, 202); color: white; z-index: 2; cursor: default; background-color: rgb(66, 139, 202);
+}
+.pagination > .disabled > span {
+	border-color: rgb(221, 221, 221); color: rgb(119, 119, 119); cursor: not-allowed; background-color: white;
+}
+.pagination > .disabled > span:hover {
+	border-color: rgb(221, 221, 221); color: rgb(119, 119, 119); cursor: not-allowed; background-color: white;
+}
+.pagination > .disabled > span:focus {
+	border-color: rgb(221, 221, 221); color: rgb(119, 119, 119); cursor: not-allowed; background-color: white;
+}
+.pagination > .disabled > a {
+	border-color: rgb(221, 221, 221); color: rgb(119, 119, 119); cursor: not-allowed; background-color: white;
+}
+.pagination > .disabled > a:hover {
+	border-color: rgb(221, 221, 221); color: rgb(119, 119, 119); cursor: not-allowed; background-color: white;
+}
+.pagination > .disabled > a:focus {
+	border-color: rgb(221, 221, 221); color: rgb(119, 119, 119); cursor: not-allowed; background-color: white;
+}
+.pagination-lg > li > a {
+	padding: 10px 16px; font-size: 18px;
+}
+.pagination-lg > li > span {
+	padding: 10px 16px; font-size: 18px;
+}
+.pagination-lg > li:first-child > a {
+	border-top-left-radius: 6px; border-bottom-left-radius: 6px;
+}
+.pagination-lg > li:first-child > span {
+	border-top-left-radius: 6px; border-bottom-left-radius: 6px;
+}
+.pagination-lg > li:last-child > a {
+	border-top-right-radius: 6px; border-bottom-right-radius: 6px;
+}
+.pagination-lg > li:last-child > span {
+	border-top-right-radius: 6px; border-bottom-right-radius: 6px;
+}
+.pagination-sm > li > a {
+	padding: 5px 10px; font-size: 12px;
+}
+.pagination-sm > li > span {
+	padding: 5px 10px; font-size: 12px;
+}
+.pagination-sm > li:first-child > a {
+	border-top-left-radius: 3px; border-bottom-left-radius: 3px;
+}
+.pagination-sm > li:first-child > span {
+	border-top-left-radius: 3px; border-bottom-left-radius: 3px;
+}
+.pagination-sm > li:last-child > a {
+	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+}
+.pagination-sm > li:last-child > span {
+	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+}
+.pagination {
+	margin: 0px; border-radius: 0px; display: block;
+}
+.pagination > li {
+	margin-left: 10px; display: inline-block;
+}
+.pagination > li:first-child {
+	margin-left: 0px;
+}
+.pagination > li > a {
+	background: rgb(250, 108, 101); padding: 5px 14px 7px; border-radius: 3px; border: currentColor; border-image: none; color: rgb(255, 255, 255); text-transform: uppercase; font-family: "Source Sans Pro", sans-serif; font-size: 14px; font-weight: 700; margin-left: 0px; float: none; display: inline-block; box-shadow: inset 0px -2px 0px rgba(0,0,0,0.15); text-shadow: none; -webkit-transition: all 200ms ease-out; -o-transition: all 200ms ease-out; -webkit-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15); -moz-transition: all 200ms ease-out; -webkit-border-radius: 3px; -moz-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+}
+.pagination > li > span {
+	background: rgb(250, 108, 101); padding: 5px 14px 7px; border-radius: 3px; border: currentColor; border-image: none; color: rgb(255, 255, 255); text-transform: uppercase; font-family: "Source Sans Pro", sans-serif; font-size: 14px; font-weight: 700; margin-left: 0px; float: none; display: inline-block; box-shadow: inset 0px -2px 0px rgba(0,0,0,0.15); text-shadow: none; -webkit-transition: all 200ms ease-out; -o-transition: all 200ms ease-out; -webkit-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15); -moz-transition: all 200ms ease-out; -webkit-border-radius: 3px; -moz-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+}
+.pagination > .active > a {
+	background: rgb(23, 167, 139); color: rgb(255, 255, 255);
+}
+.pagination > .active > span {
+	background: rgb(23, 167, 139); color: rgb(255, 255, 255);
+}
+.pagination > .active > a:hover {
+	background: rgb(23, 167, 139); color: rgb(255, 255, 255);
+}
+.pagination > .active > span:hover {
+	background: rgb(23, 167, 139); color: rgb(255, 255, 255);
+}
+.pagination > li > a:hover {
+	background: rgb(23, 167, 139); color: rgb(255, 255, 255);
+}
+.pagination > li > a:focus {
+	background: rgb(23, 167, 139); color: rgb(255, 255, 255);
+}
+.pagination > li:first-child > a {
+	border-radius: 3px;
+}
+.pagination > li:last-child > a {
+	border-radius: 3px;
+}
+.pagination > .next_page > a {
+	width: 101%;
+}
+.pagination > li > a {
+	background-color: rgb(250, 108, 101);
+}
+.pagination > li > span {
+	background-color: rgb(250, 108, 101);
+}
+.pagination > .active > a {
+	background-color: rgb(207, 76, 69);
+}
+.pagination > .active > span {
+	background-color: rgb(207, 76, 69);
+}
+.pagination > .active > a:hover {
+	background-color: rgb(207, 76, 69);
+}
+.pagination > .active > span:hover {
+	background-color: rgb(207, 76, 69);
+}
+.pagination > li > a:hover {
+	background-color: rgb(207, 76, 69);
+}
+.pagination > li > a:focus {
+	background-color: rgb(207, 76, 69);
+}
+.pagination > .active > a {
+	color: rgb(80, 80, 80); background-color: transparent;
+}
+.pagination > .active > span:hover {
+	color: rgb(80, 80, 80); background-color: transparent;
+}
+.pagination > li > a:hover {
+	color: rgb(80, 80, 80); background-color: transparent;
+}
+.pagination > li > a:focus {
+	color: rgb(80, 80, 80); background-color: transparent;
+}
+.pagination > .active > span {
+	color: rgb(80, 80, 80); background-color: transparent;
+}
+.pagination > .active > a:hover {
+	color: rgb(80, 80, 80); background-color: transparent;
+}
+.pagination > li > a {
+	padding: 5px 2px 7px; color: rgb(153, 153, 153); box-shadow: none; background-color: transparent;
+}
+.pagination > li > span {
+	padding: 5px 2px 7px; color: rgb(153, 153, 153); box-shadow: none; background-color: transparent;
+}
+@media all and (max-width:768px)
+{
+.pagination > li {
+	margin-left: 0px;
+}
+}
+@media all and (max-width:768px)
+{
+.pagination > li a {
+	padding: 5px 10px 7px;
+}
+}
+.pagination > .next_page > a {
+	width: 101%;
+}

@@ -13,22 +13,43 @@
     <title>우리가 배워온 모든 노하우, 老하우</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link href="{% static 'css/half-slider.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/font.min.css' %}" rel="stylesheet" />
 
+    <link href="{% static 'css/notice.css' %}" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- jQuery -->
+    <script src= "{% static 'js/jquery.js'%}"></script>
 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script>
+    function isjooeunfool()
+    {
+        alert("예, 사실입니다.");
+
+    }
+    function reservation()
+    {
+        alert("너의 비행기 표를 내가 갖고 있다.");
+        alert("그 표에게 무슨 일이 일어나는 것을 바라진 않겠지?");
+        alert("순순히 계좌에 195,700원을 입금하도록...");
+    }
+
+    </script>
 </head>
-
 <body>
-
+<div class="container">
+<p class="tests"></p>
+</div>
 {%if messages %}
     {%for message in messages%}
     <div class = "alert alert-{{message.tags}}"> <!-- 공백으로 클래스 구분 -->
@@ -36,97 +57,94 @@
     </div>
     {% endfor %}
 {%endif%}
+<p>
+{%if mobileuser %}
+    나는 모바일이다!!
+{%else %}
+    나는 모바일 아니다!!!
+{%endif%}
+</p>
+
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+    <nav id = "psst" class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid basecolor">
+            <div class="container">
+                <u1 class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    {%if user.is_superuser %}
+                    <li>
+                        <a>슈퍼유저님ㅎㅇ</a>
+                    </li>
+                    {% else %}
+                        {%if user.profile.is_mentor %}
+                        <li>
+                            <a>멘토님ㅎㅇ</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a>멘티님ㅎㅇ</a>
+                        </li>
+                        {% endif %}
+                    {% endif %}
+                    <li>
+                        <a href ="{% url "accounts:logout" %}">로그아웃</a>
+                    </li>
+                    <li>
+                        <a href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+                    </li>
+                    <li>
+                        <a href = "{% url "accounts:mypage"%}">MyPage</a>
+                {% else %}
+                    <li>
+                        <a href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
+                    </li>
+                    <li>
+                        <a href = "{% url "accounts:signup" %}">회원가입</a>
+                    </li>
+                {% endif %}
+                </u1>
+            </div>
             <!-- Brand and toggle get grouped for better mobile display -->
+        </div>
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href= "{% url "blog:index"%}">老하우</a>
+                <a class="navbar-brand" href= "{% url "blog:index"%}"><img id="logo" src="{% static 'pics/lohow.png' %}" width=50 height=25/></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <u1 class="nav navbar-nav navbar-left">
-                <li>
-                    <a href = "#">멘토들의 이야기</a>
-                </li>
-                <li>
-                    <a href = "#">주은바보</a>
-                </li>
-                <li>
-                    <a href = "#">지은바보</a>
-                </li>
-                </u1>
-
                 <ul class="nav navbar-nav navbar-right">
-                {% block content%}{% endblock %}
+                <li>
+                    <a href = "{% url "blog:mentor_list" %}">멘토목록</a>
+                </li>
+                <li>
+                    <a href = "{% url "blog:notice" %}">게시판</a>
+                </li>
+                <li>
+                    <a href = "{% url "blog:guide" %}">로하우 가이드</a>
+                </li>
+                <li>
+                    <a href = "#">멘토 칼럼</a>
+                </li>
                 </ul>
+
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
     <!-- Half Page Image Background Carousel Header -->
-    <header id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
 
-        <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
-                <div class="carousel-caption">
-                    <h2>사진 넣어주세용~</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the second background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
-                <div class="carousel-caption">
-                    <h2>사진 넣어주세용~</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
-                <div class="carousel-caption">
-                    <h2>사진 넣어주세용~</h2>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-
-    </header>
-
+    {% block content %}
+    {% endblock %}
     <!-- Page Content -->
     <div class="container">
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h1>컨텐츠 추가해주세용~</h1>
-                <p>내용 추가해주세용~</p>
-                <!--<p>The background images for the slider are set directly in the HTML using inline CSS. The rest of the styles for this template are contained within the <code>half-slider.css</code>file.</p>-->
-            </div>
-        </div>
-
-        <hr>
 
         <!-- Footer -->
         <footer>
@@ -137,23 +155,27 @@
             </div>
             <!-- /.row -->
         </footer>
-
+        <br/><br/><br/><br/><br/><br/>
+        <!--marquee><button class="btn btn-danger" onclick="isjooeunfool()"><h1>안주은 바보</h1></button></marquee-->
+        <button class="btn btn-warning" onclick="reservation()"><h4>노랭이</h4></button>
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src= "{% static 'js/jquery.js'%}"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{% static 'js/bootstrap.min.js'%}"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
+    <script type="text/JavaScript">
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
+    {% if mobileuser %}
+        $('#psst').attr('class','navbar navbar-default');
+        $('#logo').attr('src',"{% static 'pics/lohow.png' %}");
+    {% else %}
+        $('#psst').attr('class','navbar navbar-inverse');
+        $('#logo').attr('src',"{% static 'pics/lohoww.png' %}");
+    {% endif %}
+    $(function(){});
+            // will execute when page is ready
     </script>
-
+    <!-- how to initialize...?-->
 </body>
 
 </html>

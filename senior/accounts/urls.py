@@ -5,10 +5,11 @@ from accounts.forms import LoginForm
 
 
 urlpatterns = [
-    url(r'^signup/$', views.signup),
-    url(r'^login/$', login, kwargs = {'authentication_form': LoginForm,}),
-    url(r'^logout/$', logout, {'next_page': 'blog:index'}),
-    url(r'^account_delete/$', views.account_delete),
-    url(r'^profile/$', views.profile),
-    url(r'^signup/confirm/(?P<uidb64>[a-zA-Z0-9/_-]+)/(?P<token>[0-9a-zA-Z]{1,13}-[0-9a-zA-Z]{1,20})/$', views.signup_confirm)
+    url(r'^signup/$', views.signup, name = 'signup'),
+    url(r'^login/$', login, kwargs = {'authentication_form': LoginForm,}, name = 'login'),
+    url(r'^logout/$', logout, {'next_page': 'blog:index'}, name = 'logout'),
+    url(r'^account/delete/$', views.account_delete, name = 'account_delete'),
+    url(r'^mypage/$', views.profile, name = 'mypage'),
+    url(r'^account/edit/$', views.account_edit, name='account_edit')
+
 ]
