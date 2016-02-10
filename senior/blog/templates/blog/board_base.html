@@ -20,9 +20,9 @@
 		<div class = "row">
 			<div class = "col-sm-3">
 				<ul class = "sidenav clearfix" style ="list-style:none;">
-					<li class = "active col-sm-12 col-xs-4 sidebar-li"><a href="#"><div class="new-label-wrapper-no"></div>공지사항</a></li>
+					<li class = "active col-sm-12 col-xs-4 sidebar-li"><a href="{% url "blog:notice"%}"><div class="new-label-wrapper-no"></div>공지사항</a></li>
 
-					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="#"><div class="new-label-wrapper-no"></div>자유게시판</a></li>
+					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="{%url "blog:freeboard"%}"><div class="new-label-wrapper-no"></div>자유게시판</a></li>
 
 					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="http://yourstage.com"><div class="new-label-wrapper-no"></div>기회의 땅</a></li>
 				</ul>
@@ -31,7 +31,7 @@
 				{% block board %}
 				{% endblock %}
 				<h2 class= "sidelines text-center"><span>공지사항</span></h2>
-					
+
 				<div class="board mobile-version">
 						<div class="board-list">
 							<div class="board_top">
@@ -110,8 +110,8 @@
 						<tr>
 						 	<td class="col-xs-1 text-center board-no"></td>
 						 	<td class="col-xs-1 board-category">게시글</td>
-						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">깊은 밤...당신의 마음 채워줄 노래 하나 듣고 가세요.</a></td>
-						 	<td class="col-xs-1 text-center writer">안주은</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">건전지 사실래요?</a></td>
+						 	<td class="col-xs-1 text-center writer">박진식</td>
 						 	<td class="col-xs-1 text-center view-count">0</td>
 						 	<td class="col-xs-2 text-center board-date">2016.02.10</td>
 						</tr>
