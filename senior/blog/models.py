@@ -55,3 +55,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Reply(models.Model):
+    question = models.ForeignKey(Question)
+    title = models.CharField(max_length=50)
+    content = models.TextField(max_length=500)
