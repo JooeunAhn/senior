@@ -17,7 +17,7 @@ reg_v = re.compile(r"1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er
 
 
 # is it ok to do this in views.py?
-<<<<<<< HEAD
+
 def mobiles(request):
     mobileuser = True
     user_agent = request.META.get('HTTP_USER_AGENT','').lower()
@@ -28,19 +28,6 @@ def mobiles(request):
     else:
         mobileuser = False
     return render(request, 'blog/index.html', {'mobileuser':mobileuser})
-=======
-#def process_request(request):
-#    mobileuser = False
-#    #if request.META.has_key('HTTP_USER_AGENT'):
-#    user_agent = request.META['HTTP_USER_AGENT']
-#    b = reg_b.search(user_agent)
-#    v = reg_v.search(user_agent[0:4])
-#    if b or v:
-##        mobileuser = True
-#   else:
-#        mobileuser = False
-#   return render(request, 'blog/index.html')
->>>>>>> ecd5e52e8cf9ae0f78362fcda1943107e2c57212
 
 def owner_required_freeboard(model_cls, user_field_name = 'author'):
 
