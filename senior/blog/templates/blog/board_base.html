@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load tch_tch %}
+{% block content %}
+
+<div class="flash_notices_area"></div>
+<body class="notices index">
+<main>
+	<div class = "dark-bg img-bg-softer" style='background-image: url("~~~~");'>
+		<div class="container inner-xs inner-top-sm">
+			<div class="row">
+				<div class="col-sm-12 center-block text-center">
+					<header>
+						<h2><span>게시판</span></h2>
+					</header>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class = "container inner-xs">
+		<div class = "row">
+			<div class = "col-sm-3">
+				<ul class = "sidenav clearfix" style ="list-style:none;">
+					<li class = "active col-sm-12 col-xs-4 sidebar-li"><a href="{% url "blog:notice"%}"><div class="new-label-wrapper-no"></div>공지사항</a></li>
+
+					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="{%url "blog:freeboard"%}"><div class="new-label-wrapper-no"></div>자유게시판</a></li>
+
+					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="http://yourstage.com"><div class="new-label-wrapper-no"></div>기회의 땅</a></li>
+				</ul>
+			</div>
+			<div class = "col-sm-9">
+				{% block board %}
+				{% endblock %}
+				<h2 class= "sidelines text-center"><span>공지사항</span></h2>
+
+				<div class="board mobile-version">
+						<div class="board-list">
+							<div class="board_top">
+								<div class="board-no"></div>
+								<div class="board-category">[공지]</div>
+								<div class="board-title"><a href="#">[공지] 로~~하우!에 오신걸 환영함.</a></div>
+								<div class="board-date">2016.02.09/</div>
+								<div class="writer">로하우 개발팀</div>
+								<div class="view-count">몰라염<i class="fa fa-commenting-o">0 </i></div></div>
+							{% for notice in notice %}
+							<div class="board_nomal">
+								<div class="board-no">{{noticse.id}}</div>
+								<div class="board-category">[공지]</div>
+								<div class="board-title"><a href="#">{{notice.title}}</a></div>
+								<div class="board-date">{{notice.created_at}}</div>
+								<div class="writer">{{user.username}}</div>
+								<div class="view-count">몰라염<i class="fa fa-commenting-o">0 </i></div></div>
+							{% endfor %}
+
+					</div>
+				</div>
+				<table class="table table-list table-hover">
+					<thead>
+						<tr>
+							<th class="col-xs-1 board-no">번호</th>
+							<th class="col-xs-1 board-category">분류</th>
+							<th class="col-xs-6 board-title">제목</th>
+							<th class="col-xs-1 text-center writer">작성자</th>
+							<th class="col-xs-1 text-center view-count">조회수</th>
+							<th class="col-xs-2 text-center board-date">등록시간</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for notice in notice %}
+						<tr>
+						 	<td class="col-xs-1 text-center board-no">{{notice.id}}</td>
+						 	<td class="col-xs-1 board-category">공지</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">{{notice.title}}</a></td>
+						 	<td class="col-xs-1 text-center writer">{{user.username}}</td>
+						 	<td class="col-xs-1 text-center view-count">몰라염</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.09</td>
+						</tr>
+						{% endfor %}
+						<tr>
+						 	<td class="col-xs-1 text-center board-no"></td>
+						 	<td class="col-xs-1 board-category">공지</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">[공지]주은, 지은은 바보인걸로!!</a></td>
+						 	<td class="col-xs-1 text-center writer">로하우 개발팀</td>
+						 	<td class="col-xs-1 text-center view-count">123123</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.09</td>
+						</tr>
+						<tr style = "background-color : rgb(241,236,226)">
+						 	<td class="col-xs-1 text-center board-no"></td>
+						 	<td class="col-xs-1 board-category">공지</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">[공지]주은, 지은은 바보인걸로!!</a></td>
+						 	<td class="col-xs-1 text-center writer">로하우 개발팀</td>
+						 	<td class="col-xs-1 text-center view-count">123123</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.09</td>
+						</tr>
+						<tr>
+						 	<td class="col-xs-1 text-center board-no"></td>
+						 	<td class="col-xs-1 board-category">공지</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">[공지]주은, 지은은 바보인걸로!!</a></td>
+						 	<td class="col-xs-1 text-center writer">로하우 개발팀</td>
+						 	<td class="col-xs-1 text-center view-count">123123</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.09</td>
+						</tr>
+						<tr style = "background-color : rgb(241,236,226)">
+						 	<td class="col-xs-1 text-center board-no"></td>
+						 	<td class="col-xs-1 board-category">게시글</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">어 내가 어 지금 도지산데 지금 어</a></td>
+						 	<td class="col-xs-1 text-center writer">MS.Kim</td>
+						 	<td class="col-xs-1 text-center view-count">30</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.10</td>
+						</tr>
+						<tr>
+						 	<td class="col-xs-1 text-center board-no"></td>
+						 	<td class="col-xs-1 board-category">게시글</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">건전지 사실래요?</a></td>
+						 	<td class="col-xs-1 text-center writer">박진식</td>
+						 	<td class="col-xs-1 text-center view-count">0</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.10</td>
+						</tr>
+						<tr style = "background-color : rgb(241,236,226)">
+						 	<td class="col-xs-1 text-center board-no"></td>
+						 	<td class="col-xs-1 board-category">게시글</td>
+						 	<td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">응원합니다. 웹사이트 잘되시길 빌게요^^</a></td>
+						 	<td class="col-xs-1 text-center writer">여행자 카페</td>
+						 	<td class="col-xs-1 text-center view-count">14</td>
+						 	<td class="col-xs-2 text-center board-date">2016.02.10</td>
+						</tr>
+					</tbody>
+				</table>
+				<!--
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if notice.has_previous %}
+                                <a href="?page={{ notice.previous_page_number}}">previous</a>
+                            {% endif %}
+                            <span class="current">
+                                Page {{ notice.number }} of {{ notice.paginator.num_pages }}.
+                            </span>
+                            {% if freeboard.has_next %}
+                                <a href="?page={{ notice.next_page_number}}">next</a>
+                            {% endif %}
+                        </span>
+                    </div>-->
+				<div class="pagination_wrapper text-center">
+					<ul class="pagination">
+						<li class="page active"><a href="#">1</a> </li>
+						<li class="page"><a href="#" rel="next">2</a></li>
+						<li class="page"><a href="#">3</a> </li>
+						<li class="page"><a href="#">4</a> </li>
+						<li class="page"><a href="#">다음〉</a> </li>
+						<li class="last next"><a href="#">마지막 》</a> </li>
+					</ul>
+				</div>
+				<div class="pagination_wrapper text-center">
+					<div class="pagination">
+						<span class="step-links">
+							{% if notice.has_previous %}
+								<a href=">page{{ notice.previous_page_number}}">previous</a>
+							{% endif %}
+							<span class="current">
+								Page {{ notice.number }} of {{notice.paginatior.num_pages }}.
+							</span>
+							{% if freeboard.has_next %}
+								<a href="?page={{ notice.next_page_number }}">next</a>
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="text-right"></div>
+			</div>
+		</div>
+	</div>
+</main>
+</body>
+
+{% endblock %}

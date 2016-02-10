@@ -315,8 +315,8 @@ class FreeboardDetailView(DetailView):
 freeboard_detail = FreeboardDetailView.as_view(model=Freeboard)
 """
 
-def guide(request, pk):
-    return render(reqeust, 'blog/guide.html')
+def guide(request):
+    return render(request, 'blog/guide.html')
 
 
 @login_required
@@ -378,7 +378,7 @@ def comment_delete(request,freeboard_pk,pk):
     return render(request, 'blog/comment_confirm_delete.html', {'comment':comment,})
 
 
-
+@login_required
 def question_edit(request, pk):
     user = Profile.objects.get(user = request.user)
     question = Question.objects.get(pk = pk)

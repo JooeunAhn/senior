@@ -42,7 +42,6 @@ def account_delete(request):
 @login_required
 def account_edit(request):
     user = Profile.objects.get(user = request.user)
-    print (user)
     if request.method == 'POST':
         form = SignupForm(request.POST, request.FILES,
             initial = {
@@ -61,8 +60,8 @@ def account_edit(request):
             #user.backend = backend_path
             #auth_login(request, user)
 
-            messages.info(request, '환영합니다')
-            return redirect('blog:index')
+            messages.info(request, '수정완료')
+            return redirect('accounts:mypage')
 
             #회원가입 시에, 이메일 승인
             #user = form.save(commit = False)
