@@ -52,7 +52,6 @@ def mentor_list(request):
         mentor_list = paginator.page(1)
     except EmptyPage:
         mentor_list = paginator.page(paginator.num_pages)
-    mlrange = range(1,11)
 
     return render(request, 'blog/mentor_list.html', {'mentor_list' : mentor_list})
 
@@ -188,7 +187,7 @@ def notice(request):
     except EmptyPage:
         notice = paginator.page(paginator.num_pages)
 
-    return render(request, 'board_base.html', {'notice':notice})
+    return render(request, 'blog/board_base.html', {'notice':notice})
 
 
 def notice_new(request):

@@ -46,11 +46,11 @@
     }
 
     </script>
-
 </head>
 <body>
-
-
+<div class="container">
+<p class="tests"></p>
+</div>
 {%if messages %}
     {%for message in messages%}
     <div class = "alert alert-{{message.tags}}"> <!-- 공백으로 클래스 구분 -->
@@ -159,26 +159,22 @@
     </div>
     <!-- /.container -->
 
-
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
     <script type="text/JavaScript">
     if (jQuery.browser.mobile)
     {
         alert("짱! 휴대폰 개통하셨네요!");
-        document.getElementById("psst").className = "navbar navbar-inverse";
+        $('#psst').attr('class','navbar navbar-inverse');
     }
     else
     {
         alert("모바일로 들어와 보시죠!");
-        document.getElementById("psst").className = "navbar navbar-default";
+        $('#psst').attr('class','navbar navbar-default');
     }
-
+    $('.carousel').carousel({
+        interval: 4000 //changes the speed
+    })
+    $(function(){});
+            // will execute when page is ready
     </script>
     <!-- how to initialize...?-->
 </body>
