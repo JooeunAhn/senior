@@ -19,17 +19,34 @@
 {% endfor %}
 </ul>
 
- <div class="pagination">
+<div class="container">
+ <!--div class="pagination">
                         <span class="step-links">
                             {% if mentor_list.has_previous %}
                                 <a href="?page={{ mentor_list.previous_page_number}}">previous</a>
                             {% endif %}
-                            <span class="current">
+                            <span class="current" >
                                 Page {{ mentor_list.number }} of {{ mentor_list.paginator.num_pages }}.
                             </span>
                             {% if mentor_list.has_next %}
                                 <a href="?page={{ mentor_list.next_page_number}}">next</a>
                             {% endif %}
                         </span>
-                    </div>
+                    </div-->
+    <div class = "text-center">
+    <ul class="pagination">
+        {% for i in mentor_list.paginator.page_range%}
+            {%if i == mentor_list.number %}
+                <li class="active"><a href="?page={{i}}">{{i}}</li>
+            {%else%}
+                <li<a href="?page={{i}}">{{i}}</li>
+            {%endif%}
+        {% endfor %}
+    </ul>
+    </div>
+</div>
+<div class="container" >
+    Page {{ mentor_list.number }} of {{ mentor_list.paginator.num_pages }}.
+    왜 여기에도 링크가 생기는건지 1도 모르겠다
+</div>
 {%endblock%}

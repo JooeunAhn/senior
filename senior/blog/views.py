@@ -42,6 +42,7 @@ def index(request):
 
 
 def mentor_list(request):
+
     mentor_list = Profile.objects.filter(is_mentor = True)
     paginator = Paginator(mentor_list, 10)
     page = request.GET.get('page')
@@ -51,6 +52,7 @@ def mentor_list(request):
         mentor_list = paginator.page(1)
     except EmptyPage:
         mentor_list = paginator.page(paginator.num_pages)
+    mlrange = range(1,11)
 
     return render(request, 'blog/mentor_list.html', {'mentor_list' : mentor_list})
 
