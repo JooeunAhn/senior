@@ -20,8 +20,11 @@
                     <!--    <img src="{{ post.photo.url }}" /> -->
                 </div>
             </div>
+            {% if question.mentor.user == user%}
             <a href="{% url "blog:reply_new" question.id %}"  class="btn btn-default">답변하기</a>
-             {% for reply in question.reply.all %}
+            {% endif %}
+
+                {% for reply in question.reply.all %}
                     <li>
                     {{reply.pk}}
                     {{reply.title}}
