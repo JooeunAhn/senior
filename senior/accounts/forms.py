@@ -58,6 +58,7 @@ class SignupForm2(UserCreationForm):
     is_mentor = forms.BooleanField(required = False)
     user_photo = forms.ImageField(required = False,)
     category = forms.ModelChoiceField(queryset=Category.objects.all(),)
+    self_intro = forms.CharField(widget=forms.Textarea, required = False)
     """
     def clean_photo(self):
         print (self['user_photo'].html_name)
@@ -73,6 +74,7 @@ class SignupForm2(UserCreationForm):
         user.is_mentor = self.cleaned_data['is_mentor']
         user.user_photo = self.cleaned_data['user_photo']
         user.category = self.cleaned_data['category']
+        user.self_intro = self.cleaned_data['self_intro']
         if commit:
             user.save()
         return user

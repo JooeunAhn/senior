@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load tch_tch %}
 {% block content %}
 <div class="container">
     <p>
@@ -26,18 +27,37 @@
   </div>
 </div>
 
-                    <div class="pagination">
-                        <span class="step-links">
-                            {% if freeboard.has_previous %}
-                                <a href="?page={{ freeboard.previous_page_number}}">previous</a>
-                            {% endif %}
-                            <span class="current">
-                                Page {{ freeboard.number }} of {{ freeboard.paginator.num_pages }}.
-                            </span>
-                            {% if freeboard.has_next %}
-                                <a href="?page={{ freeboard.next_page_number}}">next</a>
-                            {% endif %}
-                        </span>
-                    </div>
+<div class = "text-center">
+<div class="container">
+
+    <ul class="pagination">
+
+        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
+            {%if i == freeboard.number %}
+                <li class="active"><a href="?page={{i}}">{{i}}</a></li>
+            {%elif i in freeboard.paginator.page_range%}
+                <li><a href="?page={{i}}">{{i}}</a></li>
+            {%else%}
+                <li class="disabled"><a href="#">{{i}}</a></li>
+            {%endif%}
+        {% endfor %}
+
+    </ul><br/>
+    {% if freeboard.has_previous %}
+        <a href="?page={{ freeboard.previous_page_number}}" class="btn btn-primary">previous</a>
+    {%else%}
+        <a href="#" class="btn btn-warning disabled">previous</a>
+    {% endif %}
+    {% if freeboard.has_next %}
+        <a href="?page={{ freeboard.next_page_number}}" class="btn btn-primary">next</a>
+    {%else%}
+        <a href="#" class="btn btn-warning disabled">next</a>
+    {% endif %}
+</div>
+<div class="container" >
+    Page {{ freeboard.number }} of {{ freeboard.paginator.num_pages }}.
+</div>
+
+</div>
 {%endblock%}
 
