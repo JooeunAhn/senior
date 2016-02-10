@@ -22,6 +22,7 @@
                 <div class="writer">{{user.username}}</div>
                 <div class="view-count">몰라염<i class="fa fa-commenting-o">0 </i></div></div>
             {% endfor %}
+
     </div>
 </div>-->   
 <table class="table table-list table-hover">
@@ -101,12 +102,11 @@
     <ul class="pagination">
         <li class="prev">
         {% if notice.has_previous %}
-            <a href="?page={{ notice.previous_page_number}}" class="btn">previous</a>
+            <a href="?page={{ notice.previous_page_number}}" class="btn btn-primary">previous</a>
         {%else%}
             <a href="#" class="btn">previous</a>
         {% endif %}
         </li>
-        
         {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
             {%if i == notice.number %}
                 <li class="active"><a href="?page={{i}}">{{i}}</a></li>
@@ -116,15 +116,17 @@
                 <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
             {%endif%}
         {% endfor %}
-        
+        <li class="prev">
         {% if notice.has_next %}
-            <a href="?page={{ notice.next_page_number}}" class="btn">next</a>
+            <a href="?page={{ notice.next_page_number}}" class="btn btn-primary">next</a>
         {%else%}
             <a href="#" class="btn">next</a>
         {% endif %}
-        <u1 class="container" >
+        </li>
+        <u1 class="container">
             Page {{ notice.number }} of {{ notice.paginator.num_pages }}.
         </u1>
+    </ul>
 </div>
 
 
