@@ -186,7 +186,7 @@ def notice(request):
     except EmptyPage:
         notice = paginator.page(paginator.num_pages)
 
-    return render(request, 'board_base.html', {'notice':notice})
+    return render(request, 'blog/notice.html', {'notice':notice})
 
 
 def notice_new(request):
