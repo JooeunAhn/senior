@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content%}
-
+<script src="{% static 'js/jquery.mobile.custom.min.js'%}"></script>
 <header id="myCarousel" class="carousel scroll">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -58,5 +58,17 @@
         </a>
 
     </header>
+<script>
+{%if mobileuser%}
+$(document).ready(function() {
+   $("#myCarousel").swiperight(function() {
+      $("#myCarousel").carousel('prev');
+    });
+   $("#myCarousel").swipeleft(function() {
+      $("#myCarousel").carousel('next');
+   });
+});
+{%endif%}
+</script> <!-- Swiping for mobile-->
 
 {% endblock %}
