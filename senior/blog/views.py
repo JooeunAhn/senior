@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseForbidden
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import re
+from hitcount.views import HitCountMixin
+from hitcount.models import HitCount
 
 # Create your views here.
 reg_b = re.compile(r"(android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows ce|xda|xiino", re.I|re.M)
@@ -51,6 +53,14 @@ def owner_required_freeboard(model_cls, user_field_name = 'author'):
         return inner_wrap
     return wrap
 
+
+def hit_count(hitcount=1,):
+    def wrap_fn(view_fn):
+        def wrap(request, *args, **kwargs):
+            HitCountMixin.hit_count(request, hitcount)
+            return view_fn(request, *args, **kwargs)
+        return wrap
+    return wrap_fn
 
 
 def index(request):
@@ -293,12 +303,30 @@ def freeboard_edit(request, pk):
     return render(request, 'blog/freeboard_form.html', {'form':form})
 
 
+'''
 def freeboard_detail(request, pk):
     freeboard = get_object_or_404(Freeboard, pk=pk)
     return render(request, 'blog/freeboard_detail.html', {
         'freeboard': freeboard,
         'comment_form': CommentForm(),
+        # 'hitcount' : hitcount,
      })
+'''
+
+from hitcount.views import HitCountDetailView
+
+class FreeboardDetailView(HitCountDetailView):
+    model = Freeboard
+    template_name = 'blog/freeboard_detail.html'
+    count_hit = True
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(FreeboardDetailView, self).get_context_data(*args, **kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+
+# freeboard_detail = DetailView.as_view(model=Freeboard, template_name='blog/freeboard_detail.html')
+freeboard_detail = FreeboardDetailView.as_view()
 
 """
 김지은 detailview

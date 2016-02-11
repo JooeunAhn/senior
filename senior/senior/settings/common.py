@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'blog',
     'accounts',
     "debug_toolbar",
-    'bootstrap3'
+    'bootstrap3',
+    'hitcount',
 ]
 
 MIDDLEWARE_CLASSES = [
