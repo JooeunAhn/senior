@@ -8,7 +8,14 @@ from django.shortcuts import resolve_url
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from accounts.models import Category
+import re
+from django.core.validators import RegexValidator
+from django.shortcuts import redirect
 
+def phone_validator(value):
+    number = ''.join(re.findall(r'\d+', value))
+    return RegexValidator(r'^01[016789]\d{7,8}$', message= '번호를 입력해주세요')(number)
 
 
 
@@ -52,23 +59,34 @@ class SignupForm(UserCreationForm):
 
 
 class SignupForm2(UserCreationForm):
-     email = forms.EmailField(required = False)
-     OPTIONS = (
-         ("mentor", "mentor"),
-         ("mentee", "mentee"),
-         )
+    email = forms.EmailField(required = False)
+    #is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
+    is_mentor = forms.BooleanField(required = False)
+    user_photo = forms.ImageField(required = False,)
+    category = forms.ModelChoiceField(queryset=Category.objects.all(),)
+    self_intro = forms.CharField(widget=forms.Textarea, required = False)
+    phone = forms.CharField(validators = [phone_validator])
+    """
+    def clean_photo(self):
+        print (self['user_photo'].html_name)
+        if not self['user_photo'].html_name in self.data:
+            return self.fields['initial'].initial
+        return self.cleaned_data['user_photo']
+    """
 
-     #is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
-     is_mentor = forms.BooleanField(required = False)
+    ### 이렇게하면 일단 DB에 저장은 안함 뒤에함수 호출 필요
+    def save(self, commit=True):
+        user = super(SignupForm2, self).save(commit=False)
+        user.email = self.cleaned_data['email']   #### cleaned_data????
+        user.is_mentor = self.cleaned_data['is_mentor']
+        user.user_photo = self.cleaned_data['user_photo']
+        user.category = self.cleaned_data['category']
+        user.self_intro = self.cleaned_data['self_intro']
+        user.phone = self.cleaned_data['phone']
 
-     ### 이렇게하면 일단 DB에 저장은 안함 뒤에함수 호출 필요
-     def save(self, commit=True):
-         user = super(SignupForm2, self).save(commit=False)
-         user.email = self.cleaned_data['email']   #### cleaned_data????
-         user.is_mentor = self.cleaned_data['is_mentor']
-         if commit:
-             user.save()
-         return user
+        if commit:
+            user.save()
+        return user
 
 
 # class SignupForm2(forms.ModelForm):
