@@ -62,7 +62,7 @@ footer {
 }
 #banner_inpadding{
     font-weight: bold;
-    font-size: 17px;
+    font-size: 20px;
     color:rgb(244, 244, 244);
     padding-left: 20px;
     padding-right: 20px;
@@ -70,20 +70,20 @@ footer {
 .brandzero{
     padding:0px;
 }
-.color1{
+#color1{
     background-color: #77A8B2;
     border-color: #77A8B2;
     color: white;
 }
-.color2{
+#color2{
     background-color: #DEF9FF;
 }
-.color3{
+#color3{
     background-color: #B27A48;
 }
-.color4{
+#color4{
     background-color: #FFBE84;
 }
-.color5{
+#color5{
     background-color: #FFE2C8;
 }
