@@ -73,10 +73,28 @@ $(document).ready(function() {
 
 {% include 'blog/search_form_mentor.html' %}
 
+<style>
+    .count{
+        margin:auto;
+        text-align:center;
+    }
+</style>
 
-등록 멘토 명수{{mentor_count}}
-답변 갯수 {{reply_count}}
-질문 갯수 {{question_count}}
+<div class="row">
+    <div class="count">
+        <div class="col-sm-4">
+            <p>등록 멘토 명수: {{mentor_count}}</p>
+        </div>
+
+        <div class="col-sm-4">
+            <p>답변 갯수: {{reply_count}}</p>
+        </div>
+
+        <div class="col-sm-4">
+            <p>질문 갯수: {{question_count}}</p>
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}
