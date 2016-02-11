@@ -48,5 +48,10 @@ urlpatterns = [
     #가이드
     url(r'^guide/$', views.guide, name='guide'),
 
+    #멘토칼럼
+    url(r'^column/$', views.column, name = 'column'),
+    url(r'^column/new/$', views.column_new, name = 'column_new'),
+    url(r'^column/(?P<pk>\d+)/$', views.column_detail, name = 'column_detail'),
+
     ]
 
