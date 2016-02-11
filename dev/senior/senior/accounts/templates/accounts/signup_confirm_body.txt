@@ -1,2 +1,0 @@
-
-{{ host }}{% url "accounts.views.signup_confirm" uidb64=uid token=token %}
