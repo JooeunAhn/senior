@@ -1,20 +1,59 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
-<h1>{{user}}'s profile</h1>
+<h1 class="sidelines text-center"><span>{{user}}'s profile</span></h1>
 <!-- User 인스턴스 -->
+<div id="wrap">
+  <div id="left">
+	<style>
+	.thumbnail{
+     width:300px;
+     height:300px;
+ 	}
 
-<p> 질문목록
-{% for question in profile.question_mentor.all %}
-    <li>
-        <a href = "{% url 'blog:question_detail' question.pk %}">{{question.mentee.user.username}}의 질문</a>
-    </li>
-    {% empty %}
-    <li>등록된 질문이 없습니다.</li>
+	.thumbnail img{
+	    width:300px;
+	    height:290px;
+	}
+	</style>
+	<div class="thumbnail"><img src="{{profile.user_photo.url}}" /></div>
+	</br>
+	</br>
+	<a href = "{% url "accounts:account_edit" %}" > 계정수정 </a>
+  </div>
+  <div id="right">
+	<link href="{% static 'css/mypage.css' %}" rel="stylesheet" />
+	<div style="align:center">
+	<table class="table table-list table-hover">
+	    <thead>
+	        <tr>
+	            <th class="col-xs-1 board-no">번호</th>
+	            <th class="col-xs-6 board-author">멘티</th> 
+	            <th class="col-xs-6 board-title">질문목록</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+		    {% for question in profile.question_mentor.all %}
+		    <tr>
+		    	<td class="col-xs-1 text-center board-no">{{question.id}}</td>
+		    	<td class="col-xs-6 board-author">{{question.mentee.user.username}}</td>
+		    	<td class="col-xs-6 board-title"><a style="font-weight:700;" href="{% url 'blog:question_detail' question.pk % }">{{question.title}}</td>
+		    </tr>
+		    {% empty %}
+		    <li>등록된 질문이 없습니다.</li>
+	        {% endfor %}
+	    </tbody>
+	</table>
+	</div>
+	</div>
+  </div>
+  
+</div>
 
-</p>
-
-<a href = "{% url "accounts:account_edit" %}" > 계정수정 </a>
-{% endfor %}
 
 {% endblock %}
+
+
+
+
