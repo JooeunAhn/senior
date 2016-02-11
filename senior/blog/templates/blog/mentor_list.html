@@ -3,6 +3,19 @@
 {% load staticfiles %}
 {% block content %}
 
+<style>
+.thumbnail{
+     width:200px;
+     height:200px;
+}
+
+.thumbnail img{
+    width:200px;
+    height:190px;
+}
+
+</style>
+
 <!--
 <div class="" style="margin-top:40px">
     <div class="col-sm-6 col-md-4">
@@ -35,20 +48,6 @@
     </div>
 </div>
 -->
-<style>
-.thumbnail{
-     width:200px;
-     height:200px;
-}
-
-.thumbnail img{
-    width:200px;
-    height:190px;
-}
-
-</style>
-
-
 {% for mentor in mentor_list%}
 <div class="" style="margin-top:100px; margin-left:140px;" >
     <div class="col-sm-6 col-md-4">

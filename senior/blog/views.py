@@ -120,8 +120,8 @@ def question_list(request):
         questions = questions.filter(
             Q(mentor__username__contains=query_question) |
             Q(mentee__username__contains=query_question) |
-            Q(title__contains=query_mentor) |
-            Q(message__contains=query_mentor)).distinct()
+            Q(title__contains=query_question) |
+            Q(message__contains=query_question)).distinct()
     else:
         pass 
 
@@ -234,7 +234,7 @@ def notice(request):
     except EmptyPage:
         notice = paginator.page(paginator.num_pages)
 
-    return render(request, 'blog/notice.html', {'notice':notice})
+    return render(request, 'blog/notice.html', {'notice_list':notice_list})
 
 
 def notice_new(request):
@@ -283,6 +283,16 @@ def notice_edit(request, pk):
 
 def freeboard(request):
     freeboard_list = Freeboard.objects.all()
+
+    query_freeboard = request.GET.get('freeboard')
+
+    if query_freeboard:
+        freeboard_list = freeboard_list.filter(
+                Q(author__user__username__contains=query_freeboard) |
+                Q(title__contains=query_freeboard) |
+                Q(content__contains=query_freeboard)
+                ).distinct()
+
     paginator = Paginator(freeboard_list, 10)
     page = request.GET.get('page')
     try:
