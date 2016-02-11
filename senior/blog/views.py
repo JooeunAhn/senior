@@ -100,7 +100,10 @@ def mentor_list(request):
 
 def mentor_detail(request, pk):
     mentor = Profile.objects.get(pk=pk)
-    return render(request, 'blog/mentor_detail.html', {'mentor': mentor, 'review_form': ReviewForm()})
+    column_list = Column.objects.filter(author = mentor)
+    column_count = len(column_list)
+    return render(request, 'blog/mentor_detail.html', {'mentor': mentor, 'review_form': ReviewForm(), 'column_list':column_list,
+        'column_count':column_count,})
 
 
 @login_required
@@ -265,7 +268,7 @@ notice_detail = NoticeDetailView.as_view()
 
 
 
-
+@login_required
 def notice_new(request):
     if request.user.is_superuser:
         if request.method == 'POST':
