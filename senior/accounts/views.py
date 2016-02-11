@@ -16,6 +16,7 @@ from django.utils.http import urlsafe_base64_decode
 from accounts.forms import SignupForm, SignupForm2
 from accounts.forms import send_signup_confirm_email
 from accounts.models import Profile, Category
+from blog.models import Column
 
 # Create your views here.
 @login_required
@@ -25,10 +26,12 @@ def profile(request):
         return render(request, 'blog/index.html')
     else:
         profile = Profile.objects.get(user = request.user)
+        column_list = Column.objects.filter(author = profile)
+        column_count = Column.objects.filter(author = profile).count()
         if profile.is_mentor :
-            return render(request, 'accounts/profile_mentor.html', {'profile':profile})
+            return render(request, 'accounts/profile_mentor.html', {'profile':profile, 'column_list':column_list, "column_count":column_count})
         else :
-            return render(request, 'accounts/profile_mentee.html', {'profile':profile})
+            return render(request, 'accounts/profile_mentee.html', {'profile':profile,'column_list':column_list, "column_count":column_count})
 
 @login_required
 def account_delete(request):

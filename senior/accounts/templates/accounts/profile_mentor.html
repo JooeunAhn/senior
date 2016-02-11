@@ -15,7 +15,7 @@
 	}
 </style>
 
-<h1 class="sidelines text-center"><span>{{user.last_name}}{{user.first_name}}'s profile</span></h1>
+<h1 class="sidelines text-center"><span>{{profile.user.last_name}}{{profile.user.first_name}}'s profile</span></h1>
 <!-- User 인스턴스 -->
 
 <div class="row" style="margin-top:100px; margin-left:80px; margin-right:80px" >
@@ -31,7 +31,7 @@
 		<div class="row">
         <table class="table table-condensed">
             <thead>
-                <strong style="font-size:18px;">{{profile.user.username}}님의 칼럼이 <a style="font-size:30px;">{{column_count}}</a>개 등록되어 있습니다.</strong>
+                <strong style="font-size:18px;">{{profile.user.last_name}}{{profile.user.first_name}}님의 칼럼이 <a style="font-size:30px;">{{column_count}}</a>개 등록되어 있습니다.</strong>
             </thead>
             <tbody>
                 {% for column in column_list%}
@@ -64,10 +64,10 @@
 			    {% for question in profile.question_mentor.all %}
 			    <tr>
 			    	<td class="col-xs-1 text-center board-no">{{question.id}}</td>
-			    	<td class="col-xs-2 text-center board-author">{{question.mentee.user.username}}</td>
-			    	<td class="col-xs-6 board-title"><a href="{% url "blog:question_detail" question.pk % }">{{question.title}}</a></td>
+			    	<td class="col-xs-2 text-center board-author">{{question.mentee.user.last_name}}{{question.mentee.user.first_name}}</td>
+			    	<td class="col-xs-6 board-title"><a href="{% url "blog:question_detail" question.pk %}">{{question.title}}</a></td>
 			    </tr>
-			    <a href="{% url "blog:question_detail" question.pk % }">{{question.title}}</a>
+
 			    {% empty %}
 			    <li>등록된 질문이 없습니다.</li>
 		        {% endfor %}
