@@ -59,6 +59,8 @@ class SignupForm(UserCreationForm):
 
 
 class SignupForm2(UserCreationForm):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     email = forms.EmailField(required = False)
     #is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
     is_mentor = forms.BooleanField(required = False)
@@ -66,6 +68,8 @@ class SignupForm2(UserCreationForm):
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required = False)
     self_intro = forms.CharField(widget=forms.Textarea, required = False)
     phone = forms.CharField(validators = [phone_validator])
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     """
     def clean_photo(self):
         print (self['user_photo'].html_name)
@@ -83,6 +87,9 @@ class SignupForm2(UserCreationForm):
         user.category = self.cleaned_data['category']
         user.self_intro = self.cleaned_data['self_intro']
         user.phone = self.cleaned_data['phone']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+
 
         if commit:
             user.save()
