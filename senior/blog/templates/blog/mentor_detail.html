@@ -26,6 +26,15 @@
                         <p>{{mentor.user.email}}</p>
                         <p>{{mentor.category}}</p>
                         <p>{{mentor.self_intro}}</p>
+                        <p>칼럼갯수 {{column_count}}</p>
+                {% for column in column_list%}
+                    <li>
+                        <a href = "{% url "blog:column_detail" column.pk %}"> {{column.title}}</a>
+
+                    </li>
+                {% empty %}
+                    <li>등록된 칼럼이 없습니다.</li>
+                {% endfor %}
     </div>
 </div>
 

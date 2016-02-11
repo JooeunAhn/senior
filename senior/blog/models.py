@@ -64,7 +64,7 @@ class Reply(models.Model):
 
 
 class Column(models.Model):
-    author = models.ForeignKey(Profile)
+    author = models.ForeignKey(Profile, limit_choices_to = {"is_mentor": True})
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add = True)
