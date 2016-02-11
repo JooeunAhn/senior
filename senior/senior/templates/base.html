@@ -71,40 +71,40 @@
                 {% if user.is_authenticated %}
                     {%if user.is_superuser %}
                     <li>
-                        <a>슈퍼유저님ㅎㅇ</a>
+                        <a id="loginbase_user">슈퍼유저님 안녕하세요</a>
                     </li>
                     {% else %}
                         {%if user.profile.is_mentor %}
                         <li>
-                            <a>멘토님ㅎㅇ</a>
+                            <a id="loginbase_user">멘토님 안녕하세요</a>
                         </li>
                         {% else %}
                         <li>
-                            <a>멘티님ㅎㅇ</a>
+                            <a id="loginbase_user">멘티님 안녕하세요</a>
                         </li>
                         {% endif %}
                     {% endif %}
                     <li>
-                        <a href ="{% url "accounts:logout" %}">로그아웃</a>
+                        <a id="loginbase" href ="{% url "accounts:logout" %}">로그아웃</a>
                     </li>
                     <li>
-                        <a href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+                        <a id="loginbase" href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
                     </li>
                     <li>
-                        <a href = "{% url "accounts:mypage"%}">MyPage</a>
+                        <a id="loginbase" href = "{% url "accounts:mypage"%}">MyPage</a>
                 {% else %}
                     <li>
-                        <a href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
+                        <a id="loginbase" href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
                     </li>
                     <li>
-                        <a href = "{% url "accounts:signup" %}">회원가입</a>
+                        <a id="loginbase" href = "{% url "accounts:signup" %}">회원가입</a>
                     </li>
                 {% endif %}
                 </u1>
             </div>
             <!-- Brand and toggle get grouped for better mobile display -->
         </div>
-        <div class="container">
+        <div class="container banner_padding">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -113,22 +113,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href= "{% url "blog:index"%}"><img id="logo" src="{% static 'pics/lohow.png' %}" width=50 height=25/></a>
+                <a class="navbar-brand brandzero" href= "{% url "blog:index"%}"><img id="logo" src="{% static 'pics/lohow.png' %}" style="height:100%; width:auto;"/></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href = "{% url "blog:mentor_list" %}">멘토목록</a>
+                    <a id="banner_inpadding" href = "{% url "blog:mentor_list" %}">멘토목록</a>
                 </li>
                 <li>
-                    <a href = "{% url "blog:notice" %}">게시판</a>
+                    <a id="banner_inpadding" href = "{% url "blog:notice" %}">게시판</a>
                 </li>
                 <li>
-                    <a href = "{% url "blog:guide" %}">로하우 가이드</a>
+                    <a id="banner_inpadding" href = "{% url "blog:guide" %}">로하우 가이드</a>
                 </li>
                 <li>
-                    <a href = "#">멘토 칼럼</a>
+                    <a id="banner_inpadding" href = "#">멘토 칼럼</a>
                 </li>
                 </ul>
 
