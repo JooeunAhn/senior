@@ -1,0 +1,6 @@
+<form id="nav_search" class="navbar-from" method="GET" action="/freeboard/" role="search" style="padding-top:20px">
+<div class="form-group">
+<input type="text" name="freeboard" class="form-control" value="{{request.GET.freeboard}}"/>
+<input href="{% url 'blog:freeboard' %}?what={{query_freeboard}}" type="submit" class="btn btn-default" value="검색"/>
+</div>
+</form>
