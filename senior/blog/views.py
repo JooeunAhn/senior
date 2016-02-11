@@ -26,7 +26,7 @@ def mobiles(request):
     mobileuser = True
     user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
     b = reg_b.search(user_agent)
-    v = reg_v.search(user_agent[0:4])
+    v = reg_v.search(user_agent[0:4]
     if b or v:
         mobileuser = True
     else:
