@@ -23,7 +23,7 @@
                 <div class="view-count">몰라염<i class="fa fa-commenting-o">0 </i></div></div>
             {% endfor %}
     </div>
-</div>-->   
+</div>-->
 <table class="table table-list table-hover">
     <thead>
         <tr>
@@ -31,7 +31,6 @@
             <th class="col-xs-1 board-category">분류</th>
             <th class="col-xs-6 board-title">제목</th>
             <th class="col-xs-1 text-center writer">작성자</th>
-            <th class="col-xs-1 text-center view-count">조회수</th>
             <th class="col-xs-2 text-center board-date">등록시간</th>
         </tr>
     </thead>
@@ -42,8 +41,7 @@
             <td class="col-xs-1 board-category">공지</td>
             <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="{{notice.id}}/">{{notice.title}}</a></td>
             <td class="col-xs-1 text-center writer">로하우</td>
-            <td class="col-xs-1 text-center view-count">몰라염</td>
-            <td class="col-xs-2 text-center board-date">2016.02.09</td>
+            <td class="col-xs-2 text-center board-date">{{notice.created_at}}</td>
         </tr>
         {% endfor %}
         <!--
