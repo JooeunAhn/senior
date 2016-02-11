@@ -14,6 +14,7 @@ import re
 from hitcount.views import HitCountMixin
 from hitcount.models import HitCount
 from hitcount.views import HitCountDetailView
+from django.db.models import Count
 
 # Create your views here.
 reg_b = re.compile(r"(android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows ce|xda|xiino", re.I|re.M)
@@ -57,24 +58,22 @@ def owner_required_freeboard(model_cls, user_field_name = 'author'):
 
 
 def index(request):
-    question = Question.objects.all()
-    reply = Reply.objects.all()
-    mentor = Profile.objects.filter(is_mentor = True)
-    mentor_count = len(mentor)
-    reply_count = len(reply)
-    question_count = len(question)
-
+    mentor_count = Profile.objects.filter(is_mentor = True).count()
+    reply_count = Reply.objects.all().count()
+    question_count = Question.objects.all().count()
+    mentor_list = Profile.objects.all().annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:3]
     context = {
     'question_count' : question_count,
     'reply_count' : reply_count,
     'mentor_count' : mentor_count,
+    'mentor_list' : mentor_list,
     }
 
     return render(request, 'blog/index.html', context)
 
 
 def mentor_list(request):
-    mentor_list = Profile.objects.filter(is_mentor=True)
+    mentor_list = Profile.objects.all().annotate(review_count=Count('review_mentor__id')).order_by("-review_count")
     query_mentor = request.GET.get('mentor')
 
     if query_mentor:
@@ -101,7 +100,7 @@ def mentor_list(request):
 def mentor_detail(request, pk):
     mentor = Profile.objects.get(pk=pk)
     column_list = Column.objects.filter(author = mentor)
-    column_count = len(column_list)
+    column_count = Column.objects.filter(author = mentor).count()
     review_count = len(mentor.review_mentor.all())
     return render(request, 'blog/mentor_detail.html', {'mentor': mentor, 'review_form': ReviewForm(), 'column_list':column_list,
         'column_count':column_count, "review_count":review_count})

@@ -6,7 +6,7 @@
     <div class="panel-body">
         <h1 class="ufo-board-post-title">{{freeboard.title}}</h1>
         <ul class="ufo-board-post-meta unstyled list-inline">
-            <li class="ufo-board-post-meta__author">{{freeboard.author}}</li>
+            <li class="ufo-board-post-meta__author">{{freeboard.author.user.last_name}}{{freeboard.author.user.first_name}}</li>
             <li>|</li>
             <li class="ufo-board-post-meta__date">{{freeboard.created_at}}</li>
             <li>|</li>
@@ -43,13 +43,13 @@
                     {% for comment in freeboard.comment_set.all %}
                     <div class="comment ufo-board-comment">
                         <div class="row">
-                            <div class="col-sm-2">{{comment.author}}</div>
+                            <div class="col-sm-2">{{comment.author.user.last_name}}{{comment.author.user.first_name}}</div>
                             <div class="col-sm-5"><p>{{comment.message}}</p></div>
                             <div class="col-sm-4 text-right">{{comment.created_at}}</div>
                             <div class="col-sm-1">
                                 <a href="{% url "blog:comment_edit" freeboard.pk comment.pk%}">수정</a>
                                 <a href="{% url "blog:comment_delete" freeboard.pk comment.pk%}" class="text text-danger" title="삭제">삭제</a>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     {% empty %}

@@ -22,15 +22,15 @@
         </div>
     </div>
     <div class="col-sm-3">
-        <h2>{{mentor.user.username}}</h2>
+        <h2>{{mentor.user.last_name}}{{mentor.user.first_name}}</h2>
             <p>{{mentor.user.email}}</p>
             <p>{{mentor.category}}</p>
             <p>{{mentor.self_intro}}</p>
     </div>
-    <div class="col-sm-5" style="padding-top:5px">
+    <div class="col-sm-8" style="padding-top:10px">
             <table class="table table-condensed">
                 <thead>
-                    <strong style="font-size:18px;">{{mentor.user.username}}님의 칼럼이 <a style="font-size:30px;">{{column_count}}</a>개 등록되어 있습니다.</strong>
+                    <strong style="font-size:18px;">{{mentor.user.last_name}}{{mentor.user.first_name}}님의 칼럼이 <a style="font-size:30px;">{{column_count}}</a>개 등록되어 있습니다.</strong>
                 </thead>
                 <tbody>
                     {% for column in column_list%}
@@ -77,7 +77,7 @@
 <div class="row" style="margin-top: 20px; margin-left:80px; margin-right:80px;">
     <table class="table table-condensed">
         <thead style="margin-left:20px;">
-            <strong style="font-size:18px;">{{mentor.user.username}}님에 대한 리뷰가 <a style="font-size:30px;">{{review_count}}</a>개 등록되어 있습니다.</strong>
+            <strong style="font-size:18px;">{{mentor.user.last_name}}{{mentor.user.first_name}}님에 대한 리뷰가 <a style="font-size:30px;">{{review_count}}</a>개 등록되어 있습니다.</strong>
         </thead>
         <tbody>
             {% for review in mentor.review_mentor.all %}
@@ -85,7 +85,7 @@
                 <td>
                     <blockquote>
                         <p style="font-size:15px;">{{review.message}}</p>
-                        <footer>{{review.mentee.user.username}}</footer>
+                        <footer>{{review.mentee.user.last_name}}{{review.mentee.user.first_name}}</footer>
                     </blockquote>
                         <p style="margin-left:10px"><a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
                         <a href="{% url "blog:review_delete"  mentor.pk review.pk %}">삭제</a></p>
