@@ -83,7 +83,11 @@ def signup(request):
                 "self_intro" : "자기소개를 입력해주세요"
                 })
             if form.is_valid():
-                user = form.save()
+                try:
+                    user = form.save()
+                except AttributeError:
+                    form.category = None
+
                 authenticated_user = authenticate(
                     username = form.cleaned_data['username'],
                     password = form.cleaned_data['password1'])
@@ -110,6 +114,7 @@ def signup(request):
     else:
         messages.info(request,"잘못된 접근입니다.")
         return redirect('blog:index')
+
 def signup_confirm(request,uidb64,token):
 
     User = get_user_model()
