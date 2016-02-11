@@ -1,24 +1,47 @@
 {% extends "base.html" %}
 {% load tch_tch %}
+{% load staticfiles %}
 {% block content %}
+<style>
+.thumbnail{
+     width:200px;
+     height:200px;
+}
 
-<div class="container" >
-    <div class="jumbotron">
-        <h1>mentor_list</h1>
+.thumbnail img{
+    width:200px;
+    height:190px;
+}
+</style>
+<div class = "dark-bg img-bg-softer" style='background-image: url("#");'>
+    <div class="container inner-xs inner-top-sm">
+        <div class="row">
+            <div class="col-sm-12 center-block text-center">
+                <header>
+                    <h2><span>멘토목록</span></h2>
+                </header>
+            </div>
+        </div>
     </div>
 </div>
+{% for mentor in mentor_list %}
+<div class="" style="margin-top:100px; margin-left:140px;" >
+    <div class="col-sm-6 col-md-4">
+        <a href ="/mentors/{{mentor.id}}/" class="thumbnail">
+            <img src="{{ mentor.user_photo.url }}">
+        </a>
+            <div class="caption">
+                 <a href ="/mentors/{{mentor.id}}/">
+                    <h3>{{mentor.user.last_name}}{{mentor.user.first_name}}</h3></a>
+                        <p>{{mentor.category}}</p>
+                        <p>{{mentor.self_intro}}</p>
+            </div>
 
-<ul>
-{% for mentor in mentor_list%}
-<li>
-    {{mentor.id}}
-    <a href ="/mentors/{{mentor.id}}/">
-    {{mentor.user.username}}
-    {{user_photo.url}}
-    </a>
-</li>
+    </div>
+</div>
 {% endfor %}
 </ul>
+
 <div class="pagination_wrapper text-center">
     <ul class="pagination">
  <!--div class="pagination">
@@ -59,5 +82,6 @@
             Page {{ mentor_list.number }} of {{ mentor_list.paginator.num_pages }}.
         </u1>
     </ul>
+    {% include 'blog/search_form_mentor.html' %}
 </div>
 {%endblock%}

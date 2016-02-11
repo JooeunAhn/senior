@@ -1,59 +1,107 @@
 {% extends "base.html" %}
-{% load static %}
+{% load staticfiles %}
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <p>
-                <a href="{% url 'blog:mentor_list' %}" class="btn btn-default">멘토목록</a>
-            </p>
+<style>
+.thumbnail{
+     width:300px;
+     height:300px;
+}
 
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    {{ mentor.user.username }}
-                    {{ mentor.user.email }}
-                    <img src ="{{mentor.user_photo.url}}">
+.thumbnail img{
+    width:300px;
+    height:290px;
+}
+</style>
 
-                </div>
-                <div class="panel-body">
-                </div>
-            </div>
-            <a href="{% url 'blog:question_new' mentor.pk %}" class="btn btn-default">질문하기</a>
+<div class="row" style="margin-top:100px; margin-left:80px; margin-right:80px" >
+    <div class="col-sm-4">
+        <div class="thumbnail">
+            <img src="{{ mentor.user_photo.url }}">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <h2>{{mentor.user.last_name}}{{mentor.user.first_name}}</h2>
+            <p>{{mentor.user.email}}</p>
+            <p>{{mentor.category}}</p>
+            <p>{{mentor.self_intro}}</p>
+    </div>
+    <div class="col-sm-8" style="padding-top:10px">
+            <table class="table table-condensed">
+                <thead>
+                    <strong style="font-size:18px;">{{mentor.user.last_name}}{{mentor.user.first_name}}님의 칼럼이 <a style="font-size:30px;">{{column_count}}</a>개 등록되어 있습니다.</strong>
+                </thead>
+                <tbody>
+                    {% for column in column_list%}
+                    <tr>
+                        <td>{{column.pk}}</td>
+                        <td><a href = "{% url "blog:column_detail" column.pk %}"> {{column.title}}</a></td>
+                    </tr>
 
- </div>
+                    {% empty %}
+                    <tr>
+                        <td>등록된 칼럼이 없습니다.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+          </table>
 
- <div>
+    </div>
 
+</div>
 
+<div class="row" style="margin-left:180px;">
+    <a href="{% url 'blog:mentor_list' %}" class="btn btn-info">멘토목록</a>
+    <a href="{% url 'blog:question_new' mentor.pk %}" class="btn btn-success">질문하기</a>
+</div>
+
+<div class="row" style="margin-top: 20px; margin-left:80px;">
+    <div class="col-sm-6">
         <form action="{% url "blog:review_new" mentor.pk %}" method="post">
 
                 {% csrf_token %}
 
                 {{ review_form }}
 
-                <input type="submit" value="리뷰쓰기" class="btn btn-block btn-primary" />
-
-            </form>
+    </div>
+    <div class="col-sm-4">
+        <input type="submit" value="리뷰쓰기" class="btn btn-primary " />
+        </form>
+    </div>
+</div>
 
         <!--<a href="{% url 'blog:review_new' mentor.id %}" class="btn btn-primary btn-block%}">
                 새 리뷰 쓰기
         </a>-->
+<div class="row" style="margin-top: 20px; margin-left:80px; margin-right:80px;">
+    <table class="table table-condensed">
+        <thead style="margin-left:20px;">
+            <strong style="font-size:18px;">{{mentor.user.last_name}}{{mentor.user.first_name}}님에 대한 리뷰가 <a style="font-size:30px;">{{review_count}}</a>개 등록되어 있습니다.</strong>
+        </thead>
+        <tbody>
+            {% for review in mentor.review_mentor.all %}
+            <tr>
+                <td>
+                    <blockquote>
+                        <p style="font-size:15px;">{{review.message}}</p>
+                        <footer>{{review.mentee.user.last_name}}{{review.mentee.user.first_name}}</footer>
+                    </blockquote>
+                        <p style="margin-left:10px"><a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
+                        <a href="{% url "blog:review_delete"  mentor.pk review.pk %}">삭제</a></p>
+                </td>
+            </tr>
 
-            <ul>
-                {% for review in mentor.review_mentor.all %}
-                    <li>
-                        {{ review.mentee.user.username}}
-                        {{ review.message }}
-                <a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
-                <a href="{% url "blog:review_delete"  mentor.pk review.pk %}">삭제</a>
-                    </li>
-                {% empty %}
-                    <li>등록된 리뷰 없습니다.</li>
-                {% endfor %}
-            </ul>
+            {% empty %}
+            <tr>
+                <td>등록된 리뷰 없습니다.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </div>
+
 
 
 {% endblock %}

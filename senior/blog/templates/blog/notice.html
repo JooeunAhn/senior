@@ -1,4 +1,3 @@
-
 {% extends "board_base.html" %}
 {% load tch_tch %}
 {% block board %}
@@ -15,7 +14,7 @@
                 <div class="view-count">몰라염<i class="fa fa-commenting-o">0 </i></div></div>
             {% for notice in notice %}
             <div class="board_nomal">
-                <div class="board-no">{{noticse.id}}</div>
+                <div class="board-no">{{notice.id}}</div>
                 <div class="board-category">[공지]</div>
                 <div class="board-title"><a href="#">{{notice.title}}</a></div>
                 <div class="board-date">{{notice.created_at}}</div>
@@ -23,7 +22,7 @@
                 <div class="view-count">몰라염<i class="fa fa-commenting-o">0 </i></div></div>
             {% endfor %}
     </div>
-</div>-->   
+</div>-->
 <table class="table table-list table-hover">
     <thead>
         <tr>
@@ -31,21 +30,20 @@
             <th class="col-xs-1 board-category">분류</th>
             <th class="col-xs-6 board-title">제목</th>
             <th class="col-xs-1 text-center writer">작성자</th>
-            <th class="col-xs-1 text-center view-count">조회수</th>
             <th class="col-xs-2 text-center board-date">등록시간</th>
         </tr>
     </thead>
     <tbody>
-        {% for notice in notice %}
+        {% for notice in notice_list %}
         <tr>
             <td class="col-xs-1 text-center board-no">{{notice.id}}</td>
             <td class="col-xs-1 board-category">공지</td>
-            <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="#">{{notice.title}}</a></td>
-            <td class="col-xs-1 text-center writer">{{user.username}}</td>
-            <td class="col-xs-1 text-center view-count">몰라염</td>
-            <td class="col-xs-2 text-center board-date">2016.02.09</td>
+            <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="{{notice.id}}/">{{notice.title}}</a></td>
+            <td class="col-xs-1 text-center writer">로하우</td>
+            <td class="col-xs-2 text-center board-date">{{notice.created_at}}</td>
         </tr>
         {% endfor %}
+        <!--
         <tr>
             <td class="col-xs-1 text-center board-no">---</td>
             <td class="col-xs-1 board-category">공지</td>
@@ -93,39 +91,40 @@
             <td class="col-xs-1 text-center writer">여행자 카페</td>
             <td class="col-xs-1 text-center view-count">14</td>
             <td class="col-xs-2 text-center board-date">2016.02.10</td>
-        </tr>
+        </tr>-->
     </tbody>
 </table>
 
 <div class="pagination_wrapper text-center">
     <ul class="pagination">
         <li class="prev">
-        {% if notice.has_previous %}
-            <a href="?page={{ notice.previous_page_number}}" class="btn btn-primary">previous</a>
+        {% if notice_list.has_previous %}
+            <a href="?page={{ notice_list.previous_page_number}}" class="btn btn-primary">previous</a>
         {%else%}
             <a href="#" class="btn">previous</a>
         {% endif %}
         </li>
         {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
-            {%if i == notice.number %}
+            {%if i == notice_list.number %}
                 <li class="active"><a href="?page={{i}}">{{i}}</a></li>
-            {%elif i in notice.paginator.page_range%}
+            {%elif i in notice_list.paginator.page_range%}
                 <li><a href="?page={{i}}">{{i}}</a></li>
             {%else%}
                 <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
             {%endif%}
         {% endfor %}
         <li class="prev">
-        {% if notice.has_next %}
-            <a href="?page={{ notice.next_page_number}}" class="btn btn-primary">next</a>
+        {% if notice_list.has_next %}
+            <a href="?page={{ notice_list.next_page_number}}" class="btn btn-primary">next</a>
         {%else%}
             <a href="#" class="btn">next</a>
         {% endif %}
         </li>
         <u1 class="container">
-            Page {{ notice.number }} of {{ notice.paginator.num_pages }}.
+            Page {{ notice_list.number }} of {{ notice_list.paginator.num_pages }}.
         </u1>
     </ul>
+      {% include 'blog/search_form_notice.html' %}
 </div>
 
 

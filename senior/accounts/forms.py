@@ -59,13 +59,17 @@ class SignupForm(UserCreationForm):
 
 
 class SignupForm2(UserCreationForm):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     email = forms.EmailField(required = False)
     #is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
     is_mentor = forms.BooleanField(required = False)
     user_photo = forms.ImageField(required = False,)
-    category = forms.ModelChoiceField(queryset=Category.objects.all(),)
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), required = False, widget = forms.CheckboxSelectMultiple)
     self_intro = forms.CharField(widget=forms.Textarea, required = False)
     phone = forms.CharField(validators = [phone_validator])
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     """
     def clean_photo(self):
         print (self['user_photo'].html_name)
@@ -73,7 +77,6 @@ class SignupForm2(UserCreationForm):
             return self.fields['initial'].initial
         return self.cleaned_data['user_photo']
     """
-
     ### 이렇게하면 일단 DB에 저장은 안함 뒤에함수 호출 필요
     def save(self, commit=True):
         user = super(SignupForm2, self).save(commit=False)
@@ -83,11 +86,24 @@ class SignupForm2(UserCreationForm):
         user.category = self.cleaned_data['category']
         user.self_intro = self.cleaned_data['self_intro']
         user.phone = self.cleaned_data['phone']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+
 
         if commit:
             user.save()
         return user
-
+    def __init__(self, *args, **kwargs):
+        super(SignupForm2, self).__init__(*args,**kwargs)
+        self.fields['username'].label="아이디를 입력하세요."
+        self.fields['password1'].label="패스워드를 입력하세요."
+        self.fields['password2'].label="패스워드를 다시 한 번 입력하세요."
+        self.fields['email'].label="이메일을 입력하세요."
+        self.fields['user_photo'].label="선생님의 사진을 올려주세요. 잘 나온 사진이면 아무거나 좋습니다~ :)"
+        self.fields['is_mentor'].label="선생님이 멘토로서 활동하실 거면 체크해주세요."
+        self.fields['category'].label="활동중이거나 관심있으신 분야를 선택해주세요."
+        self.fields['self_intro'].label="본인에 대한 간단한 소개를 해주세요."
+        self.fields['phone'].label="휴대폰 전화번호를 입력해주세요."
 
 # class SignupForm2(forms.ModelForm):
 #     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -114,14 +130,17 @@ class SignupForm2(UserCreationForm):
 #         return user
 
 
-
-
 class LoginForm(AuthenticationForm):
-    answer = forms.IntegerField(label = '3+3 = ?')
-
+    '''answer = forms.IntegerField(label = '3+3 = ?') 
     def clean_answer(self):
         answer = self.cleaned_data.get('answer', None)  ### 사전에서 key값이 없을경우 두번째값(None)을 넘겨라라는 뜻
         if answer != 6 :
             raise forms.ValidationError("땡")
         return answer
+'''
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args,**kwargs)
+        self.fields['username'].label="아이디를 입력하세요."
+        self.fields['password'].label="패스워드를 입력하세요."
+
 

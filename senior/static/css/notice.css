@@ -222,7 +222,7 @@ footer.dark-bg {
 }
 .inner-sm {
 	padding-top: 80px; padding-bottom: 80px;
-}`
+}
 .inner-xs {
 	padding-top: 40px; padding-bottom: 40px;
 }
@@ -368,7 +368,7 @@ footer.dark-bg {
 	padding: 13px 18px; color: rgb(80, 80, 80); text-transform: uppercase; line-height: 20px; font-size: 14px; font-weight: 700; display: block; position: relative;
 }
 .sidenav li a:hover {
-	background: rgb(250, 108, 101); color: rgb(255, 255, 255);
+	background: rgb(119, 168, 178); color: rgb(255, 255, 255);
 }
 .sidenav li a::after {
 	transition:200ms ease-out; right: 18px; font-family: "fontello"; font-size: 18px; position: absolute; content: "\e762"; opacity: 0; -webkit-transition: all 200ms ease-out; -o-transition: all 200ms ease-out; -moz-transition: all 200ms ease-out;
@@ -377,7 +377,7 @@ footer.dark-bg {
 	opacity: 1;
 }
 .sidenav li a:hover {
-	background-color: rgb(250, 108, 101);
+	background-color: rgb(119, 168, 178);
 }
 @media all and (max-width:768px)
 {
@@ -389,7 +389,7 @@ footer.dark-bg {
 	border: currentColor; border-image: none;
 }
 #sidebar .sidenav li.active a {
-	color: white; background-color: rgb(250, 108, 101);
+	color: white; background-color: rgb(119, 168, 178);
 }
 .sidenav li a:hover::after {
 	opacity: 0;
@@ -554,6 +554,7 @@ footer.dark-bg {
 }
 :first-child.sidebar-li {
 	border-left-color: currentColor; border-left-width: medium; border-left-style: none;
+}
 }
 .clearfix::before {
 	display: table; content: " ";
@@ -776,4 +777,272 @@ footer.dark-bg {
 }
 .pagination > .next_page > a {
 	width: 101%;
+}
+.panel-body {
+	padding: 40px;
+}
+.ufo-board-post ul.ufo-board-post-meta {
+	list-style: none; margin: 0px; padding: 0px;
+}
+.ufo-board-post ul.ufo-board-post-meta li {
+	padding: 0px; color: rgb(102, 102, 102); margin-right: 0.7em;
+}
+.ufo-board-post .ufo-board-post-body {
+	margin: 1.5em 0px; line-height: 1.8; font-size: 1.1em; -ms-word-wrap: break-word;
+}
+.ufo-board-post .ufo-board-post-body iframe {
+	max-width: 100%;
+}
+.ufo-board-post .ufo-board-post-body p {
+	margin-bottom: 0px;
+}
+.panel-body p {
+	margin-bottom: 0px;
+}
+.ufo-board-comment-box h4 {
+	margin-top: 30px;
+}
+.ufo-board-comment-box .ufo-board-comment {
+	padding: 0.5em; border-top-color: rgb(238, 238, 238); border-top-width: 1px; border-top-style: solid;
+}
+.ufo-board-comment-box .row {
+	margin-right: 0px;
+}
+.ufo-board-comment-box .row .col-xs-10 input {
+	height: 40px;
+}
+.ufo-board-comment-box .row .btn {
+	margin: 0px;
+}
+.ufo-board-comment-box .row #comment_body {
+	height: 80px;
+}
+.ufo-board-post .panel-body {
+	padding: 40px; 
+	font-size: 14px;
+}
+.ufo-board-post-title {
+	margin-bottom : 20px;
+}
+.footer-footer {
+	padding: 43px 0px; background-color: rgb(99, 99, 99);
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-footer {
+	padding: 20px 0px 12px; text-align: center;
+}
+}
+.footer-footer.footer-footer--mentor-show {
+	padding: 20px 0px 90px;
+}
+.footer-menu {
+	list-style: none; margin: 0px; padding: 0px;
+}
+.footer-menu li {
+	padding-left: 10px; display: inline;
+}
+.footer-menu li::before {
+	padding-right: 12px; display: inline-block; content: "¡¤";
+}
+.footer-menu li:first-child::before {
+	display: none;
+}
+.footer-bottom {
+	background: rgb(54, 54, 54); color: rgb(126, 126, 126);
+}
+.footer-bottom .container.inner {
+	padding-top: 30px; padding-bottom: 30px;
+}
+.footer-bottom p {
+	color: rgb(126, 126, 126);
+}
+.footer-bottom a {
+	color: rgb(126, 126, 126);
+}
+.footer-bottom p {
+	margin: 0px; padding: 0px;
+}
+.footer-row {
+	margin-right: -15px; margin-left: -15px;
+}
+.info-footer {
+	padding-top: 50px; background-color: white;
+}
+.info-footer-p {
+	line-height: 2;
+}
+.footer-bottom.footer-bottom--white {
+	border-top-color: rgb(221, 221, 221); border-top-width: 1px; border-top-style: solid; background-color: white;
+}
+.info-footer-inner {
+	padding-top: 12px; padding-bottom: 12px;
+}
+.footer-link--style-none {
+	border-bottom-color: currentColor; border-bottom-width: medium; border-bottom-style: none;
+}
+.footer-link--style-none:hover {
+	text-decoration: underline;
+}
+.fooeter-info-link-group {
+	padding-bottom: 12px;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.fooeter-info-link-group {
+	display: inline-block;
+}
+}
+.footer-link--top {
+	color: white; font-size: 14px; font-weight: bold; float: left;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-link--top {
+	margin: 0px 5px; padding: 3px 8px; border-radius: 2px; border: 1px solid white; border-image: none; -webkit-border-radius: 2px; -moz-border-radius: 2px;
+}
+}
+.footer-link {
+	color: white; font-size: 14px; font-weight: bold; float: left;
+}
+.footer-link--policy {
+	color: white; font-size: 14px; float: left;
+}
+.footer-link--right {
+	font-weight: 400; float: right;
+}
+.footer-link.footer-link--contact {
+	font-weight: 400;
+}
+.footer-division-gab {
+	width: 5px; height: 10px; float: left;
+}
+.footer-division {
+	padding: 0px 7px; color: white; font-size: 12px; font-weight: bold; float: left;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-division {
+	display: none;
+}
+}
+.footer-address__wrapper {
+	margin: 0px;
+}
+.footer-division.footer-division--right {
+	padding: 0px; float: right;
+}
+.footer-address__text__1 {
+	margin: 0px; color: white; font-size: 14px; float: left;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-address__text__1 {
+	float: inherit;
+}
+}
+.footer-address__text__2 {
+	margin: 0px; color: white; font-size: 14px; float: left;
+}
+.footer-copyright {
+	margin: 0px; color: white; padding-top: 10px; font-size: 13px;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-copyright {
+	padding-top: 4px;
+}
+}
+.footer-address__division {
+	padding: 0px 7px; color: white; font-size: 12px; font-weight: bold; float: left;
+}
+.footer-policy-division {
+	padding: 0px; color: white; font-size: 12px; float: left;
+}
+.footer-address__division.footer-address__division--mobile-none {
+	display: none;
+}
+.footer-address__division--contain {
+	padding: 0px 7px; color: white; font-size: 12px; font-weight: bold; display: inline-block;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.mobile-inline-block {
+	display: inline-block;
+}
+}
+.footer-address__contact {
+	display: inline-block;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-address__contact {
+	margin-top: -5px;
+}
+}
+.footer-policy-group--mobile {
+	display: none;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-policy-group--mobile {
+	padding-top: 4px; display: inline-block;
+}
+}
+.footer-policy-group--web {
+	display: block;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-policy-group--web {
+	display: none;
+}
+}
+.footer-who-we-are {
+	width: 38.66%;
+}
+.footer-who-we-are p {
+	padding-right: 10px;
+}
+@media all and (max-width:768px)
+{
+.footer-who-we-are {
+	width: 100%;
+}
+}
+.outer {
+	margin-top: 120px; margin-bottom: 120px;
+}
+.outer-md {
+	margin-top: 100px; margin-bottom: 100px;
+}
+.outer-sm {
+	margin-top: 80px; margin-bottom: 80px;
+}
+.outer-xs {
+	margin-top: 40px; margin-bottom: 40px;
+}
+.outer-top {
+	margin-top: 120px;
+}
+.outer-top-md {
+	margin-top: 100px;
+}
+.outer-top-sm {
+	margin-top: 80px;
+}
+.outer-top-xs {
+	margin-top: 40px;
+}
+.outer-bottom {
+	margin-bottom: 120px;
+}
+.outer-bottom-md {
+	margin-bottom: 100px;
+}
+.outer-bottom-sm {
+	margin-bottom: 80px;
+}
+.outer-bottom-xs {
+	margin-bottom: 40px;
 }

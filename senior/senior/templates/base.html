@@ -17,8 +17,6 @@
 
     <!-- Custom CSS -->
     <link href="{% static 'css/half-slider.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/font.min.css' %}" rel="stylesheet" />
-
     <link href="{% static 'css/notice.css' %}" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,82 +29,71 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    <script>
-    function isjooeunfool()
-    {
-        alert("예, 사실입니다.");
 
-    }
-    function reservation()
-    {
-        alert("너의 비행기 표를 내가 갖고 있다.");
-        alert("그 표에게 무슨 일이 일어나는 것을 바라진 않겠지?");
-        alert("순순히 계좌에 195,700원을 입금하도록...");
-    }
-
-    </script>
 </head>
 <body>
-<div class="container">
-<p class="tests"></p>
-</div>
-{%if messages %}
-    {%for message in messages%}
-    <div class = "alert alert-{{message.tags}}"> <!-- 공백으로 클래스 구분 -->
-    {{ message }}
+<!--
+    <div class="container">
+        <p class="tests"></p>
     </div>
-    {% endfor %}
-{%endif%}
-<p>
-{%if mobileuser %}
-    나는 모바일이다!!
-{%else %}
-    나는 모바일 아니다!!!
-{%endif%}
-</p>
+    {%if messages %}
+        {%for message in messages%}
+        <div class = "alert alert-{{message.tags}}"> =
+        {{ message }}
+        </div>
+        {% endfor %}
+    {%endif%}
+    <p>
+    {%if mobileuser %}
+        나는 모바일이다!!
+    {%else %}
+        나는 모바일 아니다!!!
+    {%endif%}
+    </p>
+    -->
 
     <!-- Navigation -->
-    <nav id = "psst" class="navbar navbar-inverse" role="navigation">
+    <nav id = "psst" class="navbar" role="navigation" style="background-color:#B27A48; border-color:#B27A48;">
         <div class="container-fluid basecolor">
             <div class="container">
                 <u1 class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     {%if user.is_superuser %}
                     <li>
-                        <a>슈퍼유저님ㅎㅇ</a>
+                        <a id="loginbase_user">슈퍼유저님 안녕하세요</a>
                     </li>
                     {% else %}
                         {%if user.profile.is_mentor %}
                         <li>
-                            <a>멘토님ㅎㅇ</a>
+                            <a id="loginbase_user">멘토님 안녕하세요</a>
                         </li>
                         {% else %}
                         <li>
-                            <a>멘티님ㅎㅇ</a>
+                            <a id="loginbase_user">멘티님 안녕하세요</a>
                         </li>
                         {% endif %}
                     {% endif %}
                     <li>
-                        <a href ="{% url "accounts:logout" %}">로그아웃</a>
+                        <a id="loginbase" href ="{% url "accounts:logout" %}">로그아웃</a>
                     </li>
                     <li>
-                        <a href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+                        <a id="loginbase" href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
                     </li>
                     <li>
-                        <a href = "{% url "accounts:mypage"%}">MyPage</a>
+                        <a id="loginbase" href = "{% url "accounts:mypage"%}">MyPage</a>
                 {% else %}
                     <li>
-                        <a href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
+                        <a id="loginbase" href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
                     </li>
                     <li>
-                        <a href = "{% url "accounts:signup" %}">회원가입</a>
+                        <a id="loginbase" href = "{% url "accounts:signup" %}">회원가입</a>
                     </li>
                 {% endif %}
                 </u1>
             </div>
             <!-- Brand and toggle get grouped for better mobile display -->
         </div>
-        <div class="container">
+        <div class="container banner_padding">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -115,22 +102,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href= "{% url "blog:index"%}"><img id="logo" src="{% static 'pics/lohow.png' %}" width=50 height=25/></a>
+                <a class="navbar-brand brandzero" href= "{% url "blog:index"%}"><img id="logo" src="{% static 'pics/lohow.png' %}" style="height:100%; width:auto;"/></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href = "{% url "blog:mentor_list" %}">멘토목록</a>
+                    <a id="banner_inpadding" href = "{% url "blog:mentor_list" %}">멘토목록</a>
                 </li>
                 <li>
-                    <a href = "{% url "blog:notice" %}">게시판</a>
+                    <a id="banner_inpadding" href = "{% url "blog:notice" %}">게시판</a>
                 </li>
                 <li>
-                    <a href = "{% url "blog:guide" %}">로하우 가이드</a>
+                    <a id="banner_inpadding" href = "{% url "blog:guide" %}">로하우 가이드</a>
                 </li>
                 <li>
-                    <a href = "#">멘토 칼럼</a>
+                    <a id="banner_inpadding" href = "{% url "blog:column" %}">멘토 칼럼</a>
                 </li>
                 </ul>
 
@@ -145,19 +132,9 @@
     {% endblock %}
     <!-- Page Content -->
     <div class="container">
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; 老하우 2016</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
-        <br/><br/><br/><br/><br/><br/>
         <!--marquee><button class="btn btn-danger" onclick="isjooeunfool()"><h1>안주은 바보</h1></button></marquee-->
-        <button class="btn btn-warning" onclick="reservation()"><h4>노랭이</h4></button>
+        <!--
+        <button class="btn btn-warning" onclick="reservation()"><h4>노랭이</h4></button> -->
     </div>
     <!-- /.container -->
 
@@ -176,6 +153,55 @@
             // will execute when page is ready
     </script>
     <!-- how to initialize...?-->
+    <footer class="footer-footer" style="margin-bottom:0;">
+        <div class="container">
+            <div class="col-sm-8">
+                <div class="footer-info-link-group clearfix">
+                    <a class="footer-link--top">회사소개</a>
+                    <div class="footer-division">|</div>
+                    <a class="footer-link--top">블로그</a>
+                    <div class="footer-division">|</div>
+                    <a class="footer-link--top">페이스북</a>
+                </div>
+                <div class="footer-address">
+                    <address class="footer-address__wrapper clearfix">
+                        <div class="footer-address__text__1">주은특별시 지은구 우재대로 명한타운 은경층</div>
+                        <div class="footer-address__division footer-address__division--mobile-none">|</div>
+                        <div class="mobile-inline-block">
+                            <div class="footer-address__text__2">대표 : SAP..?</div>
+                            <div class="footer-address__division">|</div>
+                            <div class="footer-address__text__2">사업자 등록번호 : 123-45-67890</div>
+                        </div>
+                    </address>
+                    <div class="footer-address__contact clearfix">
+                        <a class="footer-link footer-link--contact">TEL. 010-1234-5678</a>
+                        <div class="footer-division-gab"></div>
+                        <a class="footer-link footer-link--contact">E-mail, JooEunAhn@asdf.com</a>
+                    </div>
+                    <!--
+                    <div class="footer-policy-group--mobile clearfix">
+                        <a class="footer-link-policy">제휴문의</a>
+                        <div class="footer-policy-division">ㆍ</div>
+                        <a class="footer-link-policy">이용약관</a>
+                        <div class="footer-policy-division">ㆍ</div>
+                        <a class="footer-link-policy">개인정보 취급방침</a>
+                    </div>
+                    -->
+                    <p class="footer-copyright">COPYRIGHT@ lohow. All rights reserved.</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="footer-policy-group--web">
+                    <a class="footer-link footer-link--right">개인정보 취급방침</a>
+                    <div class="footer-division footer-division--right">ㆍ</div>
+                    <a class="footer-link footer-link--right">이용약관</a>
+                    <div class="footer-division footer-division--right">ㆍ</div>
+                    <a class="footer-link footer-link--right">제휴문의</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 
 </html>
