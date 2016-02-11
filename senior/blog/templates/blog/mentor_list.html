@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load tch_tch %}
+{% load staticfiles %}
 {% block content %}
 <style>
 .thumbnail{
@@ -12,7 +13,17 @@
     height:190px;
 }
 </style>
-
+<div class = "dark-bg img-bg-softer" style='background-image: url("#");'>
+    <div class="container inner-xs inner-top-sm">
+        <div class="row">
+            <div class="col-sm-12 center-block text-center">
+                <header>
+                    <h2><span>멘토목록</span></h2>
+                </header>
+            </div>
+        </div>
+    </div>
+</div>
 {% for mentor in mentor_list %}
 <div class="" style="margin-top:100px; margin-left:140px;" >
     <div class="col-sm-6 col-md-4">

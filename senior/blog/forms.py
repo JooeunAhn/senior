@@ -35,6 +35,9 @@ class CommentForm(forms.ModelForm):
   class Meta:
     model = Comment
     fields = ['message']
+    widgets = {
+      'message':forms.TextInput(attrs = {'class': 'form-control', }),
+    }
 
 
 class ReplyForm(forms.ModelForm):
