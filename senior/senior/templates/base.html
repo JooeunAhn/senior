@@ -29,7 +29,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    <script>
+    <!--<script>
     function isjooeunfool()
     {
         alert("예, 사실입니다.");
@@ -42,26 +42,26 @@
         alert("순순히 계좌에 195,700원을 입금하도록...");
     }
 
-    </script>
+    </script>-->
 </head>
 <body>
-<div class="container">
-<p class="tests"></p>
-</div>
-{%if messages %}
-    {%for message in messages%}
-    <div class = "alert alert-{{message.tags}}"> <!-- 공백으로 클래스 구분 -->
-    {{ message }}
+    <div class="container">
+        <p class="tests"></p>
     </div>
-    {% endfor %}
-{%endif%}
-<p>
-{%if mobileuser %}
-    나는 모바일이다!!
-{%else %}
-    나는 모바일 아니다!!!
-{%endif%}
-</p>
+    {%if messages %}
+        {%for message in messages%}
+        <div class = "alert alert-{{message.tags}}"> <!-- 공백으로 클래스 구분 -->
+        {{ message }}
+        </div>
+        {% endfor %}
+    {%endif%}
+    <p>
+    {%if mobileuser %}
+        나는 모바일이다!!
+    {%else %}
+        나는 모바일 아니다!!!
+    {%endif%}
+    </p>
 
     <!-- Navigation -->
     <nav id = "psst" class="navbar navbar-inverse" role="navigation">
@@ -143,19 +143,9 @@
     {% endblock %}
     <!-- Page Content -->
     <div class="container">
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; 老하우 2016</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
-        <br/><br/><br/><br/><br/><br/>
         <!--marquee><button class="btn btn-danger" onclick="isjooeunfool()"><h1>안주은 바보</h1></button></marquee-->
-        <button class="btn btn-warning" onclick="reservation()"><h4>노랭이</h4></button>
+        <!--
+        <button class="btn btn-warning" onclick="reservation()"><h4>노랭이</h4></button> -->
     </div>
     <!-- /.container -->
 
@@ -174,6 +164,55 @@
             // will execute when page is ready
     </script>
     <!-- how to initialize...?-->
+    <footer class="footer-footer">
+        <div class="container">
+            <div class="col-sm-8">
+                <div class="footer-info-link-group clearfix">
+                    <a class="footer-link--top">회사소개</a>
+                    <div class="footer-division">|</div>
+                    <a class="footer-link--top">블로그</a>
+                    <div class="footer-division">|</div>
+                    <a class="footer-link--top">페이스북</a>
+                </div>
+                <div class="footer-address">
+                    <address class="footer-address__wrapper clearfix">
+                        <div class="footer-address__text__1">주은특별시 지은구 우재대로 명한타운 은경층</div>
+                        <div class="footer-address__division footer-address__division--mobile-none">|</div>
+                        <div class="mobile-inline-block">
+                            <div class="footer-address__text__2">대표 : SAP..?</div>
+                            <div class="footer-address__division">|</div>
+                            <div class="footer-address__text__2">사업자 등록번호 : 123-45-67890</div>
+                        </div>
+                    </address>
+                    <div class="footer-address__contact clearfix">
+                        <a class="footer-link footer-link--contact">TEL. 010-1234-5678</a>
+                        <div class="footer-division-gab"></div>
+                        <a class="footer-link footer-link--contact">E-mail, JooEunAhn@asdf.com</a>
+                    </div>
+                    <!--
+                    <div class="footer-policy-group--mobile clearfix">
+                        <a class="footer-link-policy">제휴문의</a>
+                        <div class="footer-policy-division">ㆍ</div>
+                        <a class="footer-link-policy">이용약관</a>
+                        <div class="footer-policy-division">ㆍ</div>
+                        <a class="footer-link-policy">개인정보 취급방침</a>
+                    </div>
+                    -->
+                    <p class="footer-copyright">COPYRIGHT@ lohow. All rights reserved.</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="footer-policy-group--web">
+                    <a class="footer-link footer-link--right">개인정보 취급방침</a>
+                    <div class="footer-division footer-division--right">ㆍ</div>
+                    <a class="footer-link footer-link--right">이용약관</a>
+                    <div class="footer-division footer-division--right">ㆍ</div>
+                    <a class="footer-link footer-link--right">제휴문의</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 
 </html>
