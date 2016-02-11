@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{user}}'s profile</h1>
+<h1>{{user.last_name}}{{user.first_name}}'s profile</h1>
 <!-- User 인스턴스 -->
 
 <p> 질문목록
 {% for question in profile.question_mentor.all %}
     <li>
-        <a href = "{% url 'blog:question_detail' question.pk %}">{{question.mentee.user.username}}의 질문</a>
+        <a href = "{% url 'blog:question_detail' question.pk %}">{{question.mentee.user.last_name}}{{question.mentee.user.first_name}}의 질문</a>
     </li>
     {% empty %}
     <li>등록된 질문이 없습니다.</li>
