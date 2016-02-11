@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load tch_tch %}
+{% load staticfiles %}
 {% block content %}
 <style>
 .thumbnail{
@@ -22,7 +23,7 @@
             <div class="caption">
                  <a href ="/mentors/{{mentor.id}}/">
                     <h3>{{mentor.user.username}}</h3></a>
-                        <p>{{mentor.category.title}}</p>
+                        <p>{{mentor.category}}</p>
                         <p>{{mentor.self_intro}}</p>
             </div>
 

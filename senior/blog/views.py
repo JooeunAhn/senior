@@ -230,27 +230,40 @@ def review_delete(request, mentor_pk, pk):
 
 def notice(request):
     notice_list = Notice.objects.all()
-    paginator = Paginator(notice_list, 10)
-
     query_notice = request.GET.get('notice')
 
     if query_notice:
         notice_list = notice_list.filter(
-            Q(category__title__contains=query_notice) |
+            Q(category__contains=query_notice) |
             Q(title__contains=query_notice) |
             Q(content__contains=query_notice)).distinct()
     else:
         pass
 
+    paginator = Paginator(notice_list, 10)
     page = request.GET.get('page')
+
     try:
-        notice = paginator.page(page)
+        notice_list = paginator.page(page)
     except PageNotAnInteger:
-        notice = paginator.page(1)
+        notice_list = paginator.page(1)
     except EmptyPage:
-        notice = paginator.page(paginator.num_pages)
+        notice_list = paginator.page(paginator.num_pages)
 
     return render(request, 'blog/notice.html', {'notice_list':notice_list})
+
+class NoticeDetailView(HitCountDetailView):
+   model = Notice
+   template_name = 'blog/notice_detail.html'
+   count_hit = True
+
+   def get_context_data(self, *args, **kwargs):
+       context = super(NoticeDetailView, self).get_context_data(*args, **kwargs)
+       return context
+
+notice_detail = NoticeDetailView.as_view()
+
+
 
 
 def notice_new(request):
@@ -266,18 +279,6 @@ def notice_new(request):
     else:
         messages.info(request, "잘못된경로임")
         return redirect('blog:index')
-
-
-class NoticeDetailView(DetailView):
-    def get_object(self, queryset=None):
-        try:
-            return Notice.objects.get(pk=self.kwargs['pk'])
-        except Notice.DoesNotExist:
-            raise Http404
-
-        return get_object_or_404(Notice, pk=pk)
-
-notice_detail = NoticeDetailView.as_view(model=Notice)
 
 
 @login_required
@@ -360,17 +361,17 @@ class FreeboardDetailView(HitCountDetailView):
         context['comment_form'] = CommentForm()
         return context
 
-# freeboard_detail = DetailView.as_view(model=Freeboard, template_name='blog/freeboard_detail.html')
+#freeboard_detail = DetailView.as_view(model=Freeboard, template_name='blog/freeboard_detail.html')
 freeboard_detail = FreeboardDetailView.as_view()
 
 class NoticeDetailView(HitCountDetailView):
-    model = Notice
-    template_name = 'blog/notice_detail.html'
-    count_hit = True
+   model = Notice
+   template_name = 'blog/notice_detail.html'
+   count_hit = True
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(NoticeDetailView, self).get_context_data(*args, **kwargs)
-        return context
+   def get_context_data(self, *args, **kwargs):
+       context = super(NoticeDetailView, self).get_context_data(*args, **kwargs)
+       return context
 
 notice_detail = NoticeDetailView.as_view()
 

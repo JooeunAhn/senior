@@ -9,7 +9,6 @@
             <th class="col-xs-1 board-no">번호</th>
             <th class="col-xs-6 board-title">제목</th>
             <th class="col-xs-1 text-center writer">작성자</th>
-            <th class="col-xs-1 text-center view-count">조회수</th>
             <th class="col-xs-2 text-center board-date">등록시간</th>
         </tr>
     </thead>
@@ -19,7 +18,6 @@
             <td class="col-xs-1 text-center board-no">{{freeboard.id}}</td>
             <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="{{freeboard.id}}/">{{freeboard.title}}</a></td>
             <td class="col-xs-1 text-center writer">{{freeboard.author}}</td>
-            <td class="col-xs-1 text-center view-count">몰라염</td>
             <td class="col-xs-2 text-center board-date">{{freeboard.created_at}}</td>
         </tr>
         {% endfor %}
@@ -55,7 +53,7 @@
             Page {{ freeboard.number }} of {{ freeboard.paginator.num_pages }}.
         </u1>
     </ul>
-    {% include 'blog/search_form_freeboard.html' %} 
+    {% include 'blog/search_form_freeboard.html' %}
 </div>
 <div class="text-right">
   <a href="{% url 'blog:freeboard_new' %}" class="btn btn-default">글쓰기</a>
