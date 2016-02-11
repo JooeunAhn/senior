@@ -18,7 +18,7 @@
         <tr>
             <td class="col-xs-1 text-center board-no">{{column.id}}</td>
             <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="{{column.id}}/">{{column.title}}</a></td>
-            <td class="col-xs-1 text-center writer">{{column.author}}</td>
+            <td class="col-xs-1 text-center writer"><a href="{% url "blog:mentor_detail" column.author.id %}">{{column.author}}</a></td>
             <td class="col-xs-1 text-center view-count">몰라염</td>
             <td class="col-xs-2 text-center board-date">{{column.created_at}}</td>
         </tr>
