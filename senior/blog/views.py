@@ -265,7 +265,7 @@ notice_detail = NoticeDetailView.as_view()
 
 
 
-
+@login_required
 def notice_new(request):
     if request.user.is_superuser:
         if request.method == 'POST':
