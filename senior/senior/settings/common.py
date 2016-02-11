@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 from os.path import abspath, dirname
-
+from glob import glob
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
 
@@ -134,6 +134,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'senior', 'staticfiles')
+PROJECT_STATIC_ROOT = os.path.join(BASE_DIR, 'senior','static')
+if glob(os.path.join(PROJECT_STATIC_ROOT, '*')):
+    STATICFILES_DIRS.append(PROJECT_STATIC_ROOT)
 
 ### 메세지
 from django.contrib.messages import constants as messages_constants
