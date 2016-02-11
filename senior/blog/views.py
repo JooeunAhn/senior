@@ -57,7 +57,20 @@ def owner_required_freeboard(model_cls, user_field_name = 'author'):
 
 
 def index(request):
-    return render(request, 'blog/index.html')
+    question = Question.objects.all()
+    reply = Reply.objects.all()
+    mentor = Profile.objects.filter(is_mentor = True)
+    mentor_count = len(mentor)
+    reply_count = len(reply)
+    question_count = len(question)
+
+    context = {
+    'question_count' : question_count,
+    'reply_count' : reply_count,
+    'mentor_count' : mentor_count,
+    }
+
+    return render(request, 'blog/index.html', context)
 
 
 def mentor_list(request):
