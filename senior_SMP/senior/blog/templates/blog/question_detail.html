@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+                <a href="{% url 'blog:question_list' %}" class="btn btn-default">질문목록</a>
+            </p>
+            {% for question in question%}
+            <div class="panel panel-info">
+                <div class="panel-heading">
+
+                    {{question.title}}
+
+
+                </div>
+                <div class="panel-body">
+                {{question.message}}
+                    <!--    <img src="{{ post.photo.url }}" /> -->
+                </div>
+            </div>
+            {% if question.mentor.user == user%}
+            <a href="{% url "blog:reply_new" question.id %}"  class="btn btn-default">답변하기</a>
+            {% endif %}
+
+                {% for reply in question.reply.all %}
+                    <li>
+                    {{reply.pk}}
+                    {{reply.title}}
+                    {{reply.content}}
+                    <a href="{% url "blog:reply_edit"  question.pk reply.pk %}">수정</a>
+                    <a href="{% url "blog:reply_delete"  question.pk reply.pk %}">삭제</a>
+
+                    </li>
+                {% empty %}
+                    <li>등록된 답변 없습니다.</li>
+                {% endfor %}
+            {% endfor %}
+
+{% endblock %}
