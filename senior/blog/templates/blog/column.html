@@ -1,0 +1,62 @@
+{% extends "column_base.html" %}
+{% load tch_tch %}
+{% block board %}
+<h2 class="sidelines text-center"><span>멘토칼럼</span></h2>
+
+<table class="table table-list table-hover">
+    <thead>
+        <tr>
+            <th class="col-xs-1 board-no">번호</th>
+            <th class="col-xs-6 board-title">제목</th>
+            <th class="col-xs-1 text-center writer">작성자</th>
+            <th class="col-xs-1 text-center view-count">조회수</th>
+            <th class="col-xs-2 text-center board-date">등록시간</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for column in column %}
+        <tr>
+            <td class="col-xs-1 text-center board-no">{{column.id}}</td>
+            <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="{{column.id}}/">{{column.title}}</a></td>
+            <td class="col-xs-1 text-center writer">{{column.author}}</td>
+            <td class="col-xs-1 text-center view-count">몰라염</td>
+            <td class="col-xs-2 text-center board-date">{{column.created_at}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination_wrapper text-center">
+    <ul class="pagination">
+        <li class="prev">
+        {% if column.has_previous %}
+            <a href="?page={{ column.previous_page_number}}" class="btn btn-primary">previous</a>
+        {%else%}
+            <a href="#" class="btn">previous</a>
+        {% endif %}
+        </li>
+        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
+            {%if i == column.number %}
+                <li class="active"><a href="?page={{i}}">{{i}}</a></li>
+            {%elif i in column.paginator.page_range%}
+                <li><a href="?page={{i}}">{{i}}</a></li>
+            {%else%}
+                <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
+            {%endif%}
+        {% endfor %}
+        <li class="prev">
+        {% if column.has_next %}
+            <a href="?page={{ column.next_page_number}}" class="btn btn-primary">next</a>
+        {%else%}
+            <a href="#" class="btn">next</a>
+        {% endif %}
+        </li>
+        <u1 class="container">
+            Page {{ column.number }} of {{ column.paginator.num_pages }}.
+        </u1>
+    </ul>
+</div>
+<div class="text-right">
+  <a href="{% url 'blog:column_new' %}" class="btn btn-default">글쓰기</a>
+</div>
+{% endblock %}

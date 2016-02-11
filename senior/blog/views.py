@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
 from accounts.models import Profile
-from blog.models import Question, Review, Notice, Freeboard, Comment, Reply
-from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm, ReplyForm
+from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column
+from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm, ReplyForm, ColumnForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -488,3 +488,52 @@ def reply_delete(request, question_pk, pk):
         return redirect("blog:question_detail", question_pk)
     return render(request, "blog/review_confirm_delete.html", {"reply":reply,})
 
+
+def column(request):
+    column_list = Column.objects.all()
+    paginator = Paginator(column_list, 10)
+    page = request.GET.get('page')
+    try:
+        column = paginator.page(page)
+    except PageNotAnInteger:
+        column = paginator.page(1)
+    except EmptyPage:
+        column = paginator.page(paginator.num_pages)
+
+    context = {
+    'column' : column,
+    }
+    return render(request, 'blog/column.html', context)
+
+
+@login_required
+def column_new(request):
+    user = Profile.objects.get(user = request.user)
+    if user.is_mentor:
+        if request.method == 'POST':
+            form = ColumnForm(request.POST)
+            if form.is_valid():
+                column = form.save(commit = False)
+                column.author = Profile.objects.get(user = request.user)
+                column.save()
+                messages.info(request, '칼럼을 등록했습니다')
+                return redirect('blog:column')
+        else:
+            form = ColumnForm()
+        return render(request, 'blog/column_form.html', {'form':form})
+    else:
+        messages.error(request, "권한이 없습니다.")
+        return redirect('blog:column')
+
+
+class ColumnDetailView(HitCountDetailView):
+    model = Column
+    template_name = 'blog/column_detail.html'
+    count_hit = True
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ColumnDetailView, self).get_context_data(*args, **kwargs)
+        return context
+
+# freeboard_detail = DetailView.as_view(model=Freeboard, template_name='blog/freeboard_detail.html')
+column_detail = ColumnDetailView.as_view()
