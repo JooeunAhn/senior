@@ -1,11 +1,12 @@
 
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 <h1 class= "sidelines text-center"><span>老하우 가이드</span></h1>
 
 <div style="text-align:center">
-	<h1><font face="">"나만의 스토리를 위한 老하우"</font></h1>
+	<h1><img src="{% static "blog/l.png" %}" width="50" height="50">나만의 스토리를 위한 老하우<img src="{% static "blog/r.png" %}" width="50" height="50"></h1>
 	</br>
 	<h3>노하우는 모든 사람들이 경험을 공유하며 나만의 스토리를 만드는 세상을 꿈꾸고 있습니다</h3>
 	</br>
@@ -22,7 +23,6 @@
 	<h4>무수히 많은 점들이 모여 선이 되는 것처럼 꿈을 이루기 위해서는 수 많은 도전과 경험이 필요합니다</h4>
 	<h4>老하우에서는 당신의 꿈을 이어줄 다양한 사회선배가 함께합니다</h4>
 	<h4>사회선배들이 공유하는 경험과 지혜를 받아 당신의 도전을 이어가세용</h4>
-
 
 
 </div>
