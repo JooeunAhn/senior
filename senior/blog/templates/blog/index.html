@@ -96,5 +96,18 @@ $(document).ready(function() {
     </div>
 </div>
 
+<style>
+.thumbnail img{
+    width:100px;
+    height:100px;
+}
+</style>
+
+<div class = "thumbnail">
+{%for mentor in mentor_list %}
+추천멘토
+<img src = "{{mentor.user_photo.url}}">
+{% endfor %}
+</div>
 
 {% endblock %}
