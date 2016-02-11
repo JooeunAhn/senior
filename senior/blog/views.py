@@ -11,6 +11,9 @@ from django.http import Http404, HttpResponseForbidden
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 import re
+from hitcount.views import HitCountMixin
+from hitcount.models import HitCount
+from hitcount.views import HitCountDetailView
 
 # Create your views here.
 reg_b = re.compile(r"(android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows ce|xda|xiino", re.I|re.M)
@@ -136,7 +139,7 @@ def question_list(request):
             Q(title__contains=query_question) |
             Q(message__contains=query_question)).distinct()
     else:
-        pass 
+        pass
 
         return render(request, 'blog/question_list.html', {'question_list': questions})
 
@@ -249,6 +252,19 @@ def notice(request):
 
     return render(request, 'blog/notice.html', {'notice_list':notice_list})
 
+class NoticeDetailView(HitCountDetailView):
+   model = Notice
+   template_name = 'blog/notice_detail.html'
+   count_hit = True
+
+   def get_context_data(self, *args, **kwargs):
+       context = super(NoticeDetailView, self).get_context_data(*args, **kwargs)
+       return context
+
+notice_detail = NoticeDetailView.as_view()
+
+
+
 
 def notice_new(request):
     if request.user.is_superuser:
@@ -263,18 +279,6 @@ def notice_new(request):
     else:
         messages.info(request, "잘못된경로임")
         return redirect('blog:index')
-
-
-class NoticeDetailView(DetailView):
-    def get_object(self, queryset=None):
-        try:
-            return Notice.objects.get(pk=self.kwargs['pk'])
-        except Notice.DoesNotExist:
-            raise Http404
-
-        return get_object_or_404(Notice, pk=pk)
-
-notice_detail = NoticeDetailView.as_view(model=Notice)
 
 
 @login_required
@@ -347,13 +351,29 @@ def freeboard_edit(request, pk):
         form = FreeboardForm(instance=freeboard)
     return render(request, 'blog/freeboard_form.html', {'form':form})
 
+class FreeboardDetailView(HitCountDetailView):
+    model = Freeboard
+    template_name = 'blog/freeboard_detail.html'
+    count_hit = True
 
-def freeboard_detail(request, pk):
-    freeboard = get_object_or_404(Freeboard, pk=pk)
-    return render(request, 'blog/freeboard_detail.html', {
-        'freeboard': freeboard,
-        'comment_form': CommentForm(),
-     })
+    def get_context_data(self, *args, **kwargs):
+        context = super(FreeboardDetailView, self).get_context_data(*args, **kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+
+#freeboard_detail = DetailView.as_view(model=Freeboard, template_name='blog/freeboard_detail.html')
+freeboard_detail = FreeboardDetailView.as_view()
+
+class NoticeDetailView(HitCountDetailView):
+   model = Notice
+   template_name = 'blog/notice_detail.html'
+   count_hit = True
+
+   def get_context_data(self, *args, **kwargs):
+       context = super(NoticeDetailView, self).get_context_data(*args, **kwargs)
+       return context
+
+notice_detail = NoticeDetailView.as_view()
 
 """
 김지은 detailview
