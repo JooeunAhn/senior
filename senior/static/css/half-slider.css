@@ -38,3 +38,31 @@ body {
 footer {
     margin: 50px 0;
 }
+#loginbase {
+    font-size:13px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:11px;
+    padding-left:11px;
+}
+#loginbase_user {
+    font-size:13px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:11px;
+    padding-left:11px;
+    color: red;
+}
+
+.banner_padding{
+    padding: 15px;
+}
+#banner_inpadding{
+    font-weight: bold;
+    font-size: 17px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.brandzero{
+    padding:0px;
+}

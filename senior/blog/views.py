@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
 from accounts.models import Profile
-from blog.models import Question, Review, Notice, Freeboard, Comment, Reply
-from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm, ReplyForm
+from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column
+from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm, ReplyForm, ColumnForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -11,6 +11,9 @@ from django.http import Http404, HttpResponseForbidden
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 import re
+from hitcount.views import HitCountMixin
+from hitcount.models import HitCount
+from hitcount.views import HitCountDetailView
 
 # Create your views here.
 reg_b = re.compile(r"(android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows ce|xda|xiino", re.I|re.M)
@@ -54,7 +57,20 @@ def owner_required_freeboard(model_cls, user_field_name = 'author'):
 
 
 def index(request):
-    return render(request, 'blog/index.html')
+    question = Question.objects.all()
+    reply = Reply.objects.all()
+    mentor = Profile.objects.filter(is_mentor = True)
+    mentor_count = len(mentor)
+    reply_count = len(reply)
+    question_count = len(question)
+
+    context = {
+    'question_count' : question_count,
+    'reply_count' : reply_count,
+    'mentor_count' : mentor_count,
+    }
+
+    return render(request, 'blog/index.html', context)
 
 
 def mentor_list(request):
@@ -120,10 +136,10 @@ def question_list(request):
         questions = questions.filter(
             Q(mentor__username__contains=query_question) |
             Q(mentee__username__contains=query_question) |
-            Q(title__contains=query_mentor) |
-            Q(message__contains=query_mentor)).distinct()
+            Q(title__contains=query_question) |
+            Q(message__contains=query_question)).distinct()
     else:
-        pass 
+        pass
 
         return render(request, 'blog/question_list.html', {'question_list': questions})
 
@@ -214,27 +230,40 @@ def review_delete(request, mentor_pk, pk):
 
 def notice(request):
     notice_list = Notice.objects.all()
-    paginator = Paginator(notice_list, 10)
-
     query_notice = request.GET.get('notice')
 
     if query_notice:
         notice_list = notice_list.filter(
-            Q(category__title__contains=query_notice) |
+            Q(category__contains=query_notice) |
             Q(title__contains=query_notice) |
             Q(content__contains=query_notice)).distinct()
     else:
         pass
 
+    paginator = Paginator(notice_list, 10)
     page = request.GET.get('page')
-    try:
-        notice = paginator.page(page)
-    except PageNotAnInteger:
-        notice = paginator.page(1)
-    except EmptyPage:
-        notice = paginator.page(paginator.num_pages)
 
-    return render(request, 'blog/notice.html', {'notice':notice})
+    try:
+        notice_list = paginator.page(page)
+    except PageNotAnInteger:
+        notice_list = paginator.page(1)
+    except EmptyPage:
+        notice_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/notice.html', {'notice_list':notice_list})
+
+class NoticeDetailView(HitCountDetailView):
+   model = Notice
+   template_name = 'blog/notice_detail.html'
+   count_hit = True
+
+   def get_context_data(self, *args, **kwargs):
+       context = super(NoticeDetailView, self).get_context_data(*args, **kwargs)
+       return context
+
+notice_detail = NoticeDetailView.as_view()
+
+
 
 
 def notice_new(request):
@@ -250,18 +279,6 @@ def notice_new(request):
     else:
         messages.info(request, "잘못된경로임")
         return redirect('blog:index')
-
-
-class NoticeDetailView(DetailView):
-    def get_object(self, queryset=None):
-        try:
-            return Notice.objects.get(pk=self.kwargs['pk'])
-        except Notice.DoesNotExist:
-            raise Http404
-
-        return get_object_or_404(Notice, pk=pk)
-
-notice_detail = NoticeDetailView.as_view(model=Notice)
 
 
 @login_required
@@ -283,6 +300,16 @@ def notice_edit(request, pk):
 
 def freeboard(request):
     freeboard_list = Freeboard.objects.all()
+
+    query_freeboard = request.GET.get('freeboard')
+
+    if query_freeboard:
+        freeboard_list = freeboard_list.filter(
+                Q(author__user__username__contains=query_freeboard) |
+                Q(title__contains=query_freeboard) |
+                Q(content__contains=query_freeboard)
+                ).distinct()
+
     paginator = Paginator(freeboard_list, 10)
     page = request.GET.get('page')
     try:
@@ -324,13 +351,29 @@ def freeboard_edit(request, pk):
         form = FreeboardForm(instance=freeboard)
     return render(request, 'blog/freeboard_form.html', {'form':form})
 
+class FreeboardDetailView(HitCountDetailView):
+    model = Freeboard
+    template_name = 'blog/freeboard_detail.html'
+    count_hit = True
 
-def freeboard_detail(request, pk):
-    freeboard = get_object_or_404(Freeboard, pk=pk)
-    return render(request, 'blog/freeboard_detail.html', {
-        'freeboard': freeboard,
-        'comment_form': CommentForm(),
-     })
+    def get_context_data(self, *args, **kwargs):
+        context = super(FreeboardDetailView, self).get_context_data(*args, **kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+
+#freeboard_detail = DetailView.as_view(model=Freeboard, template_name='blog/freeboard_detail.html')
+freeboard_detail = FreeboardDetailView.as_view()
+
+class NoticeDetailView(HitCountDetailView):
+   model = Notice
+   template_name = 'blog/notice_detail.html'
+   count_hit = True
+
+   def get_context_data(self, *args, **kwargs):
+       context = super(NoticeDetailView, self).get_context_data(*args, **kwargs)
+       return context
+
+notice_detail = NoticeDetailView.as_view()
 
 """
 김지은 detailview
@@ -481,3 +524,52 @@ def reply_delete(request, question_pk, pk):
         return redirect("blog:question_detail", question_pk)
     return render(request, "blog/review_confirm_delete.html", {"reply":reply,})
 
+
+def column(request):
+    column_list = Column.objects.all()
+    paginator = Paginator(column_list, 10)
+    page = request.GET.get('page')
+    try:
+        column = paginator.page(page)
+    except PageNotAnInteger:
+        column = paginator.page(1)
+    except EmptyPage:
+        column = paginator.page(paginator.num_pages)
+
+    context = {
+    'column' : column,
+    }
+    return render(request, 'blog/column.html', context)
+
+
+@login_required
+def column_new(request):
+    user = Profile.objects.get(user = request.user)
+    if user.is_mentor:
+        if request.method == 'POST':
+            form = ColumnForm(request.POST)
+            if form.is_valid():
+                column = form.save(commit = False)
+                column.author = Profile.objects.get(user = request.user)
+                column.save()
+                messages.info(request, '칼럼을 등록했습니다')
+                return redirect('blog:column')
+        else:
+            form = ColumnForm()
+        return render(request, 'blog/column_form.html', {'form':form})
+    else:
+        messages.error(request, "권한이 없습니다.")
+        return redirect('blog:column')
+
+
+class ColumnDetailView(HitCountDetailView):
+    model = Column
+    template_name = 'blog/column_detail.html'
+    count_hit = True
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ColumnDetailView, self).get_context_data(*args, **kwargs)
+        return context
+
+# freeboard_detail = DetailView.as_view(model=Freeboard, template_name='blog/freeboard_detail.html')
+column_detail = ColumnDetailView.as_view()

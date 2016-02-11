@@ -1,0 +1,31 @@
+{% extends "column_base.html" %}
+
+{% block board %}
+
+<div class="ufo-board-post panel panel-default">
+    <div class="panel-body">
+        <h1 class="ufo-board-post-title">{{column.title}}</h1>
+        <ul class="ufo-board-post-meta unstyled list-inline">
+            <li class="ufo-board-post-meta__author">
+            <a href="{% url "blog:mentor_detail" column.author.id %}">{{column.author}}</a>
+            </li>
+            <li>|</li>
+            <li class="ufo-board-post-meta__date">{{column.created_at}}</li>
+            <li>|</li>
+            <li>{{hitcount.total_hits}}</li>
+            <li>|</li>
+            <div class="fb-like" data-action="like" data-show-faces="true" data-share="true" data-layout="button_count" data-href="http://itdaa.net/free_boards/796"></div></ul>
+            <div class="ufo-board-post-body">
+                <p>{{column.content|linebreaks}}</p>
+            </div>
+            <div class="uto-board-post-actions"><a class="btn btn-default btn-small"  href="../">목록</a></div>
+
+                </form>
+
+
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

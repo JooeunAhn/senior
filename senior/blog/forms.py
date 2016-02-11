@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import Question, Review, Notice, Freeboard, Comment, Reply
+from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column
 
 
 class QuestionForm(forms.ModelForm):
@@ -30,12 +30,20 @@ class FreeboardForm(forms.ModelForm):
       model = Freeboard
       fields = ['title', 'content']
 
+
 class CommentForm(forms.ModelForm):
   class Meta:
     model = Comment
     fields = ['message']
 
+
 class ReplyForm(forms.ModelForm):
   class Meta:
     model = Reply
+    fields = ['title', 'content']
+
+
+class ColumnForm(forms.ModelForm):
+  class Meta:
+    model = Column
     fields = ['title', 'content']
