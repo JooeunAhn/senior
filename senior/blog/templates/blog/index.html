@@ -73,10 +73,28 @@ $(document).ready(function() {
 
 {% include 'blog/search_form_mentor.html' %}
 
+<style>
+    .count{
+        margin:auto;
+        text-align:center;
+    }
+</style>
 
-등록 멘토 명수{{mentor_count}}
-답변 갯수 {{reply_count}}
-질문 갯수 {{question_count}}
+<div class="row">
+    <div class="count">
+        <div class="col-sm-4">
+            <p><a style="color:red; font-size: 40px;">{{mentor_count}}</a>명의 멘토가 등록되어 있습니다.</p>
+        </div>
+
+        <div class="col-sm-4">
+            <p><a style="color:red; font-size: 40px;">{{question_count}}</a>개의 멘티 질문이 등록되었습니다.</p>
+        </div>
+
+        <div class="col-sm-4">
+            <p><a style="color:red; font-size: 40px;">{{reply_count}}</a>개의 멘토 답변이 등록되었습니다.</p>
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}
