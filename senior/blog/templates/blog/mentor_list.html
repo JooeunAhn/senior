@@ -3,10 +3,8 @@
 {% load staticfiles %}
 {% block content %}
 
-
+<!--
 <div class="" style="margin-top:40px">
-
-
     <div class="col-sm-6 col-md-4">
         <a href="#" class="thumbnail">
             <img src="{% static 'pics/1.jpg' %}" alt=""/>
@@ -36,18 +34,37 @@
             </div>
     </div>
 </div>
+-->
+<style>
+.thumbnail{
+     width:200px;
+     height:200px;
+}
 
-<ul>
+.thumbnail img{
+    width:200px;
+    height:190px;
+}
+
+</style>
+
+
 {% for mentor in mentor_list%}
-<li>
-    {{mentor.id}}
-    <a href ="/mentors/{{mentor.id}}/">
-    {{mentor.user.username}}
-    <img src="{{ mentor.user_photo.url }}">
-    </a>
-</li>
+<div class="" style="margin-top:100px; margin-left:140px;" >
+    <div class="col-sm-6 col-md-4">
+        <a href ="/mentors/{{mentor.id}}/" class="thumbnail">
+            <img src="{{ mentor.user_photo.url }}">
+        </a>
+            <div class="caption">
+                <h3>{{mentor.user.username}}</h3>
+                    <p>content</p>
+            </div>
+    </div>
+</div>
+
 {% endfor %}
 </ul>
+
 <div class="pagination_wrapper text-center">
     <ul class="pagination">
  <!--div class="pagination">

@@ -824,3 +824,189 @@ footer.dark-bg {
 .ufo-board-post-title {
 	margin-bottom : 20px;
 }
+.footer-footer {
+	padding: 43px 0px; background-color: rgb(99, 99, 99);
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-footer {
+	padding: 20px 0px 12px; text-align: center;
+}
+}
+.footer-footer.footer-footer--mentor-show {
+	padding: 20px 0px 90px;
+}
+.footer-menu {
+	list-style: none; margin: 0px; padding: 0px;
+}
+.footer-menu li {
+	padding-left: 10px; display: inline;
+}
+.footer-menu li::before {
+	padding-right: 12px; display: inline-block; content: "¡¤";
+}
+.footer-menu li:first-child::before {
+	display: none;
+}
+.footer-bottom {
+	background: rgb(54, 54, 54); color: rgb(126, 126, 126);
+}
+.footer-bottom .container.inner {
+	padding-top: 30px; padding-bottom: 30px;
+}
+.footer-bottom p {
+	color: rgb(126, 126, 126);
+}
+.footer-bottom a {
+	color: rgb(126, 126, 126);
+}
+.footer-bottom p {
+	margin: 0px; padding: 0px;
+}
+.footer-row {
+	margin-right: -15px; margin-left: -15px;
+}
+.info-footer {
+	padding-top: 50px; background-color: white;
+}
+.info-footer-p {
+	line-height: 2;
+}
+.footer-bottom.footer-bottom--white {
+	border-top-color: rgb(221, 221, 221); border-top-width: 1px; border-top-style: solid; background-color: white;
+}
+.info-footer-inner {
+	padding-top: 12px; padding-bottom: 12px;
+}
+.footer-link--style-none {
+	border-bottom-color: currentColor; border-bottom-width: medium; border-bottom-style: none;
+}
+.footer-link--style-none:hover {
+	text-decoration: underline;
+}
+.fooeter-info-link-group {
+	padding-bottom: 12px;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.fooeter-info-link-group {
+	display: inline-block;
+}
+}
+.footer-link--top {
+	color: white; font-size: 14px; font-weight: bold; float: left;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-link--top {
+	margin: 0px 5px; padding: 3px 8px; border-radius: 2px; border: 1px solid white; border-image: none; -webkit-border-radius: 2px; -moz-border-radius: 2px;
+}
+}
+.footer-link {
+	color: white; font-size: 14px; font-weight: bold; float: left;
+}
+.footer-link--policy {
+	color: white; font-size: 14px; float: left;
+}
+.footer-link--right {
+	font-weight: 400; float: right;
+}
+.footer-link.footer-link--contact {
+	font-weight: 400;
+}
+.footer-division-gab {
+	width: 5px; height: 10px; float: left;
+}
+.footer-division {
+	padding: 0px 7px; color: white; font-size: 12px; font-weight: bold; float: left;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-division {
+	display: none;
+}
+}
+.footer-address__wrapper {
+	margin: 0px;
+}
+.footer-division.footer-division--right {
+	padding: 0px; float: right;
+}
+.footer-address__text__1 {
+	margin: 0px; color: white; font-size: 14px; float: left;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-address__text__1 {
+	float: inherit;
+}
+}
+.footer-address__text__2 {
+	margin: 0px; color: white; font-size: 14px; float: left;
+}
+.footer-copyright {
+	margin: 0px; color: white; padding-top: 10px; font-size: 13px;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-copyright {
+	padding-top: 4px;
+}
+}
+.footer-address__division {
+	padding: 0px 7px; color: white; font-size: 12px; font-weight: bold; float: left;
+}
+.footer-policy-division {
+	padding: 0px; color: white; font-size: 12px; float: left;
+}
+.footer-address__division.footer-address__division--mobile-none {
+	display: none;
+}
+.footer-address__division--contain {
+	padding: 0px 7px; color: white; font-size: 12px; font-weight: bold; display: inline-block;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.mobile-inline-block {
+	display: inline-block;
+}
+}
+.footer-address__contact {
+	display: inline-block;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-address__contact {
+	margin-top: -5px;
+}
+}
+.footer-policy-group--mobile {
+	display: none;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-policy-group--mobile {
+	padding-top: 4px; display: inline-block;
+}
+}
+.footer-policy-group--web {
+	display: block;
+}
+@media all and (max-width:768px) and (min-width:1px)
+{
+.footer-policy-group--web {
+	display: none;
+}
+}
+.footer-who-we-are {
+	width: 38.66%;
+}
+.footer-who-we-are p {
+	padding-right: 10px;
+}
+@media all and (max-width:768px)
+{
+.footer-who-we-are {
+	width: 100%;
+}
+}
