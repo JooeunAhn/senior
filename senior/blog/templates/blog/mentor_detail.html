@@ -15,35 +15,48 @@
 }
 </style>
 
-<div class="row" style="margin-top:100px; margin-left:140px;" >
+<div class="row" style="margin-top:100px; margin-left:80px; margin-right:80px" >
     <div class="col-sm-4">
         <div class="thumbnail">
             <img src="{{ mentor.user_photo.url }}">
         </div>
     </div>
-    <div class="col-sm-6">
-                    <h3>{{mentor.user.username}}</h3>
-                        <p>{{mentor.user.email}}</p>
-                        <p>{{mentor.category}}</p>
-                        <p>{{mentor.self_intro}}</p>
-                        <p>칼럼갯수 {{column_count}}</p>
-                {% for column in column_list%}
-                    <li>
-                        <a href = "{% url "blog:column_detail" column.pk %}"> {{column.title}}</a>
-
-                    </li>
-                {% empty %}
-                    <li>등록된 칼럼이 없습니다.</li>
-                {% endfor %}
+    <div class="col-sm-3">
+        <h2>{{mentor.user.username}}</h2>
+            <p>{{mentor.user.email}}</p>
+            <p>{{mentor.category}}</p>
+            <p>{{mentor.self_intro}}</p>
     </div>
+    <div class="col-sm-5" style="padding-top:5px">
+            <table class="table table-condensed">
+                <thead>
+                    <strong style="font-size:18px;">{{mentor.user.username}}님의 칼럼이 <a style="font-size:30px;">{{column_count}}</a>개 등록되어 있습니다.</strong>
+                </thead>
+                <tbody>
+                    {% for column in column_list%}
+                    <tr>
+                        <td>{{column.pk}}</td>
+                        <td><a href = "{% url "blog:column_detail" column.pk %}"> {{column.title}}</a></td>
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td>등록된 칼럼이 없습니다.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+          </table>
+
+    </div>
+
 </div>
 
-<div class="row" style="margin-left:220px;">
+<div class="row" style="margin-left:180px;">
     <a href="{% url 'blog:mentor_list' %}" class="btn btn-info">멘토목록</a>
     <a href="{% url 'blog:question_new' mentor.pk %}" class="btn btn-success">질문하기</a>
 </div>
 
-<div class="row" style="margin-top: 20px; margin-left:140px;">
+<div class="row" style="margin-top: 20px; margin-left:80px;">
     <div class="col-sm-6">
         <form action="{% url "blog:review_new" mentor.pk %}" method="post">
 
@@ -61,11 +74,11 @@
         <!--<a href="{% url 'blog:review_new' mentor.id %}" class="btn btn-primary btn-block%}">
                 새 리뷰 쓰기
         </a>-->
-<div class="row" style="margin-top: 20px; margin-left:125px;">
+<div class="row" style="margin-top: 20px; margin-left:80px;">
     <ul>
         {% for review in mentor.review_mentor.all %}
                     <li>
-                        {{ review.mentee.user.username}}
+                        {{ review.mentee.user.username}}:
                         {{ review.message }}
                 <a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
                 <a href="{% url "blog:review_delete"  mentor.pk review.pk %}">삭제</a>
