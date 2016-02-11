@@ -377,7 +377,8 @@ footer.dark-bg {
 	opacity: 1;
 }
 .sidenav li a:hover {
-	background-color: rgb(119, 168, 178);
+	/*background-color: rgb(119, 168, 178);*/
+	background-color: rgb(255, 134, 148);*/
 }
 @media all and (max-width:768px)
 {
@@ -818,7 +819,7 @@ footer.dark-bg {
 	height: 80px;
 }
 .ufo-board-post .panel-body {
-	padding: 40px; 
+	padding: 40px;
 	font-size: 14px;
 }
 .ufo-board-post-title {
