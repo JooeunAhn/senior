@@ -5,59 +5,53 @@
 <script src="{% static 'js/jquery.mobile.custom.min.js'%}"></script>
 <header id="myCarousel" class="carousel scroll">
         <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
-        </ol>
-        <style>
-        h2
-        {
-            color:#ff0;
-        }
-        </style>
-        <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('{% static 'pics/1.jpg' %}');"></div>
-                <div class="carousel-caption">
-                    <h2>회의중</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the second background image using inline CSS below. -->
-                <a href="http://yourstage.com"><div class="fill" style="background-image:url('{% static 'pics/3.jpg' %}');"></div></a>
-                <div class="carousel-caption">
-                    <h2>꿈과 희망의 사이트 yourstage 로</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('{% static 'pics/2.jpg' %}');"></div>
-                <div class="carousel-caption">
-                    <h2>멋쟁이 우재씨</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Four');"></div>
-                <div class="carousel-caption">
-                    <h2>일단 빈 이미지</h2>
-                </div>
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+    <!-- Wrapper for Slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <!-- Set the first background image using inline CSS below. -->
+            <div class="fill" style="background-image:url('{% static 'pics/1.jpg' %}');"></div>
+            <div class="carousel-caption">
+                <h2 style="color:yellow;">회의중</h2>
             </div>
         </div>
+        <div class="item">
+            <!-- Set the second background image using inline CSS below. -->
+            <a href="http://yourstage.com"><div class="fill" style="background-image:url('{% static 'pics/3.jpg' %}');"></div></a>
+            <div class="carousel-caption">
+                <h2>꿈과 희망의 사이트 yourstage 로</h2>
+            </div>
+        </div>
+        <div class="item">
+            <!-- Set the third background image using inline CSS below. -->
+            <div class="fill" style="background-image:url('{% static 'pics/2.jpg' %}');"></div>
+            <div class="carousel-caption">
+                <h2>멋쟁이 우재씨</h2>
+            </div>
+        </div>
+        <div class="item">
+            <!-- Set the third background image using inline CSS below. -->
+            <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Four');"></div>
+            <div class="carousel-caption">
+                <h2>일단 빈 이미지</h2>
+            </div>
+        </div>
+    </div>
 
         <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="icon-next"></span>
+    </a>
 
-    </header>
+</header>
 <script>
 {%if mobileuser%}
 $(document).ready(function() {
@@ -74,10 +68,9 @@ $(document).ready(function() {
 {% include 'blog/search_form_mentor.html' %}
 
 <style>
-    .count{
-        margin:auto;
-        text-align:center;
-    }
+.count{
+    text-align:center;
+}
 </style>
 
 <div class="row">
@@ -96,18 +89,26 @@ $(document).ready(function() {
     </div>
 </div>
 
+
 <style>
 .thumbnail img{
-    width:100px;
-    height:100px;
+    width:200px;
+    height:200px;
 }
 </style>
 
-<div class = "thumbnail">
-{%for mentor in mentor_list %}
-추천멘토
-<img src = "{{mentor.user_photo.url}}">
-{% endfor %}
-</div>
+<div class="row">
+    <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>추천멘토</span></p>
+    {% for mentor in mentor_list %}
+    <div class="col-sm-4" >
+        <div class = "thumbnail" style="border:0px;">
+            <img src="{{mentor.user_photo.url}}">
+            <p align="center" style="font-weight:bold;" href="{% url "blog:mentor_detail" mentor.id %}">{{mentor.user.username}}님</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>    
+
+
 
 {% endblock %}
