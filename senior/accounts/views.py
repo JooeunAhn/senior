@@ -32,10 +32,12 @@ def profile(request):
 
 @login_required
 def account_delete(request):
-
     account = Profile.objects.get(user = request.user)
-    account.user.delete()
-    return redirect('blog:index')
+    if request.method == "POST":
+        account.user.delete()
+        messages.success(request, '삭제완료')
+        return redirect("blog:index")
+    return render(request, 'accounts/account_confirm_delete.html', {'account':account,})
 
 @login_required
 def account_edit(request):
@@ -58,8 +60,8 @@ def account_edit(request):
             #user.backend = backend_path
             #auth_login(request, user)
 
-            messages.info(request, '환영합니다')
-            return redirect('blog:index')
+            messages.info(request, '수정완료')
+            return redirect('accounts:mypage')
 
             #회원가입 시에, 이메일 승인
             #user = form.save(commit = False)
@@ -68,7 +70,7 @@ def account_edit(request):
             #send_signup_confirm_email(request, user)
             #return redirect(settings.LOGIN_URL)
     else:
-        form = SignupForm2()
+        form = SignupForm2(instance = user)
     return render(request, 'accounts/signup.html',
         {'form': form,})
 
@@ -78,6 +80,7 @@ def signup(request):
         if request.method == 'POST':
             form = SignupForm2(request.POST, request.FILES,initial = {
                 "user_photo" : "default/default.png",
+                "self_intro" : "자기소개를 입력해주세요"
                 })
             if form.is_valid():
                 user = form.save()

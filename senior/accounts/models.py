@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.dispatch import receiver
+from django.core.validators import RegexValidator
+import re
 
 # 근우형 성공작
 
@@ -35,6 +37,18 @@ from django.dispatch import receiver
 #     USERNAME_FIELD = 'username'
 #     REQUIRED_FIELDS = ['is_mentor']
 
+def phone_validator(value):
+    number = ''.join(re.findall(r'\d+', value))
+    return RegexValidator(r'^01[016789]\d{7,8}$', message= '번호를 입력해주세요')(number)
+
+
+
+class PhoneField(models.CharField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('max_length', 10)
+        super(PhoneField, self).__init__(*args, **kwargs)
+        self.validators.append(phone_validator)
+
 class Category(models.Model):
     title = models.CharField(max_length = 20)
 
@@ -46,6 +60,8 @@ class Profile(models.Model):
     is_mentor = models.BooleanField()
     user_photo = models.ImageField(upload_to='%Y/%m/%d')
     category = models.ForeignKey(Category, blank = True)
+    self_intro = models.TextField(max_length = 500)
+    phone = PhoneField(blank = True)
 
     def __str__ (self):
         return self.user.username
@@ -54,6 +70,6 @@ class Profile(models.Model):
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
-        user_profile = Profile(user=user, is_mentor =user.is_mentor, user_photo = user.user_photo, category = user.category,)
+        user_profile = Profile(user=user, is_mentor =user.is_mentor, user_photo = user.user_photo, category = user.category, self_intro = user.self_intro, phone = user.phone)
         user_profile.save()
 

@@ -12,7 +12,7 @@ def min_length_validator(value):
 
 class Question(models.Model):
     mentor = models.ForeignKey(Profile, related_name = "question_mentor", on_delete = models.CASCADE, limit_choices_to = {'is_mentor': True},)
-    mentee = models.ForeignKey(Profile, related_name = "qustion_mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
+    mentee = models.ForeignKey(Profile, related_name = "question_mentee",on_delete = models.CASCADE, limit_choices_to = {'is_mentor' : False})
     title = models.CharField(max_length = 30)
     message = models.TextField(max_length = 500)
 
@@ -26,6 +26,7 @@ class Review(models.Model):
 
 
 class Notice(models.Model):
+    category = models.CharField(max_length=8)
     title = models.CharField(max_length=50)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -54,3 +55,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Reply(models.Model):
+    question = models.ForeignKey(Question, related_name = "reply")
+    title = models.CharField(max_length=50)
+    content = models.TextField(max_length=500)

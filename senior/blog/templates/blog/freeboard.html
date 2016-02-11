@@ -1,5 +1,6 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "board_base.html" %}
+{% load tch_tch %}
+{% block board %}
 <div class="container">
     <p>
         <a href="{% url 'blog:freeboard_new' %}" class="btn btn-default">새글쓰기</a>
@@ -24,6 +25,39 @@
   {% endfor %}
   </ul>
   </div>
+</div>
+
+<div class = "text-center">
+<div class="container">
+
+    <ul class="pagination">
+
+        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
+            {%if i == freeboard.number %}
+                <li class="active"><a href="?page={{i}}">{{i}}</a></li>
+            {%elif i in freeboard.paginator.page_range%}
+                <li><a href="?page={{i}}">{{i}}</a></li>
+            {%else%}
+                <li class="disabled"><a href="#">{{i}}</a></li>
+            {%endif%}
+        {% endfor %}
+
+    </ul><br/>
+    {% if freeboard.has_previous %}
+        <a href="?page={{ freeboard.previous_page_number}}" class="btn btn-primary">previous</a>
+    {%else%}
+        <a href="#" class="btn btn-warning disabled">previous</a>
+    {% endif %}
+    {% if freeboard.has_next %}
+        <a href="?page={{ freeboard.next_page_number}}" class="btn btn-primary">next</a>
+    {%else%}
+        <a href="#" class="btn btn-warning disabled">next</a>
+    {% endif %}
+</div>
+<div class="container" >
+    Page {{ freeboard.number }} of {{ freeboard.paginator.num_pages }}.
+</div>
+
 </div>
 {%endblock%}
 
