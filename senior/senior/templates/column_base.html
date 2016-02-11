@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load tch_tch %}
+{% block content %}
+
+<div class="flash_notices_area"></div>
+<body class="notices index">
+<main>
+	<div class = "dark-bg img-bg-softer" style='background-image: url("~~~~");'>
+		<div class="container inner-xs inner-top-sm">
+			<div class="row">
+				<div class="col-sm-12 center-block text-center">
+					<header>
+						<h2><span>게시판</span></h2>
+					</header>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class = "container inner-xs">
+		<div class = "row">
+			<div class = "col-sm-3">
+				<ul class = "sidenav clearfix" style ="list-style:none;">
+					<li class = "active col-sm-12 col-xs-4 sidebar-li"><a href="{% url 'blog:column'%}"><div class="new-label-wrapper-no"></div>멘토칼럼</a></li>
+				</ul>
+			</div>
+			<div class = "col-sm-9">
+				{% block board %}
+				{% endblock %}
+				
+				<div class="text-right"></div>
+			</div>
+		</div>
+	</div>
+</main>
+</body>
+
+{% endblock %}
