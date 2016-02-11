@@ -114,8 +114,6 @@ class SignupForm2(UserCreationForm):
 #         return user
 
 
-
-
 class LoginForm(AuthenticationForm):
     answer = forms.IntegerField(label = '3+3 = ?')
 
