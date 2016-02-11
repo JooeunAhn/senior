@@ -74,20 +74,34 @@
         <!--<a href="{% url 'blog:review_new' mentor.id %}" class="btn btn-primary btn-block%}">
                 새 리뷰 쓰기
         </a>-->
-<div class="row" style="margin-top: 20px; margin-left:80px;">
-    <ul>
-        {% for review in mentor.review_mentor.all %}
-                    <li>
-                        {{ review.mentee.user.username}}:
-                        {{ review.message }}
-                <a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
-                <a href="{% url "blog:review_delete"  mentor.pk review.pk %}">삭제</a>
-                    </li>
-                {% empty %}
-                    <li>등록된 리뷰 없습니다.</li>
-                {% endfor %}
-    </ul>
+<div class="row" style="margin-top: 20px; margin-left:80px; margin-right:80px;">
+    <table class="table table-condensed">
+        <thead style="margin-left:20px;">
+            <strong style="font-size:18px;">{{mentor.user.username}}님에 대한 리뷰가 <a style="font-size:30px;">{{review_count}}</a>개 등록되어 있습니다.</strong>
+        </thead>
+        <tbody>
+            {% for review in mentor.review_mentor.all %}
+            <tr>
+                <td>
+                    <blockquote>
+                        <p style="font-size:15px;">{{review.message}}</p>
+                        <footer>{{review.mentee.user.username}}</footer>
+                    </blockquote>
+                        <p style="margin-left:10px"><a href="{% url "blog:review_edit"  mentor.pk review.pk %}">수정</a>
+                        <a href="{% url "blog:review_delete"  mentor.pk review.pk %}">삭제</a></p>
+                </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td>등록된 리뷰 없습니다.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </div>
+
 
 
 {% endblock %}
