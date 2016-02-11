@@ -363,7 +363,6 @@ def comment_new(request, freeboard_pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit = False)
-            comment.freeboard = freeboard
             comment.author = Profile.objects.get(user=request.user)
             comment.save()
             return redirect('blog:freeboard_detail', freeboard_pk)

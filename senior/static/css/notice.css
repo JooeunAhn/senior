@@ -222,7 +222,7 @@ footer.dark-bg {
 }
 .inner-sm {
 	padding-top: 80px; padding-bottom: 80px;
-}`
+}
 .inner-xs {
 	padding-top: 40px; padding-bottom: 40px;
 }
@@ -555,6 +555,7 @@ footer.dark-bg {
 :first-child.sidebar-li {
 	border-left-color: currentColor; border-left-width: medium; border-left-style: none;
 }
+}
 .clearfix::before {
 	display: table; content: " ";
 }
@@ -776,4 +777,50 @@ footer.dark-bg {
 }
 .pagination > .next_page > a {
 	width: 101%;
+}
+.panel-body {
+	padding: 40px;
+}
+.ufo-board-post ul.ufo-board-post-meta {
+	list-style: none; margin: 0px; padding: 0px;
+}
+.ufo-board-post ul.ufo-board-post-meta li {
+	padding: 0px; color: rgb(102, 102, 102); margin-right: 0.7em;
+}
+.ufo-board-post .ufo-board-post-body {
+	margin: 1.5em 0px; line-height: 1.8; font-size: 1.1em; -ms-word-wrap: break-word;
+}
+.ufo-board-post .ufo-board-post-body iframe {
+	max-width: 100%;
+}
+.ufo-board-post .ufo-board-post-body p {
+	margin-bottom: 0px;
+}
+.panel-body p {
+	margin-bottom: 0px;
+}
+.ufo-board-comment-box h4 {
+	margin-top: 30px;
+}
+.ufo-board-comment-box .ufo-board-comment {
+	padding: 0.5em; border-top-color: rgb(238, 238, 238); border-top-width: 1px; border-top-style: solid;
+}
+.ufo-board-comment-box .row {
+	margin-right: 0px;
+}
+.ufo-board-comment-box .row .col-xs-10 input {
+	height: 40px;
+}
+.ufo-board-comment-box .row .btn {
+	margin: 0px;
+}
+.ufo-board-comment-box .row #comment_body {
+	height: 80px;
+}
+.ufo-board-post .panel-body {
+	padding: 40px; 
+	font-size: 14px;
+}
+.ufo-board-post-title {
+	margin-bottom : 20px;
 }
