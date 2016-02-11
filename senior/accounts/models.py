@@ -59,7 +59,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     is_mentor = models.BooleanField()
     user_photo = models.ImageField(upload_to='%Y/%m/%d')
-    category = models.ForeignKey(Category, blank = True)
+    category = models.ForeignKey(Category, null=True)
     self_intro = models.TextField(max_length = 500)
     phone = PhoneField(blank = True)
 
