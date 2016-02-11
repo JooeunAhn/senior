@@ -15,7 +15,7 @@
 }
 </style>
 
- <div class="row" style="margin-top:100px; margin-left:140px;" >
+<div class="row" style="margin-top:100px; margin-left:140px;" >
     <div class="col-sm-4">
         <div class="thumbnail">
             <img src="{{ mentor.user_photo.url }}">
@@ -41,10 +41,11 @@
                 {% csrf_token %}
 
                 {{ review_form }}
-        </form>
+
     </div>
     <div class="col-sm-4">
-        <input type="submit" value="리뷰쓰기" class="btn btn-primary" />
+        <input type="submit" value="리뷰쓰기" class="btn btn-primary " />
+        </form>
     </div>
 </div>
 
