@@ -1,10 +1,39 @@
 {% extends "base.html" %}
 {% load tch_tch %}
+{% load staticfiles %}
 {% block content %}
 
-<div class="container" >
-    <div class="jumbotron">
-        <h1>mentor_list</h1>
+
+<div class="" style="margin-top:40px">
+
+
+    <div class="col-sm-6 col-md-4">
+        <a href="#" class="thumbnail">
+            <img src="{% static 'pics/1.jpg' %}" alt=""/>
+        </a>
+            <div class="caption">
+                <h3>Thumbnail label</h3>
+                    <p>Thumbnail Test</p>
+            </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <a href="#" class="thumbnail">
+            <img src="{% static 'pics/2.jpg' %}" alt=""/>
+        </a>
+            <div class="caption">
+                <h3>Thumnail label</h3>
+                    <p>Thumbnail Test</p>
+            </div>
+    </div>
+
+     <div class="col-sm-6 col-md-4">
+        <a href="#" class="thumbnail">
+            <img src="{% static 'pics/3.jpg' %}" alt=""/>
+        </a>
+            <div class="caption">
+                <h3>Thumnail label</h3>
+                    <p>Thumbnail Test</p>
+            </div>
     </div>
 </div>
 
@@ -14,7 +43,7 @@
     {{mentor.id}}
     <a href ="/mentors/{{mentor.id}}/">
     {{mentor.user.username}}
-    {{user_photo.url}}
+    <img src="{{ mentor.user_photo.url }}">
     </a>
 </li>
 {% endfor %}
