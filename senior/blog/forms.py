@@ -36,7 +36,7 @@ class CommentForm(forms.ModelForm):
     model = Comment
     fields = ['message']
     widgets = {
-      'message':forms.Textarea(attrs = {'style' : 'width : 100%; max_height : 20%', }),
+      'message':forms.TextInput(attrs = {'class': 'form-control', }),
     }
 
 

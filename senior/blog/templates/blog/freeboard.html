@@ -53,8 +53,8 @@
             Page {{ freeboard.number }} of {{ freeboard.paginator.num_pages }}.
         </u1>
     </ul>
-    {% include 'blog/search_form_freeboard.html' %}
 </div>
+{% include 'blog/search_form_freeboard.html' %}
 <div class="text-right">
   <a href="{% url 'blog:freeboard_new' %}" class="btn btn-default">글쓰기</a>
 </div>

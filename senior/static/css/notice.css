@@ -1010,3 +1010,39 @@ footer.dark-bg {
 	width: 100%;
 }
 }
+.outer {
+	margin-top: 120px; margin-bottom: 120px;
+}
+.outer-md {
+	margin-top: 100px; margin-bottom: 100px;
+}
+.outer-sm {
+	margin-top: 80px; margin-bottom: 80px;
+}
+.outer-xs {
+	margin-top: 40px; margin-bottom: 40px;
+}
+.outer-top {
+	margin-top: 120px;
+}
+.outer-top-md {
+	margin-top: 100px;
+}
+.outer-top-sm {
+	margin-top: 80px;
+}
+.outer-top-xs {
+	margin-top: 40px;
+}
+.outer-bottom {
+	margin-bottom: 120px;
+}
+.outer-bottom-md {
+	margin-bottom: 100px;
+}
+.outer-bottom-sm {
+	margin-bottom: 80px;
+}
+.outer-bottom-xs {
+	margin-bottom: 40px;
+}
