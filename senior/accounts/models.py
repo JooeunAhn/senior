@@ -64,7 +64,7 @@ class Profile(models.Model):
     user_photo = models.ImageField(upload_to='%Y/%m/%d')
     category = models.ForeignKey(Category, null=True)
     self_intro = models.TextField(max_length = 500)
-    phone = PhoneField(blank = True)
+    phone = PhoneField()
 
     def __str__ (self):
         return self.user.username

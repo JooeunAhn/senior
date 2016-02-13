@@ -2,8 +2,7 @@ import os
 from .common import *
 
 
-DEBUG = False
-
+DEBUG = True
 ##DEBUG -> True는 개발환경 False 배포환경
 ##Debug가 true일시 오류코드나 내부상황이 모두 보임
 

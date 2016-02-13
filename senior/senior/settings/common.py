@@ -42,9 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'accounts',
-    "debug_toolbar",
-    'bootstrap3',
     'hitcount',
+    'bootstrap3',
 ]
 
 MIDDLEWARE_CLASSES = [
