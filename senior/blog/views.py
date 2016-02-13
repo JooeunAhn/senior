@@ -105,8 +105,10 @@ def mentor_detail(request, pk):
     column_list = Column.objects.filter(author = mentor)
     column_count = Column.objects.filter(author = mentor).count()
     review_count = len(mentor.review_mentor.all())
+    question_count = Question.objects.filter(mentor = mentor).count()
+    print (question_count)
     return render(request, 'blog/mentor_detail.html', {'mentor': mentor, 'review_form': ReviewForm(), 'column_list':column_list,
-        'column_count':column_count, "review_count":review_count})
+        'column_count':column_count, "review_count":review_count, "question_count" : question_count,})
 
 
 @login_required

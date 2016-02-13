@@ -79,8 +79,7 @@
                     <li>
                         <a id="loginbase" href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
                     </li>
-                    <li>
-                        <a id="loginbase" href = "{% url "accounts:mypage"%}">MyPage</a>
+
                 {% else %}
                     <li>
                         <a id="loginbase" href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
