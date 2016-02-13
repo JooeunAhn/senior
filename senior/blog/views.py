@@ -80,7 +80,10 @@ def mentor_list(request):
         mentor_list = mentor_list.filter(
             Q(category__title__contains=query_mentor) |
             Q(self_intro__contains=query_mentor) |
-            Q(user__username__contains=query_mentor)).distinct()
+            Q(user__username__contains=query_mentor) |
+            Q(user__first_name__contains = query_mentor) |
+            Q(user__last_name__contains = query_mentor)
+            ).distinct()
     else:
         pass
 
@@ -140,7 +143,12 @@ def question_list(request):
             Q(mentor__username__contains=query_question) |
             Q(mentee__username__contains=query_question) |
             Q(title__contains=query_question) |
-            Q(message__contains=query_question)).distinct()
+            Q(message__contains=query_question) |
+            Q(mentor__first_name__contains=query_question)|
+            Q(mentor__last_name__contains=query_question)|
+            Q(mentee__first_name__contains=query_question)|
+            Q(mentee__last_name__contains=query_question)
+            ).distinct()
     else:
         pass
 
@@ -310,7 +318,9 @@ def freeboard(request):
         freeboard_list = freeboard_list.filter(
                 Q(author__user__username__contains=query_freeboard) |
                 Q(title__contains=query_freeboard) |
-                Q(content__contains=query_freeboard)
+                Q(content__contains=query_freeboard) |
+                Q(author__user__first_name__contains=query_freeboard) |
+                Q(author__user__last_name__contains=query_freeboard)
                 ).distinct()
 
     paginator = Paginator(freeboard_list, 10)
