@@ -67,6 +67,14 @@ footer {
     padding-left: 20px;
     padding-right: 20px;
 }
+#banner_inpadding:focus,
+#banner_inpadding:hover{
+    font-weight: bold;
+    font-size: 22px;
+    color:rgb(244, 180, 140);
+    padding-left: 20px;
+    padding-right: 20px;
+}
 .brandzero{
     padding:0px;
 }

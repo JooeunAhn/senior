@@ -18,6 +18,7 @@
     <!-- Custom CSS -->
     <link href="{% static 'css/half-slider.css' %}" rel="stylesheet" />
     <link href="{% static 'css/notice.css' %}" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'pics/fav.png' %}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -74,10 +75,10 @@
                         {% endif %}
                     {% endif %}
                     <li>
-                        <a id="loginbase" href ="{% url "accounts:logout" %}">로그아웃</a>
+                        <a id="loginbase" href ="{% url "accounts:logout" %}"><span class="glyphicon glyphicon-cutlery"> 로그아웃</span></a>
                     </li>
                     <li>
-                        <a id="loginbase" href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+                        <a id="loginbase" href= "{% url "accounts:account_delete" %}"><span class="glyphicon glyphicon-remove"> 회원탈퇴</span></a> <!--나중에 mypage로 기능 옮기기!-->
                     </li>
 
                 {% else %}
