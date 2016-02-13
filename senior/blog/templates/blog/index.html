@@ -1,69 +1,53 @@
-
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content%}
 <script src="{% static 'js/jquery.mobile.custom.min.js'%}"></script>
-<header id="myCarousel" class="carousel scroll">
-        <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
-    <!-- Wrapper for Slides -->
-    <div class="carousel-inner">
-        <div class="item active">
-            <!-- Set the first background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('{% static 'pics/1.jpg' %}');"></div>
-            <div class="carousel-caption">
-                <h2 style="color:yellow;">회의중</h2>
-            </div>
-        </div>
-        <div class="item">
-            <!-- Set the second background image using inline CSS below. -->
-            <a href="http://yourstage.com"><div class="fill" style="background-image:url('{% static 'pics/3.jpg' %}');"></div></a>
-            <div class="carousel-caption">
-                <h2>꿈과 희망의 사이트 yourstage 로</h2>
-            </div>
-        </div>
-        <div class="item">
-            <!-- Set the third background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('{% static 'pics/2.jpg' %}');"></div>
-            <div class="carousel-caption">
-                <h2>멋쟁이 우재씨</h2>
-            </div>
-        </div>
-        <div class="item">
-            <!-- Set the third background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Four');"></div>
-            <div class="carousel-caption">
-                <h2>일단 빈 이미지</h2>
-            </div>
-        </div>
-    </div>
+<!-- Important Owl stylesheet -->
+<link rel="stylesheet" href="{% static 'owl-carousel/owl.carousel.css'%}">
 
-        <!-- Controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="icon-prev"></span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="icon-next"></span>
-    </a>
-
-</header>
+<!-- Default Theme -->
+<link rel="stylesheet" href="{% static 'owl-carousel/owl.theme.css'%}">
+<style>
+#owl-demo .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+</style>
+<!-- Include js plugin -->
+<script src="{% static 'owl-carousel/owl.carousel.js'%}"></script>
 <script>
-{%if mobileuser%}
 $(document).ready(function() {
-   $("#myCarousel").swiperight(function() {
-      $("#myCarousel").carousel('prev');
-    });
-   $("#myCarousel").swipeleft(function() {
-      $("#myCarousel").carousel('next');
-   });
+
+  $("#owl-demo").owlCarousel({
+
+      navigation : false, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      autoPlay : 5000,
+      stopOnHover : true,
+      singleItem:true,
+      pagination : true,
+
+      // "singleItem:true" is a shortcut for:
+      // items : 1,
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+
+  });
+
 });
-{%endif%}
-</script> <!-- Swiping for mobile-->
+</script>
+
+<div id="owl-demo" class="owl-carousel owl-theme">
+
+  <div class="item"><img src="{% static 'pics/1.jpg' %}" alt="IMAGE 1"></div>
+  <div class="item"><img src="{% static 'pics/3.jpg' %}" alt="IMAGE 2"></div>
+  <div class="item"><img src="{% static 'pics/2.jpg' %}" alt="IMAGE 3"></div>
+
+</div>
 
 {% include 'blog/search_form_mentor.html' %}
 
