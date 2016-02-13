@@ -67,7 +67,7 @@ class SignupForm2(UserCreationForm):
     user_photo = forms.ImageField(required = False,)
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required = False, widget = forms.CheckboxSelectMultiple)
     self_intro = forms.CharField(widget=forms.Textarea, required = False)
-    phone = forms.CharField(validators = [phone_validator])
+    phone = forms.CharField()
     first_name = forms.CharField()
     last_name = forms.CharField()
     """

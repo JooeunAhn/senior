@@ -61,7 +61,7 @@ def index(request):
     mentor_count = Profile.objects.filter(is_mentor = True).count()
     reply_count = Reply.objects.all().count()
     question_count = Question.objects.all().count()
-    mentor_list = Profile.objects.all().annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:3]
+    mentor_list = Profile.objects.filter(is_mentor = True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:3]
     context = {
     'question_count' : question_count,
     'reply_count' : reply_count,
@@ -73,7 +73,7 @@ def index(request):
 
 
 def mentor_list(request):
-    mentor_list = Profile.objects.all().annotate(review_count=Count('review_mentor__id')).order_by("-review_count")
+    mentor_list = Profile.objects.filter(is_mentor = True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")
     query_mentor = request.GET.get('mentor')
 
     if query_mentor:
@@ -199,7 +199,7 @@ def review_edit(request, mentor_pk, pk):
 
     if review.mentee.user != request.user:
         messages.warning(request, "작성자가 아닙니다")
-        redirect("blog:mentor_detail", mentor_pk)
+        return redirect("blog:mentor_detail", mentor_pk)
     else:
         if request.method == 'POST':
             form = ReviewForm(request.POST, instance = review)
@@ -220,7 +220,7 @@ def review_delete(request, mentor_pk, pk):
 
     if review.mentee.user != request.user:
         messages.warning(request, "권한이 없습니다")
-        return redirect("blog:review_list")
+        return redirect("blog:mentor_detail", mentor_pk)
     else:
         if request.method == "POST":
             review.delete()
