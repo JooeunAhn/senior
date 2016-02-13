@@ -103,11 +103,11 @@ $(document).ready(function() {
     <div class="col-sm-4" >
         <div class = "thumbnail" style="border:0px;">
             <img src="{{mentor.user_photo.url}}">
-            <p align="center" style="font-weight:bold;" href="{% url "blog:mentor_detail" mentor.id %}">{{mentor.user.username}}님</p>
+            <p align="center" style="font-weight:bold;"><a href="{% url "blog:mentor_detail" mentor.id %}"?>{{mentor.user.last_name}}{{mentor.user.first_name}}님</a></p>
         </div>
     </div>
     {% endfor %}
-</div>    
+</div>
 
 
 
