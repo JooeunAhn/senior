@@ -14,7 +14,20 @@ body {
 .carousel {
     height: 50%;
 }
-
+.btn-default
+{
+    background-color:#f33;
+    border-color:white;
+    color:white;
+    transition: all 0.5s;
+}
+.btn-default:hover
+{
+    background-color:white;
+    border-color:#f33;
+    color:#f33;
+    transition: all 0.5s;
+}
 .item,
 .active,
 .carousel-inner {
@@ -50,6 +63,7 @@ footer {
 #loginbase:hover {
     color: blue;
     background-color: white;
+    transition: background-color .5s, color .5s;
 }
 #loginbase_user {
     font-size:13px;
@@ -65,26 +79,31 @@ footer {
 }
 
 .banner_padding{
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-right: 50px;
+    height:70px;
     padding-left: 50px;
+    padding-right: 50px;
 }
 #banner_inpadding{
+    display:block;
     font-weight: bold;
     font-size: 20px;
     color:rgb(244, 244, 244);
+    height:70px;
+    padding-top:25px;
     padding-left: 20px;
     padding-right: 20px;
 }
 #banner_inpadding:focus,
 #banner_inpadding:hover{
+    display:block;
     font-weight: bold;
-    font-size: 22px;
-    color:rgb(244, 180, 140);
+    font-size: 20px;
+    color:black;
+    height:70px;
     padding-left: 20px;
     padding-right: 20px;
-    background-color: transparent;
+    background-color: white;
+    transition: background-color .5s, color .5s;
 }
 .brandzero{
     padding:0px;
