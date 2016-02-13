@@ -111,14 +111,19 @@
                     <a id="banner_inpadding" href = "{% url "blog:mentor_list" %}">멘토목록</a>
                 </li>
                 <li>
+                    <a id="banner_inpadding" href = "{% url "blog:column" %}">멘토 칼럼</a>
+                </li>
+                <li>
                     <a id="banner_inpadding" href = "{% url "blog:notice" %}">게시판</a>
                 </li>
                 <li>
                     <a id="banner_inpadding" href = "{% url "blog:guide" %}">로하우 가이드</a>
                 </li>
+                {% if user.is_authenticated %}
                 <li>
-                    <a id="banner_inpadding" href = "{% url "blog:column" %}">멘토 칼럼</a>
+                    <a id="banner_inpadding" href = "{% url "accounts:mypage"%}">내 정보</a>
                 </li>
+                {% endif %}
                 </ul>
 
             </div>
