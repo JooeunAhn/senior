@@ -67,7 +67,7 @@ class SignupForm2(UserCreationForm):
     user_photo = forms.ImageField(required = False,)
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required = False, widget = forms.CheckboxSelectMultiple)
     self_intro = forms.CharField(widget=forms.Textarea, required = False)
-    phone = forms.CharField()
+    phone = forms.CharField(validators = [phone_validator])
     first_name = forms.CharField()
     last_name = forms.CharField()
     """
@@ -131,7 +131,7 @@ class SignupForm2(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-    '''answer = forms.IntegerField(label = '3+3 = ?') 
+    '''answer = forms.IntegerField(label = '3+3 = ?')
     def clean_answer(self):
         answer = self.cleaned_data.get('answer', None)  ### 사전에서 key값이 없을경우 두번째값(None)을 넘겨라라는 뜻
         if answer != 6 :
