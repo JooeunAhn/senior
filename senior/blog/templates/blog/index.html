@@ -8,10 +8,23 @@
 <!-- Default Theme -->
 <link rel="stylesheet" href="{% static 'owl-carousel/owl.theme.css'%}">
 <style>
-#owl-demo .item img{
-    display: block;
-    width: 100%;
-    height: auto;
+
+@font-face {
+    font-family: mentos;
+    src: url('{% static 'fonts/ENCOBK.ttf'%}');
+}
+.count{
+    text-align:center;
+}
+.thumbnail img{
+    width:200px;
+    height:200px;
+}
+#numbers
+{
+    color:red;
+    font-family: mentos;
+    font-size: 40px;
 }
 </style>
 <!-- Include js plugin -->
@@ -24,10 +37,10 @@ $(document).ready(function() {
       navigation : false, // Show next and prev buttons
       slideSpeed : 300,
       paginationSpeed : 400,
-      autoPlay : 5000,
+      autoPlay : 4300,
       stopOnHover : true,
       singleItem:true,
-      pagination : true,
+      pagination : false,
 
       // "singleItem:true" is a shortcut for:
       // items : 1,
@@ -37,6 +50,8 @@ $(document).ready(function() {
       // itemsMobile : false
 
   });
+
+
 
 });
 </script>
@@ -51,50 +66,48 @@ $(document).ready(function() {
 
 {% include 'blog/search_form_mentor.html' %}
 
-<style>
-.count{
-    text-align:center;
-}
-</style>
-
-<div class="row">
+<div class="row" style="margin-top:40px;">
     <div class="count">
         <div class="col-sm-4">
-            <p><a style="color:red; font-size: 40px;" href = "{% url "blog:mentor_list" %}">{{mentor_count}}</a>명의 멘토가 등록되어 있습니다.</p>
+            <p><a id="numbers" href = "{% url "blog:mentor_list" %}">{{mentor_count}}</a><br/>명의 멘토가 등록되어 있습니다.</p>
         </div>
 
         <div class="col-sm-4">
-            <p><a style="color:red; font-size: 40px;">{{question_count}}</a>개의 멘티 질문이 등록되었습니다.</p>
+            <p><a id="numbers">{{question_count}}</a><br/>개의 멘티 질문이 등록되었습니다.</p>
         </div>
 
         <div class="col-sm-4">
-            <p><a style="color:red; font-size: 40px;">{{reply_count}}</a>개의 멘토 답변이 등록되었습니다.</p>
+            <p><a id="numbers">{{reply_count}}</a><br/>개의 멘토 답변이 등록되었습니다.</p>
         </div>
     </div>
 </div>
-
-
-<style>
-.thumbnail img{
-    width:200px;
-    height:200px;
-}
-</style>
-
-<div class="row">
+<div class="row" style="margin-top:40px;">
     <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>추천멘토</span></p>
-    {% for mentor in mentor_list %}
+    {%if mentor_list%}
+        {% for mentor in mentor_list %}
+        <div class="col-sm-4" >
+            <a href="{% url "blog:mentor_detail" mentor.id %}">
+            <div class = "thumbnail" style="border:0px;">
+                <img src="{{mentor.user_photo.url}}">
+                <p align="center" style="font-weight:bold;">{{mentor.user.last_name}}{{mentor.user.first_name}}님</p>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    {%else%}
+        <p align="center" style="font-weight:bold;">첫번째 멘토가 되어 유어스테이지 아니 노하우를 빛내주세요!</p>
+    {%endif%}}
+</div>
+
+<div class="row" style="margin-top:40px;">
+    <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>잡설</span></p>
     <div class="col-sm-4" >
-        <a href="{% url "blog:mentor_detail" mentor.id %}">
+        <a href="//jr.naver.com">
         <div class = "thumbnail" style="border:0px;">
-            <img src="{{mentor.user_photo.url}}">
-            <p align="center" style="font-weight:bold;">{{mentor.user.last_name}}{{mentor.user.first_name}}님</p>
+            <img src="{% static 'pics/slide.png' %}">
+            <p align="center" style="font-weight:bold;">재밌는 놀이터</p>
         </div>
         </a>
     </div>
-    {% endfor %}
-</div>
-
-
 
 {% endblock %}

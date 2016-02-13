@@ -44,6 +44,12 @@ footer {
     padding-bottom:5px;
     padding-right:11px;
     padding-left:11px;
+    color: black;
+}
+#loginbase:focus,
+#loginbase:hover {
+    color: blue;
+    background-color: white;
 }
 #loginbase_user {
     font-size:13px;
@@ -52,6 +58,10 @@ footer {
     padding-right:11px;
     padding-left:11px;
     color: red;
+}
+#loginbase_user:focus,
+#loginbase_user:hover {
+    background-color: transparent;
 }
 
 .banner_padding{
@@ -74,6 +84,7 @@ footer {
     color:rgb(244, 180, 140);
     padding-left: 20px;
     padding-right: 20px;
+    background-color: transparent;
 }
 .brandzero{
     padding:0px;
@@ -94,4 +105,10 @@ footer {
 }
 #color5{
     background-color: #FFE2C8;
+}
+
+#owl-demo .item img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
