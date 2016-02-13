@@ -120,7 +120,7 @@ def question_new(request,mentor_pk):
             question.mentor = get_object_or_404(Profile, pk = mentor_pk)
             question.save()
             messages.info(request, "새 질문 등록")
-            return redirect('blog:mentor_list')
+            return redirect('blog:mentor_detail', mentor_pk)
     else :
         form = QuestionForm()
     return render(request, 'blog/question_form.html', {'form':form})
