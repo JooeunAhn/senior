@@ -101,10 +101,12 @@ $(document).ready(function() {
     <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>추천멘토</span></p>
     {% for mentor in mentor_list %}
     <div class="col-sm-4" >
+        <a href="{% url "blog:mentor_detail" mentor.id %}">
         <div class = "thumbnail" style="border:0px;">
             <img src="{{mentor.user_photo.url}}">
-            <p align="center" style="font-weight:bold;"><a href="{% url "blog:mentor_detail" mentor.id %}"?>{{mentor.user.last_name}}{{mentor.user.first_name}}님</a></p>
+            <p align="center" style="font-weight:bold;">{{mentor.user.last_name}}{{mentor.user.first_name}}님</p>
         </div>
+        </a>
     </div>
     {% endfor %}
 </div>

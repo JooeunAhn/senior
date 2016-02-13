@@ -19,9 +19,11 @@
                 <li>
                     {{reply.pk}}
                     {{reply.title}}
-                    {{reply.content}}
+                    {{reply.content}}토
+                    {% if question.mentor.user == user %}
                     <a href="{% url "blog:reply_edit"  question.pk reply.pk %}">수정</a>
                     <a href="{% url "blog:reply_delete"  question.pk reply.pk %}">삭제</a>
+                    {% endif %}
                 </li>
                 {% empty %}
                 <li>등록된 답변 없습니다.</li>
