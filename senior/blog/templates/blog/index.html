@@ -37,7 +37,7 @@ $(document).ready(function() {
       navigation : false, // Show next and prev buttons
       slideSpeed : 300,
       paginationSpeed : 400,
-      autoPlay : 4300,
+      autoPlay : 3800,
       stopOnHover : true,
       singleItem:true,
       pagination : false,
@@ -101,13 +101,39 @@ $(document).ready(function() {
 
 <div class="row" style="margin-top:40px;">
     <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>잡설</span></p>
-    <div class="col-sm-4" >
-        <a href="//jr.naver.com">
+    <div class="col-sm-2" >
+        <a href="//jr.naver.com" target="_blank">
         <div class = "thumbnail" style="border:0px;">
             <img src="{% static 'pics/slide.png' %}">
             <p align="center" style="font-weight:bold;">재밌는 놀이터</p>
         </div>
         </a>
     </div>
+    <div class="col-sm-2" >
+        <a onclick="alert('색깔 진짜 못 고르겠어요... 더 망가지기 전에 좀 도와줘요...')">
+        <div class = "thumbnail" style="border:0px;">
+            <img src="{% static 'pics/ducky.png' %}">
+            <p align="center" style="font-weight:bold;">오리의 변</p>
+        </div>
+        </a>
+    </div>
+    <div class="col-sm-2" >
+        <a onclick="alert('메인 사진 크기는 일단 960 * 300 입니다.')">
+        <div class = "thumbnail" style="border:0px;">
+            <img src="{% static 'pics/moomin.png' %}">
+            <p align="center" style="font-weight:bold;">유용한 생활정보</p>
+        </div>
+        </a>
+    </div>
+    <div class="col-sm-2" >
+        <a href="//www.youtube.com/watch?v=MtN1YnoL46Q" target="_blank">
+        <div class = "thumbnail" style="border:0px;">
+            <img src="{% static 'pics/music.png' %}">
+            <p align="center" style="font-weight:bold;">Editor's Pick</p>
+        </div>
+        </a>
+    </div>
+</div>
+
 
 {% endblock %}

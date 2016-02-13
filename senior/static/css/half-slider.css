@@ -112,3 +112,17 @@ footer {
     width: 100%;
     height: auto;
 }
+.navbar-toggle
+{
+    border-color: #ddd;
+    background-color: #e6e6e6;
+}
+.navbar-toggle:focus,
+.navbar-toggle:hover
+{
+    border-color: #ddd;
+    background-color: #b3b3b3;
+}
+.navbar-toggle .icon-bar {
+    background-color: #888;
+}
