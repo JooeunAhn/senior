@@ -1,54 +1,52 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-#from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.tokens import default_token_generator as token_generator
 from django.core.mail import send_mail
-from django.shortcuts import resolve_url
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from accounts.models import Category
 import re
 from django.core.validators import RegexValidator
-from django.shortcuts import redirect
+
 
 def phone_validator(value):
     number = ''.join(re.findall(r'\d+', value))
-    return RegexValidator(r'^01[016789]\d{7,8}$', message= '번호를 입력해주세요')(number)
-
+    return RegexValidator(r'^01[016789]\d{7,8}$', message='번호를 입력해주세요')(number)
 
 
 def send_signup_confirm_email(request, user):
-    uid = urlsafe_base64_encode(force_bytes(user.pk))
-    token = token_generator.make_token(user)
+    # uid = urlsafe_base64_encode(force_bytes(user.pk))
+    # token = token_generator.make_token(user)
 
     context = {
-    'user' : user,
-    'host' : request.scheme + '://' + request.META['HTTP_HOST'],
-    'uid' : urlsafe_base64_encode(force_bytes(user.pk)),
-    'token' : token_generator.make_token(user),
-     }
+        'user': user,
+        'host': request.scheme + '://' + request.META['HTTP_HOST'],
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': token_generator.make_token(user),
+    }
 
-    subject = render_to_string('accounts/signup_confirm_subject.txt',context)
+    subject = render_to_string('accounts/signup_confirm_subject.txt', context)
     body = render_to_string('accounts/signup_confirm_body.txt', context)
     to_email = [user.email]
     send_mail(subject, body, None, to_email, fail_silently=False)
 
 
 class SignupForm(UserCreationForm):
-    is_agree = forms.BooleanField(label ="약관동의",
-        error_messages = {
-            'required': '약관동의를 해주셔셔야 가입됩니다',
-        })
+    is_agree = forms.BooleanField(
+        label="약관동의",
+        error_messages={'required': '약관동의를 해주셔셔야 가입됩니다', })
+
     class Meta(UserCreationForm.Meta):
-        #fields = ['username', 'email']
-        fields = UserCreationForm.Meta.fields + ('email',) ##콤마 빠트리면 문자열이된다.
-        ##장고 모델은 튜플이어야한다
+        # fields = ['username', 'email']
+        fields = UserCreationForm.Meta.fields + ('email',)  # 콤마 빠트리면 문자열이된다.
+        # #장고 모델은 튜플이어야한다
 
     def clean_email(self):
         email = self.cleaned_data.get('email', None)
-        if email :
+        if email:
             User = get_user_model()
             if User.object.filter(email=email).exists():
                 raise forms.ValidationError('중복된이메일')
@@ -56,18 +54,16 @@ class SignupForm(UserCreationForm):
         return email
 
 
-
-
 class SignupForm2(UserCreationForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
-    email = forms.EmailField(required = False)
-    #is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
-    is_mentor = forms.BooleanField(required = False)
-    user_photo = forms.ImageField(required = False,)
-    category = forms.ModelChoiceField(queryset=Category.objects.all(), required = False, widget = forms.CheckboxSelectMultiple)
-    self_intro = forms.CharField(widget=forms.Textarea, required = False)
-    phone = forms.CharField(validators = [phone_validator])
+    email = forms.EmailField(required=False)
+    # is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
+    is_mentor = forms.BooleanField(required=False)
+    user_photo = forms.ImageField(required=False,)
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
+    self_intro = forms.CharField(widget=forms.Textarea, required=False)
+    phone = forms.CharField(validators=[phone_validator])
     first_name = forms.CharField()
     last_name = forms.CharField()
     """
@@ -77,10 +73,10 @@ class SignupForm2(UserCreationForm):
             return self.fields['initial'].initial
         return self.cleaned_data['user_photo']
     """
-    ### 이렇게하면 일단 DB에 저장은 안함 뒤에함수 호출 필요
+    # ## 이렇게하면 일단 DB에 저장은 안함 뒤에함수 호출 필요
     def save(self, commit=True):
         user = super(SignupForm2, self).save(commit=False)
-        user.email = self.cleaned_data['email']   #### cleaned_data????
+        user.email = self.cleaned_data['email']   # ### cleaned_data????
         user.is_mentor = self.cleaned_data['is_mentor']
         user.user_photo = self.cleaned_data['user_photo']
         user.category = self.cleaned_data['category']
@@ -89,21 +85,21 @@ class SignupForm2(UserCreationForm):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
 
-
         if commit:
             user.save()
         return user
+
     def __init__(self, *args, **kwargs):
-        super(SignupForm2, self).__init__(*args,**kwargs)
-        self.fields['username'].label="아이디를 입력하세요."
-        self.fields['password1'].label="패스워드를 입력하세요."
-        self.fields['password2'].label="패스워드를 다시 한 번 입력하세요."
-        self.fields['email'].label="이메일을 입력하세요."
-        self.fields['user_photo'].label="선생님의 사진을 올려주세요. 잘 나온 사진이면 아무거나 좋습니다~ :)"
-        self.fields['is_mentor'].label="선생님이 멘토로서 활동하실 거면 체크해주세요."
-        self.fields['category'].label="활동중이거나 관심있으신 분야를 선택해주세요."
-        self.fields['self_intro'].label="본인에 대한 간단한 소개를 해주세요."
-        self.fields['phone'].label="휴대폰 전화번호를 입력해주세요."
+        super(SignupForm2, self).__init__(*args, **kwargs)
+        self.fields['username'].label = "아이디를 입력하세요."
+        self.fields['password1'].label = "패스워드를 입력하세요."
+        self.fields['password2'].label = "패스워드를 다시 한 번 입력하세요."
+        self.fields['email'].label = "이메일을 입력하세요."
+        self.fields['user_photo'].label = "선생님의 사진을 올려주세요. 잘 나온 사진이면 아무거나 좋습니다~ :)"
+        self.fields['is_mentor'].label = "선생님이 멘토로서 활동하실 거면 체크해주세요."
+        self.fields['category'].label = "활동중이거나 관심있으신 분야를 선택해주세요."
+        self.fields['self_intro'].label = "본인에 대한 간단한 소개를 해주세요."
+        self.fields['phone'].label = "휴대폰 전화번호를 입력해주세요."
 
 # class SignupForm2(forms.ModelForm):
 #     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -139,8 +135,6 @@ class LoginForm(AuthenticationForm):
         return answer
 '''
     def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args,**kwargs)
-        self.fields['username'].label="아이디를 입력하세요."
-        self.fields['password'].label="패스워드를 입력하세요."
-
-
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = "아이디를 입력하세요."
+        self.fields['password'].label = "패스워드를 입력하세요."
