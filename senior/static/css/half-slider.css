@@ -108,9 +108,7 @@ footer {
     background-color: white;
     transition: background-color .5s, color .5s;
 }
-.brandzero{
-    padding:0px;
-}
+
 #color1{
     background-color: #FF8694;
     border-color: #77A8B2;
