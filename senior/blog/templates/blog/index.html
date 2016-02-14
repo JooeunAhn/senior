@@ -7,26 +7,7 @@
 
 <!-- Default Theme -->
 <link rel="stylesheet" href="{% static 'owl-carousel/owl.theme.css'%}">
-<style>
 
-@font-face {
-    font-family: mentos;
-    src: url('{% static 'fonts/ENCOBK.ttf'%}');
-}
-.count{
-    text-align:center;
-}
-.thumbnail img{
-    width:200px;
-    height:200px;
-}
-#numbers
-{
-    color:red;
-    font-family: mentos;
-    font-size: 40px;
-}
-</style>
 <!-- Include js plugin -->
 <script src="{% static 'owl-carousel/owl.carousel.js'%}"></script>
 <script>
@@ -53,9 +34,25 @@ $(document).ready(function() {
 
 
 
+
+
 });
 </script>
-
+<style>
+@font-face {
+    font-family: mentos;
+    src: url('{% static 'fonts/ENCOBK.ttf'%}');
+}
+#numbers
+{
+    color:red;
+    font-family: mentos;
+    font-size: 40px;
+}
+.count{
+    text-align:center;
+}
+</style>
 <div id="owl-demo" class="owl-carousel owl-theme">
 
   <div class="item"><img src="{% static 'pics/1.jpg' %}" alt="IMAGE 1"></div>
@@ -109,7 +106,7 @@ $(document).ready(function() {
         </a>
     </div>
     <div class="col-sm-2" >
-        <a onclick="alert('색깔 진짜 못 고르겠어요... 더 망가지기 전에 좀 도와줘요...')">
+        <a href="javascript:alert('색깔 진짜 못 고르겠어요... 더 망가지기 전에 좀 도와줘요...')">
         <div class = "thumbnail" style="border:0px;">
             <img src="{% static 'pics/ducky.png' %}">
             <p align="center" style="font-weight:bold;">오리의 변</p>
@@ -117,7 +114,7 @@ $(document).ready(function() {
         </a>
     </div>
     <div class="col-sm-2" >
-        <a onclick="alert('메인 사진 크기는 일단 960 * 300 입니다.')">
+        <a href="javascript:alert('메인 사진 크기는 일단 960 * 300 입니다.')">
         <div class = "thumbnail" style="border:0px;">
             <img src="{% static 'pics/moomin.png' %}">
             <p align="center" style="font-weight:bold;">유용한 생활정보</p>
@@ -132,7 +129,48 @@ $(document).ready(function() {
         </div>
         </a>
     </div>
+    <div class="col-sm-2" >
+        <a href="javascript:var audio2 = new Audio('{% static 'pics/Dramatic-chipmunk.mp3' %}');audio2.play();">
+        <div class = "thumbnail" style="border:0px;">
+            <img id="myImg" src="{% static 'pics/ducky.png' %}">
+            <p align="center" style="font-weight:bold;">오리의 변 2</p>
+        </div>
+        </a>
+    </div>
 </div>
 
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close" style="z-index:2;">X</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+<script>
+    var modal = document.getElementById('myModal');
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById('myImg');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    $(document).keyup(function(ev){
+    if(ev.keyCode == 27)
+        modal.style.display = "none";
+    });
+</script>
 {% endblock %}
