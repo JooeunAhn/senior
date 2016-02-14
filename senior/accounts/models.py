@@ -42,7 +42,7 @@ def phone_validator(value):
 
 class PhoneField(models.CharField):
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('max_length', 11)
+        kwargs.setdefault('max_length', 13)
         super(PhoneField, self).__init__(*args, **kwargs)
         self.validators.append(phone_validator)
 

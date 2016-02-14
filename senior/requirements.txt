@@ -1,1 +1,4 @@
 -r reqs/prod.txt
+js.jquery
+js.bootstrap
+js.underscore
