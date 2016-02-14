@@ -11,6 +11,8 @@ from accounts.models import Category
 import re
 from django.core.validators import RegexValidator
 
+from django.contrib.auth.models import User
+
 
 def phone_validator(value):
     number = ''.join(re.findall(r'\d+', value))
@@ -100,6 +102,20 @@ class SignupForm2(UserCreationForm):
         self.fields['category'].label = "활동중이거나 관심있으신 분야를 선택해주세요."
         self.fields['self_intro'].label = "본인에 대한 간단한 소개를 해주세요."
         self.fields['phone'].label = "휴대폰 전화번호를 입력해주세요."
+
+
+class User_Change_Form(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name']
+
+    def __init__(self, *args, **kwargs):
+        super(User_Change_Form, self).__init__(*args, **kwargs)
+        f = self.fields.get('user_permissions')
+        if f is not None:
+            f.queryset = f.queryset.select_related('content_type')
+
 
 # class SignupForm2(forms.ModelForm):
 #     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
