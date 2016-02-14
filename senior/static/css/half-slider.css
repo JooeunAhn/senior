@@ -73,6 +73,14 @@ footer {
     padding-left:11px;
     color: red;
 }
+#loginbase_superuser {
+    font-size:13px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:11px;
+    padding-left:11px;
+    color: green;
+}
 #loginbase_user:focus,
 #loginbase_user:hover {
     background-color: transparent;

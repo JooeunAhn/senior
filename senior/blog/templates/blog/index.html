@@ -39,14 +39,9 @@ $(document).ready(function() {
 });
 </script>
 <style>
-@font-face {
-    font-family: mentos;
-    src: url('{% static 'fonts/ENCOBK.ttf'%}');
-}
 #numbers
 {
     color:red;
-    font-family: mentos;
     font-size: 40px;
 }
 .count{
@@ -80,8 +75,7 @@ $(document).ready(function() {
 </div>
 <div class="row" style="margin-top:40px;">
     <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>추천멘토</span></p>
-    {%if mentor_list%}
-        {% for mentor in mentor_list %}
+    {% for mentor in mentor_list %}
         <div class="col-sm-4" >
             <a href="{% url "blog:mentor_detail" mentor.id %}">
             <div class = "thumbnail" style="border:0px;">
@@ -90,10 +84,10 @@ $(document).ready(function() {
             </div>
             </a>
         </div>
-        {% endfor %}
-    {%else%}
+    {%empty%}
         <p align="center" style="font-weight:bold;">첫번째 멘토가 되어 노하우를 빛내주세요!</p>
-    {%endif%}}
+    {% endfor %}
+
 </div>
 <!--
 <div class="row" style="margin-top:40px;">

@@ -55,16 +55,16 @@
                 {% if user.is_authenticated %}
                     {%if user.is_superuser %}
                     <li>
-                        <a id="loginbase_user">슈퍼유저님 안녕하세요</a>
+                        <a href = "{% url "accounts:mypage"%}" id="loginbase_superuser">Superuser 님 안녕하세요</a>
                     </li>
                     {% else %}
                         {%if user.profile.is_mentor %}
                         <li>
-                            <a id="loginbase_user">멘토님 안녕하세요</a>
+                            <a href = "{% url "accounts:mypage"%}" id="loginbase_user">{{user.last_name}}{{user.first_name}}님 안녕하세요</a>
                         </li>
                         {% else %}
                         <li>
-                            <a id="loginbase_user">멘티님 안녕하세요</a>
+                            <a href = "{% url "accounts:mypage"%}" id="loginbase_user">{{user.last_name}}{{user.first_name}}님 안녕하세요</a>
                         </li>
                         {% endif %}
                     {% endif %}
@@ -112,11 +112,6 @@
                 <li>
                     <a id="banner_inpadding" href = "{% url "blog:guide" %}">로하우 가이드</a>
                 </li>
-                {% if user.is_authenticated %}
-                <li>
-                    <a id="banner_inpadding" href = "{% url "accounts:mypage"%}">내 정보</a>
-                </li>
-                {% endif %}
                 </ul>
 
             </div>
