@@ -61,7 +61,7 @@ class SignupForm2(UserCreationForm):
     # is_mentor = forms.ChoiceField(label = "멘토?멘티?",widget=forms.Select(),choices=OPTIONS,)
     is_mentor = forms.BooleanField(required=False)
     user_photo = forms.ImageField(required=False,)
-    category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False,)# widget=forms.CheckboxSelectMultiple)
     self_intro = forms.CharField(widget=forms.Textarea, required=False)
     phone = forms.CharField(validators=[phone_validator])
     first_name = forms.CharField()
