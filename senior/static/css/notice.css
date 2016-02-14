@@ -369,6 +369,7 @@ footer.dark-bg {
 }
 .sidenav li a:hover {
 	background: rgb(119, 168, 178); color: rgb(255, 255, 255);
+	transition: all .5s;
 }
 .sidenav li a::after {
 	transition:200ms ease-out; right: 18px; font-family: "fontello"; font-size: 18px; position: absolute; content: "\e762"; opacity: 0; -webkit-transition: all 200ms ease-out; -o-transition: all 200ms ease-out; -moz-transition: all 200ms ease-out;

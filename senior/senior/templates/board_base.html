@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load tch_tch %}
 {% block content %}
-
 <div class="flash_notices_area"></div>
 <body class="notices index">
 <main>
@@ -20,7 +19,7 @@
 		<div class = "row">
 			<div class = "col-sm-3">
 				<ul class = "sidenav clearfix" style ="list-style:none;">
-					<li class = "active col-sm-12 col-xs-4 sidebar-li"><a href="{% url 'blog:notice'%}"><div class="new-label-wrapper-no"></div>공지사항</a></li>
+					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="{% url 'blog:notice'%}"><div class="new-label-wrapper-no"></div>공지사항</a></li>
 
 					<li class = "col-sm-12 col-xs-4 sidebar-li"><a href="{% url 'blog:freeboard'%}"><div class="new-label-wrapper-no"></div>자유게시판</a></li>
 
@@ -30,7 +29,7 @@
 			<div class = "col-sm-9">
 				{% block board %}
 				{% endblock %}
-				
+
 				<div class="text-right"></div>
 			</div>
 		</div>

@@ -63,8 +63,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-        os.path.join (BASE_DIR,'senior','templates')
-        ],
+            os.path.join(BASE_DIR, 'senior', 'templates')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,18 +130,18 @@ USE_TZ = True
 ### 정적파일
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'senior', 'staticfiles')
-PROJECT_STATIC_ROOT = os.path.join(BASE_DIR, 'senior','static')
+PROJECT_STATIC_ROOT = os.path.join(BASE_DIR, 'senior', 'static')
 if glob(os.path.join(PROJECT_STATIC_ROOT, '*')):
     STATICFILES_DIRS.append(PROJECT_STATIC_ROOT)
 
 ### 메세지
 from django.contrib.messages import constants as messages_constants
 MESSAGE_TAGS = {
-messages_constants.ERROR: 'danger',
-}
+    messages_constants.ERROR: 'danger',
+    }
 MESSAGE_LEVEL = messages_constants.DEBUG
 
 ### 미디어 주소

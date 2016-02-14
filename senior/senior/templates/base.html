@@ -18,6 +18,7 @@
     <!-- Custom CSS -->
     <link href="{% static 'css/half-slider.css' %}" rel="stylesheet" />
     <link href="{% static 'css/notice.css' %}" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'pics/fav.png' %}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -29,6 +30,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <!-- button lil script-->
 
 </head>
 <body>
@@ -43,17 +45,10 @@
         </div>
         {% endfor %}
     {%endif%}
-    <p>
-    {%if mobileuser %}
-        나는 모바일이다!!
-    {%else %}
-        나는 모바일 아니다!!!
-    {%endif%}
-    </p>
     -->
 
     <!-- Navigation -->
-    <nav id = "psst" class="navbar" role="navigation" style="background-color:#B24C57; border-color:#B27A48;">
+    <nav class="navbar" role="navigation" style="background-color:#B24C57; border-color:#B27A48;">
         <div class="container-fluid basecolor">
             <div class="container">
                 <u1 class="nav navbar-nav navbar-right">
@@ -74,10 +69,10 @@
                         {% endif %}
                     {% endif %}
                     <li>
-                        <a id="loginbase" href ="{% url "accounts:logout" %}">로그아웃</a>
+                        <a id="loginbase" href ="{% url "accounts:logout" %}"><span class="glyphicon glyphicon-cutlery"> 로그아웃</span></a>
                     </li>
                     <li>
-                        <a id="loginbase" href= "{% url "accounts:account_delete" %}">회원탈퇴</a> <!--나중에 mypage로 기능 옮기기!-->
+                        <a id="loginbase" href= "{% url "accounts:account_delete" %}"><span class="glyphicon glyphicon-remove"> 회원탈퇴</span></a> <!--나중에 mypage로 기능 옮기기!-->
                     </li>
 
                 {% else %}
@@ -85,26 +80,25 @@
                         <a id="loginbase" href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
                     </li>
                     <li>
-                        <a id="loginbase" href = "{% url "accounts:signup" %}">회원가입</a>
+                        <a id="loginbase" href = "{% url "accounts:signup" %}"><span class="glyphicon glyphicon-plus"> 회원가입</a>
                     </li>
                 {% endif %}
                 </u1>
             </div>
             <!-- Brand and toggle get grouped for better mobile display -->
         </div>
-        <div class="container banner_padding">
+        <div class="container banner_padding" >
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand brandzero" href= "{% url "blog:index"%}"><img id="logo" src="{% static 'pics/lohow.png' %}" style="height:100%; width:auto;"/></a>
+                <a class="navbar-brand brandzero" style="padding-top:10px;" href= "{% url "blog:index"%}"><img id="logo" src="{% static 'pics/lohoww.png' %}" style="height:100%; width:auto;"/></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
                 <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a id="banner_inpadding" href = "{% url "blog:mentor_list" %}">멘토목록</a>
@@ -141,22 +135,6 @@
         <button class="btn btn-warning" onclick="reservation()"><h4>노랭이</h4></button> -->
     </div>
     <!-- /.container -->
-
-    <script type="text/JavaScript">
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    {% if mobileuser %}
-        $('#psst').attr('class','navbar navbar-default');
-        $('#logo').attr('src',"{% static 'pics/lohow.png' %}");
-    {% else %}
-        $('#psst').attr('class','navbar navbar-inverse');
-        $('#logo').attr('src',"{% static 'pics/lohoww.png' %}");
-    {% endif %}
-    $(function(){});
-            // will execute when page is ready
-    </script>
-    <!-- how to initialize...?-->
     <footer class="footer-footer" style="margin-bottom:0;">
         <div class="container">
             <div class="col-sm-8">

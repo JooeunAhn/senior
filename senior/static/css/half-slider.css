@@ -14,7 +14,20 @@ body {
 .carousel {
     height: 50%;
 }
-
+.btn-default
+{
+    background-color:#f33;
+    border-color:white;
+    color:white;
+    transition: all 0.5s;
+}
+.btn-default:hover
+{
+    background-color:white;
+    border-color:#f33;
+    color:#f33;
+    transition: all 0.5s;
+}
 .item,
 .active,
 .carousel-inner {
@@ -44,6 +57,13 @@ footer {
     padding-bottom:5px;
     padding-right:11px;
     padding-left:11px;
+    color: black;
+}
+#loginbase:focus,
+#loginbase:hover {
+    color: blue;
+    background-color: white;
+    transition: background-color .5s, color .5s;
 }
 #loginbase_user {
     font-size:13px;
@@ -53,19 +73,32 @@ footer {
     padding-left:11px;
     color: red;
 }
+#loginbase_user:focus,
+#loginbase_user:hover {
+    background-color: transparent;
+}
 
 .banner_padding{
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-right: 50px;
     padding-left: 50px;
+    padding-right: 50px;
 }
 #banner_inpadding{
     font-weight: bold;
     font-size: 20px;
     color:rgb(244, 244, 244);
+    padding-top:20px;
     padding-left: 20px;
     padding-right: 20px;
+}
+#banner_inpadding:focus,
+#banner_inpadding:hover{
+    font-weight: bold;
+    font-size: 20px;
+    color:black;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+    transition: background-color .5s, color .5s;
 }
 .brandzero{
     padding:0px;
@@ -86,4 +119,118 @@ footer {
 }
 #color5{
     background-color: #FFE2C8;
+}
+
+#owl-demo .item img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.navbar-toggle
+{
+    border-color: #ddd;
+    background-color: #e6e6e6;
+}
+.navbar-toggle:focus,
+.navbar-toggle:hover
+{
+    border-color: #ddd;
+    background-color: #b3b3b3;
+}
+.navbar-toggle .icon-bar {
+    background-color: #888;
+}
+/*index.html styles from now on*/
+
+.thumbnail img{
+    width:200px;
+    height:200px;
+    transition:.3s;
+}
+.thumbnail img:hover{opacity: 0.7;}
+
+#myImg {
+    /*border-radius: 5px;*/
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
 }

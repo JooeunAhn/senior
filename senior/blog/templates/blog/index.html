@@ -1,116 +1,177 @@
-
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content%}
 <script src="{% static 'js/jquery.mobile.custom.min.js'%}"></script>
-<header id="myCarousel" class="carousel scroll">
-        <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
-    <!-- Wrapper for Slides -->
-    <div class="carousel-inner">
-        <div class="item active">
-            <!-- Set the first background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('{% static 'pics/1.jpg' %}');"></div>
-            <div class="carousel-caption">
-                <h2 style="color:yellow;">회의중</h2>
-            </div>
-        </div>
-        <div class="item">
-            <!-- Set the second background image using inline CSS below. -->
-            <a href="http://yourstage.com"><div class="fill" style="background-image:url('{% static 'pics/3.jpg' %}');"></div></a>
-            <div class="carousel-caption">
-                <h2>꿈과 희망의 사이트 yourstage 로</h2>
-            </div>
-        </div>
-        <div class="item">
-            <!-- Set the third background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('{% static 'pics/2.jpg' %}');"></div>
-            <div class="carousel-caption">
-                <h2>멋쟁이 우재씨</h2>
-            </div>
-        </div>
-        <div class="item">
-            <!-- Set the third background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Four');"></div>
-            <div class="carousel-caption">
-                <h2>일단 빈 이미지</h2>
-            </div>
-        </div>
-    </div>
+<!-- Important Owl stylesheet -->
+<link rel="stylesheet" href="{% static 'owl-carousel/owl.carousel.css'%}">
 
-        <!-- Controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="icon-prev"></span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="icon-next"></span>
-    </a>
+<!-- Default Theme -->
+<link rel="stylesheet" href="{% static 'owl-carousel/owl.theme.css'%}">
 
-</header>
+<!-- Include js plugin -->
+<script src="{% static 'owl-carousel/owl.carousel.js'%}"></script>
 <script>
-{%if mobileuser%}
 $(document).ready(function() {
-   $("#myCarousel").swiperight(function() {
-      $("#myCarousel").carousel('prev');
-    });
-   $("#myCarousel").swipeleft(function() {
-      $("#myCarousel").carousel('next');
-   });
+
+  $("#owl-demo").owlCarousel({
+
+      navigation : false, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      autoPlay : 3800,
+      stopOnHover : true,
+      singleItem:true,
+      pagination : false,
+
+      // "singleItem:true" is a shortcut for:
+      // items : 1,
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+
+  });
+
+
+
+
+
 });
-{%endif%}
-</script> <!-- Swiping for mobile-->
-
-{% include 'blog/search_form_mentor.html' %}
-
+</script>
 <style>
+@font-face {
+    font-family: mentos;
+    src: url('{% static 'fonts/ENCOBK.ttf'%}');
+}
+#numbers
+{
+    color:red;
+    font-family: mentos;
+    font-size: 40px;
+}
 .count{
     text-align:center;
 }
 </style>
+<div id="owl-demo" class="owl-carousel owl-theme">
 
-<div class="row">
+  <div class="item"><img src="{% static 'pics/1.jpg' %}" alt="IMAGE 1"></div>
+  <div class="item"><img src="{% static 'pics/3.jpg' %}" alt="IMAGE 2"></div>
+  <div class="item"><img src="{% static 'pics/2.jpg' %}" alt="IMAGE 3"></div>
+
+</div>
+
+{% include 'blog/search_form_mentor.html' %}
+
+<div class="row" style="margin-top:40px;">
     <div class="count">
         <div class="col-sm-4">
-            <p><a style="color:red; font-size: 40px;" href = "{% url "blog:mentor_list" %}">{{mentor_count}}</a>명의 멘토가 등록되어 있습니다.</p>
+            <p><a id="numbers" href = "{% url "blog:mentor_list" %}">{{mentor_count}}</a><br/>명의 멘토가 등록되어 있습니다.</p>
         </div>
 
         <div class="col-sm-4">
-            <p><a style="color:red; font-size: 40px;">{{question_count}}</a>개의 멘티 질문이 등록되었습니다.</p>
+            <p><a id="numbers">{{question_count}}</a><br/>개의 멘티 질문이 등록되었습니다.</p>
         </div>
 
         <div class="col-sm-4">
-            <p><a style="color:red; font-size: 40px;">{{reply_count}}</a>개의 멘토 답변이 등록되었습니다.</p>
+            <p><a id="numbers">{{reply_count}}</a><br/>개의 멘토 답변이 등록되었습니다.</p>
         </div>
     </div>
 </div>
-
-
-<style>
-.thumbnail img{
-    width:200px;
-    height:200px;
-}
-</style>
-
-<div class="row">
+<div class="row" style="margin-top:40px;">
     <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>추천멘토</span></p>
-    {% for mentor in mentor_list %}
-    <div class="col-sm-4" >
-        <a href="{% url "blog:mentor_detail" mentor.id %}">
+    {%if mentor_list%}
+        {% for mentor in mentor_list %}
+        <div class="col-sm-4" >
+            <a href="{% url "blog:mentor_detail" mentor.id %}">
+            <div class = "thumbnail" style="border:0px;">
+                <img src="{{mentor.user_photo.url}}">
+                <p align="center" style="font-weight:bold;">{{mentor.user.last_name}}{{mentor.user.first_name}}님</p>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    {%else%}
+        <p align="center" style="font-weight:bold;">첫번째 멘토가 되어 노하우를 빛내주세요!</p>
+    {%endif%}}
+</div>
+<!--
+<div class="row" style="margin-top:40px;">
+    <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>잡설</span></p>
+    <div class="col-sm-2" >
+        <a href="//jr.naver.com" target="_blank">
         <div class = "thumbnail" style="border:0px;">
-            <img src="{{mentor.user_photo.url}}">
-            <p align="center" style="font-weight:bold;">{{mentor.user.last_name}}{{mentor.user.first_name}}님</p>
+            <img src="{% static 'pics/slide.png' %}">
+            <p align="center" style="font-weight:bold;">재밌는 놀이터</p>
         </div>
         </a>
     </div>
-    {% endfor %}
+    <div class="col-sm-2" >
+        <a href="javascript:alert('색깔 진짜 못 고르겠어요... 더 망가지기 전에 좀 도와줘요...')">
+        <div class = "thumbnail" style="border:0px;">
+            <img src="{% static 'pics/ducky.png' %}">
+            <p align="center" style="font-weight:bold;">오리의 변</p>
+        </div>
+        </a>
+    </div>
+    <div class="col-sm-2" >
+        <a href="javascript:alert('메인 사진 크기는 일단 960 * 300 입니다.')">
+        <div class = "thumbnail" style="border:0px;">
+            <img src="{% static 'pics/moomin.png' %}">
+            <p align="center" style="font-weight:bold;">유용한 생활정보</p>
+        </div>
+        </a>
+    </div>
+    <div class="col-sm-2" >
+        <a href="//www.youtube.com/watch?v=MtN1YnoL46Q" target="_blank">
+        <div class = "thumbnail" style="border:0px;">
+            <img src="{% static 'pics/music.png' %}">
+            <p align="center" style="font-weight:bold;">Editor's Pick</p>
+        </div>
+        </a>
+    </div>
+    <div class="col-sm-2" >
+        <a href="javascript:var audio2 = new Audio('{% static 'pics/Dramatic-chipmunk.mp3' %}');audio2.play();">
+        <div class = "thumbnail" style="border:0px;">
+            <img id="myImg" src="{% static 'pics/ducky.png' %}">
+            <p align="center" style="font-weight:bold;">오리의 변 2</p>
+        </div>
+        </a>
+    </div>
 </div>
+-->
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close" style="z-index:2;">X</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+<script>
+    var modal = document.getElementById('myModal');
 
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById('myImg');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+        captionText.innerHTML = this.alt;
+    }
 
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    $(document).keyup(function(ev){
+    if(ev.keyCode == 27)
+        modal.style.display = "none";
+    });
+</script>
 {% endblock %}

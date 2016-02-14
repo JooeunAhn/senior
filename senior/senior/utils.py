@@ -2,6 +2,7 @@ import os
 from uuid import uuid4
 from django.utils import timezone
 
+
 def random_name_upload_to(instance, filename):
     app_label = instance.__class__._meta.app_label
     cls_name = instance.__class__.__name__.lower()
@@ -10,11 +11,11 @@ def random_name_upload_to(instance, filename):
     extension = os.path.splitext(filename)[-1].lower()
     return os.path.join(app_label, cls_name, ymd_path, name + extension)
 
-import os
 from optparse import OptionParser
 from io import BytesIO
 from PIL import Image, ImageOps
 from django.utils import six
+
 
 def pil_image(input_f, quality=80):
     if isinstance(input_f, six.string_types):
@@ -38,16 +39,19 @@ def pil_image(input_f, quality=80):
     image = Image.open(input_f)
     return image, format
 
+
 def image_to_file(image, format, quality):
     output_f = BytesIO()
     image.save(output_f, format=format, quality=quality)
     output_f.seek(0)
     return output_f
 
+
 def thumbnail(input_f, width, height, quality=80):
     image, format = pil_image(input_f, quality)
     image.thumbnail((width, height), Image.ANTIALIAS)
     return image_to_file(image, format, quality)
+
 
 def square_image(input_f, max_size, quality=80):
     image, format = pil_image(input_f, quality)
