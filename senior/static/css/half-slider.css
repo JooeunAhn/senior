@@ -21,11 +21,34 @@ body {
     color:white;
     transition: all 0.5s;
 }
+.btn-default:focus,
 .btn-default:hover
 {
     background-color:white;
     border-color:#f33;
     color:#f33;
+    transition: all 0.5s;
+}
+.btn-default:active,
+.btn-default:active:hover,
+.btn-default:active:focus
+{
+    background-color:#c00;
+    color:white;
+}
+.btn-success
+{
+    background-color:#5cb85c;
+    border-color:white;
+    color:white;
+    transition: all 0.5s;
+}
+.btn-success:focus,
+.btn-success:hover
+{
+    background-color:white;
+    border-color:#5cb85c;
+    color:#5cb85c;
     transition: all 0.5s;
 }
 .item,
@@ -82,8 +105,12 @@ footer {
     color: green;
 }
 #loginbase_user:focus,
-#loginbase_user:hover {
-    background-color: transparent;
+#loginbase_user:hover,
+#loginbase_superuser:focus,
+#loginbase_superuser:hover{
+    background-color: white;
+    color: blue;
+    transition: background-color .5s, color .5s;
 }
 
 .banner_padding{
