@@ -14,10 +14,10 @@
             <li>|</li>
             <div class="fb-like" data-action="like" data-show-faces="true" data-share="true" data-layout="button_count" data-href="http://itdaa.net/free_boards/796"></div></ul>
 
-            <a href="{% url 'blog:freeboard_edit' freeboard.id %}" class="btn btn-primary btn-block%}">
+            <a href="{% url 'blog:freeboard_edit' freeboard.id %}" class="btn btn-default">
                 게시물 수정
             </a>
-            <a href="{% url "blog:freeboard_delete" freeboard.id %}" class="btn btn-danger">
+            <a href="{% url "blog:freeboard_delete" freeboard.id %}" class="btn btn-default">
                 Delete
             </a>
 
@@ -35,7 +35,7 @@
                             {{ comment_form.message }}
                         </div>
                         <div class="col-sm-2" align="center">
-                            <input type="submit" value="댓글쓰기" class="btn btn-primary"/>
+                            <input type="submit" value="댓글쓰기" class="btn btn-default"/>
                         </div>
                     </div>
                 </form>

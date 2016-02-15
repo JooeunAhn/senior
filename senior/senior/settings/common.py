@@ -44,9 +44,7 @@ INSTALLED_APPS = [
     'accounts',
     'hitcount',
     'bootstrap3',
-    'js.jquery',
-    'js.bootstrap',
-    'js.underscore',
+
 ]
 
 MIDDLEWARE_CLASSES = [

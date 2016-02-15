@@ -99,7 +99,7 @@
     <ul class="pagination">
         <li class="prev">
         {% if notice_list.has_previous %}
-            <a href="?page={{ notice_list.previous_page_number}}" class="btn btn-primary">previous</a>
+            <a href="?page={{ notice_list.previous_page_number}}" class="btn btn-default">previous</a>
         {%else%}
             <a href="#" class="btn">previous</a>
         {% endif %}
@@ -115,7 +115,7 @@
         {% endfor %}
         <li class="prev">
         {% if notice_list.has_next %}
-            <a href="?page={{ notice_list.next_page_number}}" class="btn btn-primary">next</a>
+            <a href="?page={{ notice_list.next_page_number}}" class="btn btn-default">next</a>
         {%else%}
             <a href="#" class="btn">next</a>
         {% endif %}

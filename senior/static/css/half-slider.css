@@ -21,11 +21,34 @@ body {
     color:white;
     transition: all 0.5s;
 }
+.btn-default:focus,
 .btn-default:hover
 {
     background-color:white;
     border-color:#f33;
     color:#f33;
+    transition: all 0.5s;
+}
+.btn-default:active,
+.btn-default:active:hover,
+.btn-default:active:focus
+{
+    background-color:#c00;
+    color:white;
+}
+.btn-success
+{
+    background-color:#5cb85c;
+    border-color:white;
+    color:white;
+    transition: all 0.5s;
+}
+.btn-success:focus,
+.btn-success:hover
+{
+    background-color:white;
+    border-color:#5cb85c;
+    color:#5cb85c;
     transition: all 0.5s;
 }
 .item,
@@ -73,9 +96,21 @@ footer {
     padding-left:11px;
     color: red;
 }
+#loginbase_superuser {
+    font-size:13px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:11px;
+    padding-left:11px;
+    color: green;
+}
 #loginbase_user:focus,
-#loginbase_user:hover {
-    background-color: transparent;
+#loginbase_user:hover,
+#loginbase_superuser:focus,
+#loginbase_superuser:hover{
+    background-color: white;
+    color: blue;
+    transition: background-color .5s, color .5s;
 }
 
 .banner_padding{
@@ -100,9 +135,7 @@ footer {
     background-color: white;
     transition: background-color .5s, color .5s;
 }
-.brandzero{
-    padding:0px;
-}
+
 #color1{
     background-color: #FF8694;
     border-color: #77A8B2;
@@ -142,12 +175,32 @@ footer {
 }
 /*index.html styles from now on*/
 
-.thumbnail img{
+.thumbnail img
+{
     width:200px;
     height:200px;
     transition:.3s;
 }
-.thumbnail img:hover{opacity: 0.7;}
+.thumbnail img:hover
+{
+    opacity:.5;
+}
+.description
+{
+    position:absolute;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #000;
+    opacity: 0;
+    transition:.3s;
+}
+.thumbnail:hover .description
+{
+    opacity:1;
+}
+
 
 #myImg {
     /*border-radius: 5px;*/

@@ -57,7 +57,7 @@
                     </div-->
         <li class="prev">
         {% if mentor_list.has_previous %}
-            <a href="?page={{ mentor_list.previous_page_number}}" class="btn btn-primary">previous</a>
+            <a href="?page={{ mentor_list.previous_page_number}}" class="btn btn-default">previous</a>
         {%else%}
             <a href="#" class="btn">previous</a>
         {% endif %}
@@ -73,7 +73,7 @@
         {% endfor %}
         <li class="prev">
         {% if mentor_list.has_next %}
-            <a href="?page={{ mentor_list.next_page_number}}" class="btn btn-primary">next</a>
+            <a href="?page={{ mentor_list.next_page_number}}" class="btn btn-default">next</a>
         {%else%}
             <a href="#" class="btn">next</a>
         {% endif %}

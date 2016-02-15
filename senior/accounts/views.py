@@ -7,7 +7,7 @@ from django.contrib.auth.tokens import default_token_generator as default_token_
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-from accounts.forms import SignupForm, SignupForm2
+from accounts.forms import SignupForm, SignupForm2, User_Change_Form, Profile_Change_Form
 from accounts.models import Profile, Category
 from blog.models import Column
 
@@ -41,35 +41,19 @@ def account_delete(request):
 def account_edit(request):
     user = Profile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = SignupForm(
-            request.POST,
-            request.FILES,
-            initial={"user_photo": "default/default.png", "category": Category.objects.get(title="경제")})
-
-        if form.is_valid():
-            user = form.save()
-            authenticated_user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password1'])
-            auth_login(request, authenticated_user)
-            # 회원가입 승인
-            # backend_cls = get_backends()[0].__class__
-            # backend_path = backend_cls.__module__ + '.' + backend_cls.__name__
-            # user.backend = backend_path
-            # auth_login(request, user)
-
-            messages.info(request, '수정완료')
-            return redirect('accounts:mypage')
-
-            # 회원가입 시에, 이메일 승인
-            # user = form.save(commit = False)
-            # user.is_active = False ##user 에게 권한주는 것의 핵심
-            # user.save()
-            # send_signup_confirm_email(request, user)
-            # return redirect(settings.LOGIN_URL)
+        form1 = User_Change_Form(request.POST, instance = user.user)
+        form2 = Profile_Change_Form(request.POST, instance = user)
+        if form1.is_valid():
+            if form2.is_valid():
+                form1.save()
+                form2.save()
+                messages.info(request, '수정완료')
+                return redirect('accounts:mypage')
     else:
-        form = SignupForm2(instance=user)
-    return render(request, 'accounts/signup.html', {'form': form, })
+        form1 = User_Change_Form(instance=user.user)
+        form2 = Profile_Change_Form(instance = user)
+
+    return render(request, 'accounts/signup_edit.html', {'form1': form1, 'form2': form2,})
 
 
 def signup(request):
