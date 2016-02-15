@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from accounts.models import Profile
