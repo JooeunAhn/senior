@@ -12,6 +12,7 @@ import re
 from django.core.validators import RegexValidator
 
 from django.contrib.auth.models import User
+from accounts.models import Profile
 
 
 def phone_validator(value):
@@ -115,6 +116,20 @@ class User_Change_Form(forms.ModelForm):
         f = self.fields.get('user_permissions')
         if f is not None:
             f.queryset = f.queryset.select_related('content_type')
+
+class Profile_Change_Form(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ['user_photo', 'category', 'self_intro', 'phone', 'is_mentor']
+
+
+    def __init__(self, *args, **kwargs):
+        super(Profile_Change_Form, self).__init__(*args, **kwargs)
+        f = self.fields.get('user_permissions')
+        if f is not None:
+            f.queryset = f.queryset.select_related('content_type')
+
 
 
 # class SignupForm2(forms.ModelForm):
