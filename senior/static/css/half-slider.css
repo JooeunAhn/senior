@@ -174,30 +174,38 @@ footer {
     background-color: #888;
 }
 /*index.html styles from now on*/
-
+.thumbnail
+{
+    border:0px;
+}
 .thumbnail img
 {
     width:200px;
     height:200px;
     transition:.3s;
 }
-.thumbnail img:hover
-{
-    opacity:.5;
-}
 .description
 {
+    background-color:rgba(255,255,255,0.4);
     position:absolute;
-    top: 70px;
+    font-weight: bold;
+    text-align:center;
+    top: 104px;
     bottom: 0;
-    left: 0;
+    left: 129px;
     right: 0;
     color: #000;
+    width:200px;
+    height:100px;
+    padding-top:0;
     opacity: 0;
-    transition:.3s;
+    transition: all .3s;
 }
 .thumbnail:hover .description
 {
+    top: 4px;
+    padding-top:50px;
+    height:200px;
     opacity:1;
 }
 
