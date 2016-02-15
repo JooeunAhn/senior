@@ -78,9 +78,10 @@ $(document).ready(function() {
     {% for mentor in mentor_list %}
         <div class="col-sm-4" >
             <a href="{% url "blog:mentor_detail" mentor.id %}">
-            <div class = "thumbnail">
+            <div class = "thumbnails">
                 <img src="{{mentor.user_photo.url}}" alt="{{mentor.user_photo.url}}"/>
-                <p class="description">{{mentor.user.last_name}}{{mentor.user.first_name}}님</p>
+                <div class="description">{{mentor.user.last_name}}{{mentor.user.first_name}}님</div>
+                <div class="description2">blah blah blah</div>
             </div>
             </a>
         </div>
