@@ -175,12 +175,32 @@ footer {
 }
 /*index.html styles from now on*/
 
-.thumbnail img{
+.thumbnail img
+{
     width:200px;
     height:200px;
     transition:.3s;
 }
-.thumbnail img:hover{opacity: 0.7;}
+.thumbnail img:hover
+{
+    opacity:.5;
+}
+.description
+{
+    position:absolute;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #000;
+    opacity: 0;
+    transition:.3s;
+}
+.thumbnail:hover .description
+{
+    opacity:1;
+}
+
 
 #myImg {
     /*border-radius: 5px;*/
