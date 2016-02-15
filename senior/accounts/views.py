@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+# -*- decoding: utf-8 -*-
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -41,7 +42,6 @@ def account_delete(request):
 def account_edit(request):
     user = Profile.objects.get(user=request.user)
     if request.method == 'POST':
-        print(request.FILES)
         form1 = User_Change_Form(request.POST, instance = user.user)
         form2 = Profile_Change_Form(request.POST,request.FILES, instance = user)
         if form1.is_valid():
