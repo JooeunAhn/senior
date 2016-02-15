@@ -7,7 +7,7 @@ from django.contrib.auth.tokens import default_token_generator as default_token_
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-from accounts.forms import SignupForm, SignupForm2, User_Change_Form
+from accounts.forms import SignupForm, SignupForm2, User_Change_Form, Profile_Change_Form
 from accounts.models import Profile, Category
 from blog.models import Column
 
@@ -41,14 +41,19 @@ def account_delete(request):
 def account_edit(request):
     user = Profile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = User_Change_Form(request.POST, instance = user.user)
-        if form.is_valid():
-            user = form.save()
-            messages.info(request, '수정완료')
-            return redirect('accounts:mypage')
+        form1 = User_Change_Form(request.POST, instance = user.user)
+        form2 = Profile_Change_Form(request.POST, instance = user)
+        if form1.is_valid():
+            if form2.is_valid():
+                form1.save()
+                form2.save()
+                messages.info(request, '수정완료')
+                return redirect('accounts:mypage')
     else:
-        form = User_Change_Form(instance=user.user)
-    return render(request, 'accounts/signup.html', {'form': form, })
+        form1 = User_Change_Form(instance=user.user)
+        form2 = Profile_Change_Form(instance = user)
+
+    return render(request, 'accounts/signup_edit.html', {'form1': form1, 'form2': form2,})
 
 
 def signup(request):
