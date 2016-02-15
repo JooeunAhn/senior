@@ -174,39 +174,69 @@ footer {
     background-color: #888;
 }
 /*index.html styles from now on*/
-.thumbnail
+.thumbnails
 {
+    display:block;
+    margin:auto;
+    position:relative;
     border:0px;
+    width:200px;
+    height:210px;
 }
-.thumbnail img
+.thumbnails img
 {
+    display: block;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
     width:200px;
     height:200px;
-    transition:.3s;
 }
-.description
+.thumbnails .description
 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     background-color:rgba(255,255,255,0.4);
-    position:absolute;
-    font-weight: bold;
+    position: absolute;
+    font-weight: bold;  
     text-align:center;
-    top: 104px;
-    bottom: 0;
-    left: 129px;
-    right: 0;
-    color: #000;
+    top:204px;
     width:200px;
-    height:100px;
-    padding-top:0;
+    height:0px;
+    color: #000;
+    opacity: 1;
+    transition: all .3s;
+}
+.thumbnails .description2
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    font-weight: bold;  
+    text-align:center;
+    top:204px;
+    width:200px;
+    height:0px;
+    color: #000;
     opacity: 0;
     transition: all .3s;
 }
-.thumbnail:hover .description
+.thumbnails:hover .description
 {
-    top: 4px;
+    top:0px;
     padding-top:50px;
-    height:200px;
+    color: #60c;
     opacity:1;
+    height:200px;
+}
+.thumbnails:hover .description2
+{
+    top:0px;
+    padding-top:100px;
+    opacity:1;
+    height:200px;
 }
 
 
