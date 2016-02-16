@@ -39,8 +39,13 @@ $(document).ready(function() {
 });
 </script>
 <style>
+@font-face {
+    font-family: customfont;
+    src: url('{% static 'fonts/ENCOBK.TTF' %}');
+}
 #numbers
 {
+    font-family: customfont;
     color:red;
     font-size: 40px;
 }
@@ -76,7 +81,7 @@ $(document).ready(function() {
 <div class="row" style="margin-top:40px;">
     <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>추천멘토</span></p>
     {% for mentor in mentor_list %}
-        <div class="col-sm-4" >
+        <div class="col-sm-3" >
             <a href="{% url "blog:mentor_detail" mentor.id %}">
             <div class = "thumbnails">
                 <img src="{{mentor.user_photo.url}}" alt="{{mentor.user_photo.url}}"/>

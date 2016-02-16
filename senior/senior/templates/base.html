@@ -214,7 +214,7 @@ class = "txtmod", title="쓰고 싶은 내용"
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <span class="close">X</span>
-  <img class="modal-content" id="img01">
+  <img class="modal-content" id="img01" style="cursor:pointer;">
   <div id="caption"></div>
 </div>
 
@@ -251,10 +251,13 @@ class = "txtmod", title="쓰고 싶은 내용"
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
+    var span2 = document.getElementsByClassName("modal-content")[0];
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
+        modal.style.display = "none";
+    }
+    span2.onclick = function() {
         modal.style.display = "none";
     }
 
