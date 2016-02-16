@@ -22,7 +22,7 @@
             <a class="txtmod" title="메일보내기 역시 준비중입니다." href="javascript:void(0);"><span style="font-size:15px;"><img src="{% static 'pics/mail.png' %}" style="width:10%;"/> {{profile.user.email}}</span></a>
             <div style="float:right;padding-right:20px;"><a class="btn btn-default" href = "{% url "accounts:account_edit" %}" >계정수정</a></div>
             </br><p class="sidelines text-center" style="font-weight:bold;align:center;"><span>한줄소개</span></p>
-            <span>{{profile.category}}</span>
+            <span>{{profile.self_intro}}</span>
     </div>      <!--<a href = "{% url "accounts:account_edit" %}" > 계정수정 </a>-->
     <div id="right" class="col-sm-8">
 
