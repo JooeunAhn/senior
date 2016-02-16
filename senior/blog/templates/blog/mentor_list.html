@@ -24,22 +24,25 @@
         </div>
     </div>
 </div>
+<div class="row" style="margin-top:40px;">
 {% for mentor in mentor_list %}
-<div class="" style="margin-top:100px; margin-left:140px;" >
-    <div class="col-sm-6 col-md-4">
-        <a href ="/mentors/{{mentor.id}}/" class="thumbnail">
-            <img src="{{ mentor.user_photo.url }}">
-        </a>
-            <div class="caption">
-                 <a href ="/mentors/{{mentor.id}}/">
-                    <h3>{{mentor.user.last_name}}{{mentor.user.first_name}}</h3></a>
-                        <p>{{mentor.category}}</p>
-                        <p>{{mentor.self_intro}}</p>
+    <div class="col-sm-3" >
+            <a href="{% url "blog:mentor_detail" mentor.id %}">
+            <div class = "thumbnails">
+                <img src="{{mentor.user_photo.url}}" alt="{{mentor.user_photo.url}}"/>
+                <div class="description">{{mentor.user.last_name}}{{mentor.user.first_name}}님</div>
+                {%if profile.category == None%}
+                    <div class="description2">No Category</div>
+                {%else%}
+                    <div class="description2">{{profile.category}}</div>
+                {%endif%}
             </div>
-
+            </a>
     </div>
-</div>
+<!--if it is from search, return "no search results"-->
+<!-- else 첫번째 멘토가 어쩌고~ -->
 {% endfor %}
+</div>
 </ul>
 
 <div class="pagination_wrapper text-center">

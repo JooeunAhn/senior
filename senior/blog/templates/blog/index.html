@@ -86,10 +86,14 @@ $(document).ready(function() {
             <div class = "thumbnails">
                 <img src="{{mentor.user_photo.url}}" alt="{{mentor.user_photo.url}}"/>
                 <div class="description">{{mentor.user.last_name}}{{mentor.user.first_name}}님</div>
-                <div class="description2">blah blah blah</div>
+                {%if profile.category == None%}
+                    <div class="description2">No Category</div>
+                {%else%}
+                    <div class="description2">{{profile.category}}</div>
+                {%endif%}
             </div>
             </a>
-        </div>
+    </div>
     {%empty%}
         <p style="text-align:center;font-weight:bold;">첫번째 멘토가 되어 노하우를 빛내주세요!</p>
     {% endfor %}
