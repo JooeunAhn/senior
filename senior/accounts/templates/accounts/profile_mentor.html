@@ -20,14 +20,20 @@
 
 <div class="row" style="margin-top:100px; margin-left:80px; margin-right:80px" >
 	<div id="left" class="col-sm-4">
-		<div class="thumbnail"><img id="myImg" src="{{profile.user_photo.url}}" alt="{{profile.user.last_name}}{{profile.user.first_name}}님"/></div>
+		<div class="thumbnail">
+        {%if mentor.user_photo %}
+            <img id="myImg" src="{{mentor.user_photo.url}}" alt="{{mentor.user.last_name}}{{mentor.user.first_name}}님"/>
+        {%else%}
+            <img id="myImg" src="{% static 'pics/nophotoducky.png' %}" alt="{{mentor.user.last_name}}{{mentor.user.first_name}}님"/>
+        {%endif%}
+        </div>
             <a class="txtmod" title="메일보내기 역시 준비중입니다." href="javascript:void(0);"><span style="font-size:15px;"><img src="{% static 'pics/mail.png' %}" style="width:10%;"/> {{profile.user.email}}</span></a>
             <div style="float:right;padding-right:20px;"><a class="btn btn-default" href = "{% url "accounts:account_edit" %}" >계정수정</a></div>
             </br><p class="sidelines text-center" style="font-weight:bold;align:center;"><span>멘토링 분야</span></p>
             <span>{{profile.category}}</span>
             </br><p class="sidelines text-center" style="font-weight:bold;align:center;"><span>한줄소개</span></p>
             <span>{{profile.self_intro}}</span>
-            
+
 	</div> 		<!--<a href = "{% url "accounts:account_edit" %}" > 계정수정 </a>-->
 	<div id="right" class="col-sm-8">
         <div class="col-sm-6">
@@ -48,7 +54,7 @@
                     <td class="col-xs-6 board-title"><a href="{% url "blog:question_detail" question.pk %}">{{question.title}}</a></td>
                     <td class="col-xs-1 text-center board-no">{{question.created_at}}</td>
                     <td class="col-xs-1 text-center board-no">{{question.updated_at}}</td>
-                    {% if reply_count %}    
+                    {% if reply_count %}
                     <td class="col-xs-1 text-center board-no">답변등록</td>
                     {% else %}
                     <td class="col-xs-1 text-center board-no">답변미등록</td>
@@ -64,8 +70,8 @@
     	</div>
     	</br>
     	</br>
-    
-        <div class="col-sm-6">        
+
+        <div class="col-sm-6">
             <table class="table table-condensed">
             <thead>
                 <strong style="font-size:18px;">{{profile.user.last_name}}{{profile.user.first_name}}님의 칼럼이 <a style="font-size:30px;">{{column_count}}</a>개 등록되어 있습니다.</strong>

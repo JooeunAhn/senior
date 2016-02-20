@@ -25,23 +25,8 @@
     </div>
 </div>
 <div class="row" style="margin-top:40px;">
-{% for mentor in mentor_list %}
-    <div class="col-sm-3" >
-            <a href="{% url "blog:mentor_detail" mentor.id %}">
-            <div class = "thumbnails">
-                <img src="{{mentor.user_photo.url}}" alt="{{mentor.user_photo.url}}"/>
-                <div class="description">{{mentor.user.last_name}}{{mentor.user.first_name}}님</div>
-                {%if profile.category == None%}
-                    <div class="description2">No Category</div>
-                {%else%}
-                    <div class="description2">{{profile.category}}</div>
-                {%endif%}
-            </div>
-            </a>
-    </div>
-<!--if it is from search, return "no search results"-->
-<!-- else 첫번째 멘토가 어쩌고~ -->
-{% endfor %}
+<!-- searching form -->
+    {% include 'blog/mentor_list_thumbnails.html' with keyword=keyword%}
 </div>
 </ul>
 
@@ -65,13 +50,11 @@
             <a href="#" class="btn">previous</a>
         {% endif %}
         </li>
-        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
+        {% for i in mentor_list.paginator.page_range%}
             {%if i == mentor_list.number %}
                 <li class="active"><a href="?page={{i}}">{{i}}</a></li>
-            {%elif i in mentor_list.paginator.page_range%}
-                <li><a href="?page={{i}}">{{i}}</a></li>
             {%else%}
-                <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
+                <li><a href="?page={{i}}">{{i}}</a></li>
             {%endif%}
         {% endfor %}
         <li class="prev">

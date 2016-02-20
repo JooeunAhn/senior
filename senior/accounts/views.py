@@ -13,6 +13,7 @@ from accounts.models import Profile, Category
 from blog.models import Column, Reply
 
 
+
 @login_required
 def profile(request):
     if request.user.is_superuser:
@@ -65,7 +66,7 @@ def signup(request):
             form = SignupForm2(
                 request.POST,
                 request.FILES,
-                initial={"user_photo": "default/default.png", "self_intro": "자기소개를 입력해주세요"})
+                initial={"user_photo":static("pics/nophotoducky.png"), "self_intro": "자기소개를 입력해주세요"})
 
             if form.is_valid():
                 try:

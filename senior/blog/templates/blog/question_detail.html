@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-6" style="padding-top:45px;">
 
-            {% for question in question%}
+            {% for question in question_list%}
             <div class="panel panel-danger">
                 <div class="panel-heading">질문 목록
                     {% if question.mentor.user == user %}
@@ -21,34 +21,34 @@
 
         </div>
             {% endfor %}
-            {% for question in question%}
-                <div class="col-sm-6" style="padding-top:45px;">
-                <div class="panel panel-warning">
-                <a class="list-group-item list-group-item-warning">답변 목록</a>
-            </div>
-
-            {% for reply in question.reply.all %}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">{{reply.title}}</h4>
-                        {% if question.mentor.user == user %}
-                        <a href="{% url "blog:reply_edit"  question.pk reply.pk %}" style="font-size:12px;">수정</a>
-                        <a href="{% url "blog:reply_delete"  question.pk reply.pk %}" style="font-size:12px;">삭제</a>
-                        {% endif %}
+            {% for question in question_list%}
+                    <div class="col-sm-6" style="padding-top:45px;">
+                    <div class="panel panel-warning">
+                    <a class="list-group-item list-group-item-warning">답변 목록</a>
                 </div>
-                <div class="panel-body">
-                    <p>{{reply.content}}</p>
+
+                {% for reply in question.reply.all %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">{{reply.title}}</h4>
+                            {% if question.mentor.user == user %}
+                            <a href="{% url "blog:reply_edit"  question.pk reply.pk %}" style="font-size:12px;">수정</a>
+                            <a href="{% url "blog:reply_delete"  question.pk reply.pk %}" style="font-size:12px;">삭제</a>
+                            {% endif %}
+                    </div>
+                    <div class="panel-body">
+                        <p>{{reply.content}}</p>
+                    </div>
                 </div>
+
+
+                {% empty %}
+                <a>등록된 답변 없습니다.</a>
+
+                {% endfor %}
+
             </div>
-
-
-            {% empty %}
-            <a>등록된 답변 없습니다.</a>
-
             {% endfor %}
-
-        </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

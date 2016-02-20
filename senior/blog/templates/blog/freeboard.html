@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for freeboard in freeboard%}
+        {% for freeboard in freeboard_list%}
         <tr>
             <td class="col-xs-1 text-center board-no">{{freeboard.id}}</td>
             <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="{{freeboard.id}}/">{{freeboard.title}}</a></td>
@@ -27,30 +27,28 @@
 <div class="pagination_wrapper text-center">
     <ul class="pagination">
         <li class="prev">
-        {% if freeboard.has_previous %}
-            <a href="?page={{ freeboard.previous_page_number}}" class="btn btn-primary">previous</a>
+        {% if freeboard_list.has_previous %}
+            <a href="?page={{freeboard_list.previous_page_number}}" class="btn btn-primary">previous</a>
         {%else%}
             <a href="#" class="btn">previous</a>
         {% endif %}
         </li>
-        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
-            {%if i == freeboard.number %}
+        {% for i in freeboard_list.paginator.page_range%}
+            {%if i == freeboard_list.number %}
                 <li class="active"><a href="?page={{i}}">{{i}}</a></li>
-            {%elif i in freeboard.paginator.page_range%}
-                <li><a href="?page={{i}}">{{i}}</a></li>
             {%else%}
-                <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
+                <li><a href="?page={{i}}">{{i}}</a></li>
             {%endif%}
         {% endfor %}
         <li class="prev">
-        {% if freeboard.has_next %}
-            <a href="?page={{ freeboard.next_page_number}}" class="btn btn-primary">next</a>
+        {% if freeboard_list.has_next %}
+            <a href="?page={{ freeboard_list.next_page_number}}" class="btn btn-primary">next</a>
         {%else%}
             <a href="#" class="btn">next</a>
         {% endif %}
         </li>
         <u1 class="container">
-            Page {{ freeboard.number }} of {{ freeboard.paginator.num_pages }}.
+            Page {{ freeboard_list.number }} of {{ freeboard_list.paginator.num_pages }}.
         </u1>
     </ul>
 </div>

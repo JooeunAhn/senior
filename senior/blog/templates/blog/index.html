@@ -55,13 +55,13 @@ $(document).ready(function() {
 </style>
 <div id="owl-demo" class="owl-carousel owl-theme">
 
-  <div class="item"><img src="{% static 'pics/1.jpg' %}" alt="회의중"></div>
-  <div class="item"><img src="{% static 'pics/3.jpg' %}" alt="멋쟁이 신필득구씨"></div>
-  <div class="item"><img src="{% static 'pics/2.jpg' %}" alt="멋쟁이 우재씨"></div>
+  <div class="item"><img src="{% static 'pics/1.jpg' %}" alt="회의중"/></div>
+  <div class="item"><img src="{% static 'pics/3.jpg' %}" alt="멋쟁이 신필득구씨"/></div>
+  <div class="item"><img src="{% static 'pics/2.jpg' %}" alt="멋쟁이 우재씨"/></div>
 
 </div>
-
-{% include 'blog/search_form_mentor.html' %}
+<!-- searching form -->
+{% include 'blog/search_integrated.html' %}
 
 <div class="row" style="margin-top:40px;">
     <div class="count">
@@ -80,23 +80,8 @@ $(document).ready(function() {
 </div>
 <div class="row" style="margin-top:40px;">
     <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>추천멘토</span></p>
-    {% for mentor in mentor_list %}
-        <div class="col-sm-3" >
-            <a href="{% url "blog:mentor_detail" mentor.id %}">
-            <div class = "thumbnails">
-                <img src="{{mentor.user_photo.url}}" alt="{{mentor.user_photo.url}}"/>
-                <div class="description">{{mentor.user.last_name}}{{mentor.user.first_name}}님</div>
-                {%if profile.category == None%}
-                    <div class="description2">No Category</div>
-                {%else%}
-                    <div class="description2">{{profile.category}}</div>
-                {%endif%}
-            </div>
-            </a>
-    </div>
-    {%empty%}
-        <p style="text-align:center;font-weight:bold;">첫번째 멘토가 되어 노하우를 빛내주세요!</p>
-    {% endfor %}
+    <!-- searching form -->
+    {% include 'blog/mentor_list_thumbnails.html'%}
 
 </div>
 <!--

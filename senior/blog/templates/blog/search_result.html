@@ -2,42 +2,19 @@
 {% load tch_tch %}
 {% load staticfiles %}
 
-Mentor list
-<style>
 {% block content %}
-<style>
-.thumbnail{
-     width:200px;
-     height:200px;
-}
 
-.thumbnail img{
-    width:200px;
-    height:190px;
-}
-</style>
+<!-- searching form -->
+{% include 'blog/search_integrated.html' %}
 
-Mentor_list
 <div class="row" style="margin-top:40px;">
-{% for mentor in mentor_list %}
-    <div class="col-sm-3" >
-            <a href="{% url "blog:mentor_detail" mentor.id %}">
-            <div class = "thumbnails">
-                <img src="{{mentor.user_photo.url}}" alt="{{mentor.user_photo.url}}"/>
-                <div class="description">{{mentor.user.last_name}}{{mentor.user.first_name}}님</div>
-                {%if profile.category == None%}
-                    <div class="description2">No Category</div>
-                {%else%}
-                    <div class="description2">{{profile.category}}</div>
-                {%endif%}
-            </div>
-            </a>
-    </div>
-<!--if it is from search, return "no search results"-->
-<!-- else 첫번째 멘토가 어쩌고~ -->
-{% endfor %}
+    <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>{{keyword}}</span><span style="color:black">에 대한 멘토 검색 결과</span></p>
+
 </div>
-</ul>
+<!-- searching form -->
+    {% include 'blog/mentor_list_thumbnails.html'%}
+</div>
+
 
 <div class="pagination_wrapper text-center">
     <ul class="pagination">
@@ -59,13 +36,11 @@ Mentor_list
             <a href="#" class="btn">previous</a>
         {% endif %}
         </li>
-        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
+        {% for i in mentor_list.paginator.page_range%}
             {%if i == mentor_list.number %}
                 <li class="active"><a href="?page={{i}}">{{i}}</a></li>
-            {%elif i in mentor_list.paginator.page_range%}
-                <li><a href="?page={{i}}">{{i}}</a></li>
             {%else%}
-                <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
+                <li><a href="?page={{i}}">{{i}}</a></li>
             {%endif%}
         {% endfor %}
         <li class="prev">
@@ -81,7 +56,10 @@ Mentor_list
     </ul>
 </div>
 
-Freeboard
+<div class="row" style="margin-top:40px;">
+    <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>{{keyword}}</span><span style="color:black">에 대한 게시판 검색 결과</span></p>
+
+</div>
 <table class="table table-list table-hover">
     <thead>
         <tr>
@@ -92,13 +70,15 @@ Freeboard
         </tr>
     </thead>
     <tbody>
-        {% for freeboard in freeboard %}
+        {% for freeboard in freeboard_list %}
         <tr>
             <td class="col-xs-1 text-center board-no">{{freeboard.id}}</td>
             <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="{{freeboard.id}}/">{{freeboard.title}}</a></td>
             <td class="col-xs-1 text-center writer">{{freeboard.author.user.last_name}}{{freeboard.author.user.first_name}}</td>
             <td class="col-xs-2 text-center board-date">{{freeboard.created_at}}</td>
         </tr>
+        {%empty%}
+            <p style="text-align:center;font-weight:bold;">검색 결과가 없습니다.</p>
         {% endfor %}
     </tbody>
 </table>
@@ -106,37 +86,38 @@ Freeboard
 <div class="pagination_wrapper text-center">
     <ul class="pagination">
         <li class="prev">
-        {% if freeboard.has_previous %}
-            <a href="?page={{ freeboard.previous_page_number}}" class="btn btn-primary">previous</a>
+        {% if freeboard_list.has_previous %}
+            <a href="?page={{ freeboard_list.previous_page_number}}" class="btn btn-primary">previous</a>
         {%else%}
             <a href="#" class="btn">previous</a>
         {% endif %}
         </li>
-        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
-            {%if i == freeboard.number %}
+        {% for i in freeboard_list.paginator.page_range%}
+            {%if i == freeboard_list.number %}
                 <li class="active"><a href="?page={{i}}">{{i}}</a></li>
-            {%elif i in freeboard.paginator.page_range%}
-                <li><a href="?page={{i}}">{{i}}</a></li>
             {%else%}
-                <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
+                <li><a href="?page={{i}}">{{i}}</a></li>
             {%endif%}
         {% endfor %}
         <li class="prev">
-        {% if freeboard.has_next %}
-            <a href="?page={{ freeboard.next_page_number}}" class="btn btn-primary">next</a>
+        {% if freeboard_list.has_next %}
+            <a href="?page={{ freeboard_list.next_page_number}}" class="btn btn-primary">next</a>
         {%else%}
             <a href="#" class="btn">next</a>
         {% endif %}
         </li>
         <u1 class="container">
-            Page {{ freeboard.number }} of {{ freeboard.paginator.num_pages }}.
+            Page {{ freeboard_list.number }} of {{ freeboard_list.paginator.num_pages }}.
         </u1>
     </ul>
 </div>
 <div style="float:right;margin-top:20px;">
 </div>
 
-Notice
+<div class="row" style="margin-top:40px;">
+    <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>{{keyword}}</span><span style="color:black">에 대한 공지사항 검색 결과</span></p>
+
+</div>
 <table class="table table-list table-hover">
     <thead>
         <tr>
@@ -156,6 +137,8 @@ Notice
             <td class="col-xs-1 text-center writer">로하우</td>
             <td class="col-xs-2 text-center board-date">{{notice.created_at}}</td>
         </tr>
+        {%empty%}
+            <p style="text-align:center;font-weight:bold;">검색 결과가 없습니다.</p>
         {% endfor %}
     </tbody>
 </table>
@@ -169,13 +152,11 @@ Notice
             <a href="#" class="btn">previous</a>
         {% endif %}
         </li>
-        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
+        {% for i in notice_list.paginator.page_range%}
             {%if i == notice_list.number %}
                 <li class="active"><a href="?page={{i}}">{{i}}</a></li>
-            {%elif i in notice_list.paginator.page_range%}
-                <li><a href="?page={{i}}">{{i}}</a></li>
             {%else%}
-                <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
+                <li><a href="?page={{i}}">{{i}}</a></li>
             {%endif%}
         {% endfor %}
         <li class="prev">

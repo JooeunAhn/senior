@@ -1,0 +1,26 @@
+{% load staticfiles %}
+{% for mentor in mentor_list %}
+        <div class="col-sm-3" >
+            <a href="{% url "blog:mentor_detail" mentor.id %}">
+            <div class = "thumbnails">
+                {%if mentor.user_photo %}
+                    <img src="{{mentor.user_photo.url}}" alt="{{mentor.user_photo.url}}"/>
+                {%else%}
+                    <img src="{% static 'pics/nophotoducky.png' %}" alt=""/>
+                {%endif%}
+                <div class="description">{{mentor.user.last_name}}{{mentor.user.first_name}}님</div>
+                {%if profile.category%}
+                    <div class="description2">{{profile.category}}</div>
+                {%else%}
+                    <div class="description2">No Category</div>
+                {%endif%}
+            </div>
+            </a>
+    </div>
+{%empty%}
+    {%if keyword%}
+        <p style="text-align:center;font-weight:bold;">검색 결과가 없습니다.</p>
+    {%else%}
+        <p style="text-align:center;font-weight:bold;">첫번째 멘토가 되어 노하우를 빛내주세요!</p>
+    {%endif%}
+{% endfor %}

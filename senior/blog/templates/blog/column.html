@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for column in column %}
+        {% for column in column_list %}
         <tr>
             <td class="col-xs-1 text-center board-no">{{column.id}}</td>
             <td class="col-xs-6 board-title"><a style="font-weight: 700;" href="{{column.id}}/">{{column.title}}</a></td>
@@ -29,30 +29,28 @@
 <div class="pagination_wrapper text-center">
     <ul class="pagination">
         <li class="prev">
-        {% if column.has_previous %}
-            <a href="?page={{ column.previous_page_number}}" class="btn btn-default">previous</a>
+        {% if column_list.has_previous %}
+            <a href="?page={{ column_list.previous_page_number}}" class="btn btn-default">previous</a>
         {%else%}
             <a href="#" class="btn">previous</a>
         {% endif %}
         </li>
-        {% for i in 5|get_range%} <!--custom for문, tch-tch 에 만들었습니다.-->
-            {%if i == column.number %}
+        {% for i in column_list.paginator.page_range%}
+            {%if i == column_list.number %}
                 <li class="active"><a href="?page={{i}}">{{i}}</a></li>
-            {%elif i in column.paginator.page_range%}
-                <li><a href="?page={{i}}">{{i}}</a></li>
             {%else%}
-                <!--<li class="disabled"><a href="#">{{i}}</a></li>-->
+                <li><a href="?page={{i}}">{{i}}</a></li>
             {%endif%}
         {% endfor %}
         <li class="prev">
-        {% if column.has_next %}
-            <a href="?page={{ column.next_page_number}}" class="btn btn-default">next</a>
+        {% if column_list.has_next %}
+            <a href="?page={{ column_list.next_page_number}}" class="btn btn-default">next</a>
         {%else%}
             <a href="#" class="btn">next</a>
         {% endif %}
         </li>
         <u1 class="container">
-            Page {{ column.number }} of {{ column.paginator.num_pages }}.
+            Page {{ column_list.number }} of {{ column_list.paginator.num_pages }}.
         </u1>
     </ul>
 </div>

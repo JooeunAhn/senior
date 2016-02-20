@@ -72,7 +72,6 @@ def index(request):
 def mentor_list(request):
     mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")
     query_mentor = request.GET.get('mentor')
-
     if query_mentor:
         mentor_list = mentor_list.filter(
             Q(category__title__contains=query_mentor) |
@@ -84,17 +83,17 @@ def mentor_list(request):
     else:
         pass
 
-    paginator = Paginator(mentor_list, 10)
+    paginator = Paginator(mentor_list, 8)
     page = request.GET.get('page')
 
     try:
-        mentor_list = paginator.page(page)
+        mentors = paginator.page(page)
     except PageNotAnInteger:
-        mentor_list = paginator.page(1)
+        mentors = paginator.page(1)
     except EmptyPage:
-        mentor_list = paginator.page(paginator.num_pages)
+        mentors = paginator.page(paginator.num_pages)
 
-    return render(request, 'blog/mentor_list.html', {'mentor_list': mentor_list})
+    return render(request, 'blog/mentor_list.html', {'mentor_list': mentors, 'keyword' : query_mentor,})
 
 
 def mentor_detail(request, pk):
@@ -143,7 +142,6 @@ def question_list(request):
         questions = Question.objects.filter(mentee=user)
 
     query_question = request.GET.get('question')
-
     if query_question:
         questions = questions.filter(
             Q(mentor__username__contains=query_question) |
@@ -157,7 +155,7 @@ def question_list(request):
             ).distinct()
     else:
         pass
-    return render(request, 'blog/question_list.html', {'question_list': questions})
+    return render(request, 'blog/question_list.html', {'question_list': questions, 'keyword' : query_question,})
 
 
 @login_required
@@ -250,7 +248,6 @@ def review_delete(request, mentor_pk, pk):
 def notice(request):
     notice_list = Notice.objects.order_by('-created_at')
     query_notice = request.GET.get('notice')
-
     if query_notice:
         notice_list = notice_list.filter(
             Q(category__contains=query_notice) |
@@ -263,13 +260,13 @@ def notice(request):
     page = request.GET.get('page')
 
     try:
-        notice_list = paginator.page(page)
+        notice = paginator.page(page)
     except PageNotAnInteger:
-        notice_list = paginator.page(1)
+        notice = paginator.page(1)
     except EmptyPage:
-        notice_list = paginator.page(paginator.num_pages)
+        notice = paginator.page(paginator.num_pages)
 
-    return render(request, 'blog/notice.html', {'notice_list': notice_list})
+    return render(request, 'blog/notice.html', {'notice_list': notice, 'keyword':query_notice})
 
 
 class NoticeDetailView(HitCountDetailView):
@@ -331,6 +328,7 @@ def freeboard(request):
             Q(author__user__last_name__contains=query_freeboard)
             ).distinct()
 
+
     paginator = Paginator(freeboard_list, 10)
     page = request.GET.get('page')
     try:
@@ -341,7 +339,8 @@ def freeboard(request):
         freeboard = paginator.page(paginator.num_pages)
 
     context = {
-        'freeboard': freeboard,
+        'freeboard_list': freeboard,
+        'keyword' : query_freeboard,
     }
     return render(request, 'blog/freeboard.html', context)
 
@@ -568,7 +567,7 @@ def column(request):
     except EmptyPage:
         column = paginator.page(paginator.num_pages)
 
-    context = {'column': column, }
+    context = {'column_list': column, }
     return render(request, 'blog/column.html', context)
 
 
@@ -609,9 +608,7 @@ def integrated_search(request):
     mentor_list = Profile.objects.filter(is_mentor=True)
     notice_list = Notice.objects.order_by('-created_at')
     freeboard_list = Freeboard.objects.order_by('-created_at')
-
-    query_search = request.GET.get('search')
-
+    query_search = request.GET.get('int_search')
 # mentor_list searching
     if query_search:
         mentor_list = mentor_list.filter(
@@ -664,7 +661,8 @@ def integrated_search(request):
     context = {
         'mentor_list': mentor_list,
         'notice_list': notice_list,
-        'freeboard_list': freeboard_list
+        'freeboard_list': freeboard_list,
+        'keyword' : query_search,
     }
 
     return render(request, 'blog/search_result.html', context)
