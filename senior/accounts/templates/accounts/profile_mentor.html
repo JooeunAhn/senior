@@ -30,8 +30,43 @@
             
 	</div> 		<!--<a href = "{% url "accounts:account_edit" %}" > 계정수정 </a>-->
 	<div id="right" class="col-sm-8">
-		<div class="row">
-        <table class="table table-condensed">
+        <div class="col-sm-6">
+            <div style="align:center">
+            <table class="table table-list table-hover">
+            <thead>
+                <tr>
+                    <th class="col-xs-2 text-center board-author">멘티</th>
+                    <th class="col-xs-6 board-title">질문목록</th>
+                    <th class="col-xs-1 text-center board-no">질문시간</th>
+                    <th class="col-xs-1 text-center board-no">수정시간</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in profile.question_mentor.all %}
+                <tr>
+                    <td class="col-xs-2 text-center board-author">{{question.mentee.user.last_name}}{{question.mentee.user.first_name}}</td>
+                    <td class="col-xs-6 board-title"><a href="{% url "blog:question_detail" question.pk %}">{{question.title}}</a></td>
+                    <td class="col-xs-1 text-center board-no">{{question.created_at}}</td>
+                    <td class="col-xs-1 text-center board-no">{{question.updated_at}}</td>
+                    {% if reply_count %}    
+                    <td class="col-xs-1 text-center board-no">답변등록</td>
+                    {% else %}
+                    <td class="col-xs-1 text-center board-no">답변미등록</td>
+                    {% endif %}
+                </tr>
+
+                {% empty %}
+                <li>등록된 질문이 없습니다.</li>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+    	</div>
+    	</br>
+    	</br>
+    
+        <div class="col-sm-6">        
+            <table class="table table-condensed">
             <thead>
                 <strong style="font-size:18px;">{{profile.user.last_name}}{{profile.user.first_name}}님의 칼럼이 <a style="font-size:30px;">{{column_count}}</a>개 등록되어 있습니다.</strong>
             </thead>
@@ -48,44 +83,15 @@
                 </tr>
                 {% endfor %}
             </tbody>
-    	</table>
-    	</div>
-    	</br>
-    	</br>
-    	<div class="row">
-    		<div style="align:center">
-			<table class="table table-list table-hover">
-		    <thead>
-		        <tr>
-		            <th class="col-xs-2 text-center board-author">멘티</th>
-		            <th class="col-xs-6 board-title">질문목록</th>
-                    <th class="col-xs-1 text-center board-no">질문시간</th>
-                    <th class="col-xs-1 text-center board-no">수정시간</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-			    {% for question in profile.question_mentor.all %}
-			    <tr>
-			    	<td class="col-xs-2 text-center board-author">{{question.mentee.user.last_name}}{{question.mentee.user.first_name}}</td>
-			    	<td class="col-xs-6 board-title"><a href="{% url "blog:question_detail" question.pk %}">{{question.title}}</a></td>
-                    <td class="col-xs-1 text-center board-no">{{question.created_at}}</td>
-                    <td class="col-xs-1 text-center board-no">{{question.updated_at}}</td>
-			    </tr>
-
-			    {% empty %}
-			    <li>등록된 질문이 없습니다.</li>
-		        {% endfor %}
-		    </tbody>
-			</table>
-			</div>
-    	</div>
+            </table>
+        </div>
 
 
-</div>
+        </div>
 
 
 
-</div>
+    </div>
 
 {% endblock %}
 

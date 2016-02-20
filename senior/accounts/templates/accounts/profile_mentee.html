@@ -25,36 +25,39 @@
             <span>{{profile.self_intro}}</span>
     </div>      <!--<a href = "{% url "accounts:account_edit" %}" > 계정수정 </a>-->
     <div id="right" class="col-sm-8">
+        <div style="align:center">
+        <table class="table table-list table-hover">
+        <thead>
+            <strong style="font-size:18px;"><strong style="font-size:18px;"><a style="font-size:30px;">{{profile.user.last_name}}{{profile.user.first_name}}</a>님의 질문목록</strong>
+            <tr>
+                <th class="col-xs-2 text-center board-author">멘토</th>
+                <th class="col-xs-6 board-title">제목</th>
+                <th class="col-xs-2 text-center board-no">답변여부</th>
+                <th class="col-xs-1 text-center board-no">질문시간</th>
+                <th class="col-xs-1 text-center board-no">수정시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in profile.question_mentee.all %}
+            <tr>
+                <td class="col-xs-2 text-center board-author"><a href="{% url "blog:mentor_detail" question.mentor.pk %}">{{question.mentor.user.last_name}}{{question.mentor.user.first_name}}</a></td>
+                <td class="col-xs-6 board-title"><a href="{% url "blog:question_detail" question.pk %}">{{question.title}}</a></td>
+                {% if reply_count %}
+                <td class="col-xs-1 text-center board-no">답변등록</td>
+                {% else %}
+                <td class="col-xs-1 text-center board-no">답변미등록</td>
+                {% endif %}
+                <td class="col-xs-1 text-center board-no">{{question.created_at}}</td>
+                <td class="col-xs-1 text-center board-no">{{question.updated_at}}</td>
+            </tr>
 
-        <div class="row">
-            <div style="align:center">
-            <table class="table table-list table-hover">
-            <thead>
-                <tr>
-                    <th class="col-xs-2 text-center board-author">멘토</th>
-                    <th class="col-xs-6 board-title">질문목록</th>
-                    <th class="col-xs-1 text-center board-no">질문한시간</th>
-                    <th class="col-xs-1 text-center board-no">질문고친시간</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for question in profile.question_mentee.all %}
-                <tr>
-                    <td class="col-xs-2 text-center board-author"><a href="{% url "blog:mentor_detail" question.mentor.pk %}">{{question.mentor.user.last_name}}{{question.mentor.user.first_name}}</a></td>
-                    <td class="col-xs-6 board-title"><a href="{% url "blog:question_detail" question.pk %}">{{question.title}}</a></td>
-                    <td class="col-xs-1 text-center board-no">{{question.created_at}}</td>
-                    <td class="col-xs-1 text-center board-no">{{question.updated_at}}</td>
-                </tr>
-
-                {% empty %}
-                <li>등록된 질문이 없습니다.</li>
-                {% endfor %}
-            </tbody>
-            </table>
-            </div>
+            {% empty %}
+            <li>등록된 질문이 없습니다.</li>
+            {% endfor %}
+        </tbody>
+        </table>
         </div>
-
-
+    </div>
 </div>
 
 

@@ -157,8 +157,7 @@ def question_list(request):
             ).distinct()
     else:
         pass
-
-        return render(request, 'blog/question_list.html', {'question_list': questions})
+    return render(request, 'blog/question_list.html', {'question_list': questions})
 
 
 @login_required

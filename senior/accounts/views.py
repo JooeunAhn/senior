@@ -10,7 +10,7 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from accounts.forms import SignupForm, SignupForm2, User_Change_Form, Profile_Change_Form
 from accounts.models import Profile, Category
-from blog.models import Column
+from blog.models import Column, Reply
 
 
 @login_required
@@ -23,9 +23,11 @@ def profile(request):
         column_list = Column.objects.filter(author=profile)
         column_count = Column.objects.filter(author=profile).count()
         if profile.is_mentor:
-            return render(request, 'accounts/profile_mentor.html', {'profile': profile, 'column_list': column_list, "column_count": column_count})
+            reply_count = Reply.objects.filter(question__mentor = profile).count()
+            return render(request, 'accounts/profile_mentor.html', {'reply_count': reply_count, 'profile': profile, 'column_list': column_list, "column_count": column_count})
         else:
-            return render(request, 'accounts/profile_mentee.html', {'profile': profile, 'column_list': column_list, "column_count": column_count})
+            reply_count = Reply.objects.filter(question__mentee = profile).count()
+            return render(request, 'accounts/profile_mentee.html', {'profile': profile, 'reply_count': reply_count,})
 
 
 @login_required
