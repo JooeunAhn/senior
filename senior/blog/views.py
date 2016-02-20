@@ -58,7 +58,7 @@ def index(request):
     mentor_count = Profile.objects.filter(is_mentor=True).count()
     reply_count = Reply.objects.all().count()
     question_count = Question.objects.all().count()
-    mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:3]
+    mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
     context = {
         'question_count': question_count,
         'reply_count': reply_count,
@@ -248,7 +248,7 @@ def review_delete(request, mentor_pk, pk):
 
 
 def notice(request):
-    notice_list = Notice.objects.all()
+    notice_list = Notice.objects.order_by('-created_at')
     query_notice = request.GET.get('notice')
 
     if query_notice:
@@ -318,7 +318,7 @@ def notice_edit(request, pk):
 
 
 def freeboard(request):
-    freeboard_list = Freeboard.objects.all()
+    freeboard_list = Freeboard.objects.order_by('-created_at')
 
     query_freeboard = request.GET.get('freeboard')
 
@@ -558,7 +558,7 @@ def reply_delete(request, question_pk, pk):
 
 
 def column(request):
-    column_list = Column.objects.all()
+    column_list = Column.objects.order_by('-created_at')
     paginator = Paginator(column_list, 10)
     page = request.GET.get('page')
     try:
@@ -607,8 +607,8 @@ column_detail = ColumnDetailView.as_view()
 
 def integrated_search(request):
     mentor_list = Profile.objects.filter(is_mentor=True)
-    notice_list = Notice.objects.all()
-    freeboard_list = Freeboard.objects.all()
+    notice_list = Notice.objects.order_by('-created_at')
+    freeboard_list = Freeboard.objects.order_by('-created_at')
 
     query_search = request.GET.get('search')
 
