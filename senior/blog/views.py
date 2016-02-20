@@ -639,6 +639,29 @@ def integrated_search(request):
             Q(author__user__last_name__contains=query_search)
             ).distinct()
 
+    paginator = Paginator(mentor_list, 4)
+    page = request.GET.get('page')
+
+    try:
+        mentor_list = paginator.page(page)
+    except PageNotAnInteger:
+        mentor_list = paginator.page(1)
+    except EmptyPage:
+        mentor_list = paginator.page(paginator.num_pages)
+
+    try:
+        notice_list = paginator.page(page)
+    except PageNotAnInteger:
+        notice_list = paginator.page(1)
+    except EmptyPage:
+        notice_list = paginator.page(paginator.num_pages)
+
+    try:
+        freeboard_list = paginator.page(page)
+    except PageNotAnInteger:
+        freeboard_list = paginator.page(1)
+    except EmptyPage:
+        freeboard_list = paginator.page(paginator.num_pages)
     context = {
         'mentor_list': mentor_list,
         'notice_list': notice_list,
