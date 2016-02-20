@@ -66,7 +66,10 @@ def signup(request):
             form = SignupForm2(
                 request.POST,
                 request.FILES,
-                initial={"user_photo":static("pics/nophotoducky.png"), "self_intro": "자기소개를 입력해주세요"})
+                initial={"self_intro": "자기소개를 입력해주세요"})
+                # default image 등록하려면 static 을 import 하고, 여기서 static('어쩌고') 해서 설정해 주는 방법이 있음.
+                # 근데 이미지가 없는 사람은 없는 것으로 놔두는게 맞지 않을까 싶어요.
+                # 여기서 그래서 따로 설정안해주고, user photo가 없는 사람은 임의 이미지를 보여주는 것으로 하고 있어요.
 
             if form.is_valid():
                 try:
