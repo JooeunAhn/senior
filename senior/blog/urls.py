@@ -51,4 +51,6 @@ urlpatterns = [
     url(r'^column/$', views.column, name='column'),
     url(r'^column/new/$', views.column_new, name='column_new'),
     url(r'^column/(?P<pk>\d+)/$', views.column_detail, name='column_detail'),
+    # integrated searching
+    url(r'^searching/$', views.integrated_search, name='integrated_search'),
     ]
