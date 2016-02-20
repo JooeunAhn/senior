@@ -7,13 +7,17 @@
 
             {% for question in question%}
             <div class="panel panel-danger">
-                <div class="panel-heading">{{question.title}}</div>
-                <div class="panel-body">{{question.message}}
-                    <!--    <img src="{{ post.photo.url }}" /> --></div>
+                <div class="panel-heading">질문 목록
+                    {% if question.mentor.user == user %}
+                        <div href="{% url "blog:reply_new" question.id %}"  class="btn btn-default">답변하기</div>
+                    {% endif %}
+                </div>
             </div>
-            {% if question.mentor.user == user %}
-            <a href="{% url "blog:reply_new" question.id %}"  class="btn btn-default">답변하기</a>
-            {% endif %}
+
+            <div class="list-group">
+                <a class="list-group-item">{{question.message}}</a>
+            </div>
+
 
         </div>
             {% endfor %}
