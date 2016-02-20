@@ -10,7 +10,7 @@ urlpatterns = [
 
     # 질문
     url(r'^questions/(?P<mentor_pk>\d+)/$', views.question_new, name='question_new'),
-    url(r'^questions/views/$', views.question_list, name='question_list'),
+    #url(r'^questions/views/$', views.question_list, name='question_list'),
     url(r'^questions/views/detail/(?P<pk>\d+)/$', views.question_detail, name='question_detail'),
     url(r'^questions/views/detail/(?P<pk>\d+)/edit/$', views.question_edit, name="question_edit"),
     url(r'^questions/views/detail/(?P<pk>\d+)/delete/$', views.question_delete, name='question_delete'),
