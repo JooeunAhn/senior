@@ -603,3 +603,68 @@ class ColumnDetailView(HitCountDetailView):
 
 # freeboard_detail = DetailView.as_view(model=Freeboard, template_name='blog/freeboard_detail.html')
 column_detail = ColumnDetailView.as_view()
+
+
+def integrated_search(request):
+    mentor_list = Profile.objects.filter(is_mentor=True)
+    notice_list = Notice.objects.all()
+    freeboard_list = Freeboard.objects.all()
+
+    query_search = request.GET.get('search')
+
+# mentor_list searching
+    if query_search:
+        mentor_list = mentor_list.filter(
+            Q(category__title__contains=query_search) |
+            Q(self_intro__contains=query_search) |
+            Q(user__username__contains=query_search) |
+            Q(user__first_name__contains=query_search) |
+            Q(user__last_name__contains=query_search)
+            ).distinct()
+
+# notice_list searching
+        notice_list = notice_list.filter(
+            Q(category__contains=query_search) |
+            Q(title__contains=query_search) |
+            Q(content__contains=query_search)
+            ).distinct()
+
+# freeboard_list searching
+        freeboard_list = freeboard_list.filter(
+            Q(author__user__username__contains=query_search) |
+            Q(title__contains=query_search) |
+            Q(content__contains=query_search) |
+            Q(author__user__first_name__contains=query_search) |
+            Q(author__user__last_name__contains=query_search)
+            ).distinct()
+
+    paginator = Paginator(mentor_list, 4)
+    page = request.GET.get('page')
+
+    try:
+        mentor_list = paginator.page(page)
+    except PageNotAnInteger:
+        mentor_list = paginator.page(1)
+    except EmptyPage:
+        mentor_list = paginator.page(paginator.num_pages)
+
+    try:
+        notice_list = paginator.page(page)
+    except PageNotAnInteger:
+        notice_list = paginator.page(1)
+    except EmptyPage:
+        notice_list = paginator.page(paginator.num_pages)
+
+    try:
+        freeboard_list = paginator.page(page)
+    except PageNotAnInteger:
+        freeboard_list = paginator.page(1)
+    except EmptyPage:
+        freeboard_list = paginator.page(paginator.num_pages)
+    context = {
+        'mentor_list': mentor_list,
+        'notice_list': notice_list,
+        'freeboard_list': freeboard_list
+    }
+
+    return render(request, 'blog/search_result.html', context)
