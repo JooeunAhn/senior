@@ -19,10 +19,10 @@
 <div class="row" style="margin-top:100px; margin-left:80px; margin-right:80px" >
     <div id="left" class="col-sm-4">
         <div class="thumbnail">
-        {%if mentor.user_photo %}
-            <img id="myImg" src="{{mentor.user_photo.url}}" alt="{{mentor.user.last_name}}{{mentor.user.first_name}}님"/>
+        {%if profile.user_photo %}
+            <img id="myImg" src="{{profile.user_photo.url}}" alt="{{profile.user.last_name}}{{profile.user.first_name}}님"/>
         {%else%}
-            <img id="myImg" src="{% static 'pics/nophotoducky.png' %}" alt="{{mentor.user.last_name}}{{mentor.user.first_name}}님"/>
+            <img id="myImg" src="{% static 'pics/nophotoducky.png' %}" alt="{{profile.user.last_name}}{{profile.user.first_name}}님"/>
         {%endif%}
         </div>
             <a class="txtmod" title="메일보내기 역시 준비중입니다." href="javascript:void(0);"><span style="font-size:15px;"><img src="{% static 'pics/mail.png' %}" style="width:10%;"/> {{profile.user.email}}</span></a>
