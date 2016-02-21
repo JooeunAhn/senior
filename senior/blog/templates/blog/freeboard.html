@@ -20,6 +20,8 @@
             <td class="col-xs-1 text-center writer">{{freeboard.author.user.last_name}}{{freeboard.author.user.first_name}}</td>
             <td class="col-xs-2 text-center board-date">{{freeboard.created_at}}</td>
         </tr>
+        {%empty%}
+            <p style="text-align:center;font-weight:bold;">검색 결과가 없습니다.</p>
         {% endfor %}
     </tbody>
 </table>

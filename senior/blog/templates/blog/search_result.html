@@ -54,6 +54,7 @@
             Page {{ mentor_list.number }} of {{ mentor_list.paginator.num_pages }}.
         </u1>
     </ul>
+    <div style="float:right;padding-right:20px;"><a class="btn btn-default" href ="{% url 'blog:mentor_list' %}?mentor={{keyword}}" >더 보기 ></a></div>
 </div>
 
 <div class="row" style="margin-top:40px;">
@@ -110,6 +111,7 @@
             Page {{ freeboard_list.number }} of {{ freeboard_list.paginator.num_pages }}.
         </u1>
     </ul>
+    <div style="float:right;padding-right:20px;"><a class="btn btn-default" href = "{% url 'blog:freeboard' %}?freeboard={{keyword}}">더 보기 ></a></div>
 </div>
 <div style="float:right;margin-top:20px;">
 </div>
@@ -170,6 +172,7 @@
             Page {{ notice_list.number }} of {{ notice_list.paginator.num_pages }}.
         </u1>
     </ul>
+    <div style="float:right;padding-right:20px;"><a class="btn btn-default" href = "{% url 'blog:notice' %}?notice={{keyword}}">더 보기 ></a></div>
 </div>
 
 </div>

@@ -42,6 +42,8 @@
             <td class="col-xs-1 text-center writer">로하우</td>
             <td class="col-xs-2 text-center board-date">{{notice.created_at}}</td>
         </tr>
+        {%empty%}
+            <p style="text-align:center;font-weight:bold;">검색 결과가 없습니다.</p>
         {% endfor %}
         <!--
         <tr>
