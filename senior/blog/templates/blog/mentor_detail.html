@@ -61,6 +61,17 @@
                     <strong style="font-size:18px;">{{mentor.user.last_name}}{{mentor.user.first_name}}님의 질문이 <a style="font-size:30px;">{{question_count}}</a>개 등록되어 있습니다.</strong>
                     <div class="row" style="float:right;padding-right:20px;">
                     <a href="{% url 'blog:question_new' mentor.pk %}" class="btn btn-default">질문하기</a></div>
+                    {% for question in question_list%}
+                    <tr>
+                        <td>{{question.pk}}</td>
+                        <td><a href = "{% url "blog:question_detail" question.pk %}"> {{question.title}}</a></td>
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td>등록된 질문이 없습니다.</td>
+                    </tr>
+                    {% endfor %}
                 </thead>
           </table>
 
