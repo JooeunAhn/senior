@@ -74,7 +74,7 @@ class = "txtmod", title="쓰고 싶은 내용"
     <nav class="navbar" role="navigation" style="background-color:#B24C57; border-color:#B27A48;">
         <div class="container-fluid basecolor">
             <div class="container">
-                <u1 class="nav navbar-nav navbar-right" style="padding-top:10px;">
+                <u1 class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     {%if user.is_superuser %}
                     <li>
@@ -103,18 +103,22 @@ class = "txtmod", title="쓰고 싶은 내용"
                         <a id="loginbase" href = "{% url "accounts:login" %}"><span class="glyphicon glyphicon-user"> 로그인</span></a>
                     </li>
                     <li>
-                        <a id="loginbase" href = "{% url "accounts:signup" %}"><span class="glyphicon glyphicon-plus"> 회원가입</a>
+                        <a id="loginbase" href = "{% url "accounts:signup" %}"><span class="glyphicon glyphicon-plus"> 회원가입</span></a>
                     </li>
+
                 {% endif %}
-                <li>
-              <form id="nav_search" class="navbar-from" method="GET" action="/searching/" role="search">
-               <div class="form-group">
-                   <span><input type="text" name="int_search" class="searchontop" value="{{request.GET.int_search}}" placeholder="검색어를 입력하세용"/>
-                   <input href="{% url 'blog:integrated_search' %}?what={{query_search}}" type="submit" class="btn btn-success btn-sm" value="GO"/></span>
+              <form id="nav_search" class="navbar-form" method="GET" action="/searching/" role="search" style="display:inline">
+               <div class="input-group">
+
+                   <input type="text" name="int_search" class="form-control input-sm" value="{{request.GET.int_search}}"  placeholder="검색어를 입력하세용"/>
+
+                   <div class="input-group-btn">
+                        <button class="btn btn-success btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+
                </div>
-              </form>
-                </li>
-                </u1>
+               </form>
+               </u1>
             </div>
             <!-- Brand and toggle get grouped for better mobile display -->
         </div>
