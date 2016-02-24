@@ -59,11 +59,14 @@ def index(request):
     reply_count = Reply.objects.all().count()
     question_count = Question.objects.all().count()
     mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
+
     context = {
         'question_count': question_count,
         'reply_count': reply_count,
         'mentor_count': mentor_count,
         'mentor_list': mentor_list,
+        'notice_list': Paginator(Notice.objects.order_by('-created_at'), 12).page(1),
+        'freeboard_list': Paginator(Freeboard.objects.order_by('-created_at'), 12).page(1),
     }
 
     return render(request, 'blog/index.html', context)

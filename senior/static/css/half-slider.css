@@ -390,3 +390,36 @@ a:hover .thumbnails .description2
     text-decoration: none;
     cursor: pointer;
 }
+ul.notice, ul.freeboard {
+    list-style: none; /* Remove list bullets */
+    padding: 0;
+    margin: 0;
+
+}
+
+ul.notice li, ul.freeboard li {
+    padding-left: 16px;
+}
+ul.notice li a,
+ul.freeboard li a {
+    text-decoration: none;
+    color:black;
+    transition:.3s;
+}
+ul.notice li a:hover,
+ul.freeboard li a:hover,
+ul.notice li a:focus,
+ul.freeboard li a:focus {
+    background-color:#b24c57;
+    color:white;
+}
+ul.notice li:before {
+    content: "★";
+    padding-right: 8px;
+    color: red; /* Or a color you prefer */
+}
+ul.freeboard li:before {
+    content: "■";
+    padding-right: 8px;
+    color: blue; /* Or a color you prefer */
+}
