@@ -98,7 +98,7 @@ $(document).ready(function() {
     <ul class="notice">
     {% for notice in notice_list %}
         <li>
-          <a style="font-weight: 700;" href="{{notice.id}}/">{{notice.title}}</a>
+          <a style="font-weight: 700;" href="{% url 'blog:notice_detail' notice.id %}">{{notice.title}}</a>
         </li>
     {%empty%}
         <p style="text-align:center;font-weight:bold;">공지사항이 없습니다.</p>
@@ -111,7 +111,7 @@ $(document).ready(function() {
     <ul class="freeboard">
     {% for freeboard in freeboard_list %}
         <li>
-          <a style="font-weight: 700;" href="{{freeboard.id}}/">{{freeboard.title}}</a>
+          <a style="font-weight: 700;" href="{% url 'blog:freeboard_detail' freeboard.id %}">{{freeboard.title}}</a>
         </li>
     {%empty%}
         <p style="text-align:center;font-weight:bold;">작성된 글이 없습니다.</p>
