@@ -53,4 +53,6 @@ urlpatterns = [
     url(r'^column/(?P<pk>\d+)/$', views.column_detail, name='column_detail'),
     # integrated searching
     url(r'^searching/$', views.integrated_search, name='integrated_search'),
+    # temp url for votes
+    url(r'^vote/(?P<poll_pk>\d+)/$', views.vote, name='vote'),
     ]

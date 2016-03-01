@@ -2,7 +2,7 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from accounts.models import Profile
-from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column
+from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column, Sitehits, Poll, Choice
 from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm, ReplyForm, ColumnForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -59,17 +59,86 @@ def index(request):
     reply_count = Reply.objects.all().count()
     question_count = Question.objects.all().count()
     mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
+    notice_list = Notice.objects.order_by('-created_at')[0:12]
+    freeboard_list = Freeboard.objects.order_by('-created_at')[0:12]
+    sitehits = Sitehits.objects.all()[0]
+    sitehits.hits = sitehits.hits + 1
+    sitehits.save()
+    currentpoll = Poll.objects.order_by('-poll_date')[0]
+    currentpoll_choices = Choice.objects.filter(question=currentpoll).order_by('choice_text')
 
     context = {
         'question_count': question_count,
         'reply_count': reply_count,
         'mentor_count': mentor_count,
         'mentor_list': mentor_list,
-        'notice_list': Paginator(Notice.objects.order_by('-created_at'), 12).page(1),
-        'freeboard_list': Paginator(Freeboard.objects.order_by('-created_at'), 12).page(1),
+        'notice_list': notice_list,
+        'freeboard_list': freeboard_list,
+        'hits' : sitehits.hits,
+        'poll' : currentpoll,
+        'poll_choices' : currentpoll_choices,
     }
-
     return render(request, 'blog/index.html', context)
+
+def vote(request, poll_pk):
+    poll = get_object_or_404(Poll, pk=poll_pk)
+    try:
+        selected_choice = Choice.objects.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the question voting form.
+        mentor_count = Profile.objects.filter(is_mentor=True).count()
+        reply_count = Reply.objects.all().count()
+        question_count = Question.objects.all().count()
+        mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
+        notice_list = Notice.objects.order_by('-created_at')[0:12]
+        freeboard_list = Freeboard.objects.order_by('-created_at')[0:12]
+        sitehits = Sitehits.objects.all()[0]
+        sitehits.hits = sitehits.hits + 1
+        sitehits.save()
+        currentpoll = Poll.objects.order_by('-poll_date')[0]
+        currentpoll_choices = Choice.objects.filter(question=currentpoll).order_by('choice_text')
+
+        context = {
+            'question_count': question_count,
+            'reply_count': reply_count,
+            'mentor_count': mentor_count,
+            'mentor_list': mentor_list,
+            'notice_list': notice_list,
+            'freeboard_list': freeboard_list,
+            'hits' : sitehits.hits,
+            'poll' : currentpoll,
+            'poll_choices' : currentpoll_choices,
+        }
+        context['error_message'] = "You didn't select a choice."
+        return render(request, 'blog/index.html', context)
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        mentor_count = Profile.objects.filter(is_mentor=True).count()
+        reply_count = Reply.objects.all().count()
+        question_count = Question.objects.all().count()
+        mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
+        notice_list = Notice.objects.order_by('-created_at')[0:12]
+        freeboard_list = Freeboard.objects.order_by('-created_at')[0:12]
+        sitehits = Sitehits.objects.all()[0]
+        sitehits.hits = sitehits.hits + 1
+        sitehits.save()
+        currentpoll = Poll.objects.order_by('-poll_date')[0]
+        currentpoll_choices = Choice.objects.filter(question=currentpoll).order_by('choice_text')
+
+        context = {
+            'question_count': question_count,
+            'reply_count': reply_count,
+            'mentor_count': mentor_count,
+            'mentor_list': mentor_list,
+            'notice_list': notice_list,
+            'freeboard_list': freeboard_list,
+            'hits' : sitehits.hits,
+            'poll' : currentpoll,
+            'poll_choices' : currentpoll_choices,
+        }
+        return render(request, 'blog/index.html', context)
+
 
 
 def mentor_list(request):
@@ -119,7 +188,6 @@ def mentor_detail(request, pk):
 
 @login_required
 def question_new(request, mentor_pk):
-
     if request.method == 'POST':
         form = QuestionForm(request.POST)
         if form.is_valid():

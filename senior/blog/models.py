@@ -8,6 +8,26 @@ def min_length_validator(value):
     if len(value) > 100:
         raise forms.ValidationError('100글자 이내로 입력하라고 !!!')
 
+class Sitehits(models.Model):
+    hits = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "사이트 조회수 : " + str(self.hits)
+
+class Poll(models.Model):
+    poll_content = models.CharField(max_length=200)
+    poll_date = models.DateTimeField('게시된 날짜')
+
+    def __str__(self):
+        return self.poll_content
+
+class Choice(models.Model):
+    question = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.question.poll_content + " / " + self.choice_text
 
 class Question(models.Model):
     mentor = models.ForeignKey(Profile, related_name="question_mentor", on_delete=models.CASCADE, limit_choices_to={'is_mentor': True},)

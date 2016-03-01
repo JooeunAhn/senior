@@ -63,20 +63,34 @@ $(document).ready(function() {
 </div>
 <!-- searching form -->
 {% include 'blog/search_form_mentor.html' %}
-
+<div class="container">
 <div class="row" style="margin-top:40px;">
     <div class="count">
         <div class="col-sm-4">
-            <p><a id="numbers" href = "{% url "blog:mentor_list" %}">{{mentor_count}}</a><br/>명의 멘토가 등록되어 있습니다.</p>
+        <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>Some Numbers</span></p>
+            <p><a id="numbers" href = "{% url "blog:mentor_list" %}">{{mentor_count}}</a> 명의 멘토가 등록되어 있습니다.</p>
+            <p><a id="numbers">{{question_count}}</a> 개의 멘티 질문이 등록되었습니다.</p>
+            <p><a id="numbers">{{reply_count}}</a> 개의 멘토 답변이 등록되었습니다.</p>
         </div>
 
-        <div class="col-sm-4">
-            <p><a id="numbers">{{question_count}}</a><br/>개의 멘티 질문이 등록되었습니다.</p>
+        <div class="col-sm-8">
+            <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>실험실</span></p>
+
+            <p>사이트 조회수 : {{hits}}</p>
+            <p>설문조사 : {{poll.poll_content}}</p>
+            {%if error_message%} {{error_message}} {%endif%}
+            <form action="{% url 'blog:vote' poll.id %}" method="post">
+            {% csrf_token %}
+            {%for choice in poll_choices%}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }} ({{choice.votes}}) </label><br />
+            {%empty%}
+            <p>문항이 하나도 없네</p>
+            {%endfor%}
+            <input class="btn btn-default" type="submit" value="투 표" />
+            </form>
         </div>
 
-        <div class="col-sm-4">
-            <p><a id="numbers">{{reply_count}}</a><br/>개의 멘토 답변이 등록되었습니다.</p>
-        </div>
     </div>
 </div>
 <div class="row" style="margin-top:40px;">
@@ -85,7 +99,7 @@ $(document).ready(function() {
     {% include 'blog/mentor_list_thumbnails.html'%}
 
 </div>
-<div class="container">
+
 <div class="row" style="margin-top:40px;">
   <div class="col-md-4">
     <p class="sidelines text-center" align="center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>노하우 이용 방법?</span></p>

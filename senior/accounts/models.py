@@ -70,13 +70,22 @@ class Profile(models.Model):
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
-        user_profile = Profile(
-            user=user,
-            is_mentor=user.is_mentor,
-            user_photo=user.user_photo,
-            category=user.category,
-            self_intro=user.self_intro,
-            phone=user.phone,)
+        try:
+            user_profile = Profile(
+                user=user,
+                is_mentor=user.is_mentor,
+                user_photo=user.user_photo,
+                category=user.category,
+                self_intro=user.self_intro,
+                phone=user.phone,)
+        except:
+            user_profile = Profile(
+                user=user,
+                is_mentor=True,
+                user_photo=None,
+                category=None,
+                self_intro=None,
+                phone=None,)
         user_profile.save()
 """
 def pre_on_post_save(sender, **kwargs):
