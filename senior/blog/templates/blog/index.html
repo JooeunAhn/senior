@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load bootstrap3 %}
 {% block content%}
 <script src="{% static 'js/jquery.mobile.custom.min.js'%}"></script>
 <!-- Important Owl stylesheet -->
@@ -73,7 +74,7 @@ $(document).ready(function() {
             <p><a id="numbers">{{reply_count}}</a> 개의 멘토 답변이 등록되었습니다.</p>
         </div>
 
-        <div class="col-sm-8">
+        <div class="col-sm-4">
             <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>실험실</span></p>
 
             <p>사이트 조회수 : {{hits}}</p>
@@ -89,6 +90,25 @@ $(document).ready(function() {
             {%endfor%}
             <input class="btn btn-default" type="submit" value="투 표" />
             </form>
+        </div>
+        <div class="col-sm-4"> 
+            <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>FILE UPLOADS</span></p>
+            <ul>
+                {% for file in file_list %}
+                    <li><a href="{{ file.file_name.url }}">{{ file.file_name.name }}</a></li>
+                {% empty %}
+                    <p>NO FILE.</p>
+                {% endfor %}
+            </ul>
+            <!-- Upload form. Note enctype attribute! -->
+            <form action="{% url "blog:index" %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input class="" id="id_file_name" name="file_name" title="" type="file" />
+              <button class="btn btn-default" type="submit">
+              <span class="glyphicon glyphicon-star"></span> Submit
+              </button>
+            </form>
+
         </div>
 
     </div>

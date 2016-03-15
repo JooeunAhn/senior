@@ -2,8 +2,10 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from accounts.models import Profile
-from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column, Sitehits, Poll, Choice
+from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column
+from blog.models import Sitehits, Poll, Choice, Files
 from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm, ReplyForm, ColumnForm
+from blog.forms import FileUploadForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -12,10 +14,10 @@ import re
 from hitcount.views import HitCountDetailView
 from django.db.models import Count
 
+
 # Create your views here.
 reg_b = re.compile(r"(android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows ce|xda|xiino", re.I | re.M)
 reg_v = re.compile(r"1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\\-(n|u)|c55\\/|capi|ccwa|cdm\\-|cell|chtm|cldc|cmd\\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\\-s|devi|dica|dmob|do(c|p)o|ds(12|\\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\\-|_)|g1 u|g560|gene|gf\\-5|g\\-mo|go(\\.w|od)|gr(ad|un)|haie|hcit|hd\\-(m|p|t)|hei\\-|hi(pt|ta)|hp( i|ip)|hs\\-c|ht(c(\\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\\-(20|go|ma)|i230|iac( |\\-|\\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\\/)|klon|kpt |kwc\\-|kyo(c|k)|le(no|xi)|lg( g|\\/(k|l|u)|50|54|\\-[a-w])|libw|lynx|m1\\-w|m3ga|m50\\/|ma(te|ui|xo)|mc(01|21|ca)|m\\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\\-2|po(ck|rt|se)|prox|psio|pt\\-g|qa\\-a|qc(07|12|21|32|60|\\-[2-7]|i\\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\\-|oo|p\\-)|sdk\\/|se(c(\\-|0|1)|47|mc|nd|ri)|sgh\\-|shar|sie(\\-|m)|sk\\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\\-|v\\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\\-|tdg\\-|tel(i|m)|tim\\-|t\\-mo|to(pl|sh)|ts(70|m\\-|m3|m5)|tx\\-9|up(\\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\\-|your|zeto|zte\\-", re.I | re.M)
-
 
 # is it ok to do this in views.py?
 
@@ -52,15 +54,36 @@ def owner_required_freeboard(model_cls, user_field_name='author'):
             return fn(request, *args, **kwargs)
         return inner_wrap
     return wrap
-
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.mentee = Profile.objects.get(user__username=str(request.user))
+            question.mentor = get_object_or_404(Profile, pk=mentor_pk)
+            question.save()
+            messages.info(request, "새 질문 등록")
+            return redirect('blog:mentor_detail', mentor_pk)
+    else:
+        form = QuestionForm()
+    return render(request, 'blog/question_form.html', {'form': form})
 
 def index(request):
+
+    if request.method == 'POST':
+        bform = FileUploadForm(request.POST, request.FILES)
+        if bform.is_valid():
+            new_file = bform.save(commit=False)
+            new_file.save()
+    else:
+        bform = FileUploadForm()        
+
     mentor_count = Profile.objects.filter(is_mentor=True).count()
     reply_count = Reply.objects.all().count()
     question_count = Question.objects.all().count()
     mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
     notice_list = Notice.objects.order_by('-created_at')[0:12]
     freeboard_list = Freeboard.objects.order_by('-created_at')[0:12]
+    file_list = Files.objects.order_by('-created_at')
     sitehits = Sitehits.objects.all()[0]
     sitehits.hits = sitehits.hits + 1
     sitehits.save()
@@ -77,6 +100,8 @@ def index(request):
         'hits' : sitehits.hits,
         'poll' : currentpoll,
         'poll_choices' : currentpoll_choices,
+        'file_list' : file_list,
+        'bform' : bform,
     }
     return render(request, 'blog/index.html', context)
 
@@ -85,59 +110,36 @@ def vote(request, poll_pk):
     try:
         selected_choice = Choice.objects.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        mentor_count = Profile.objects.filter(is_mentor=True).count()
-        reply_count = Reply.objects.all().count()
-        question_count = Question.objects.all().count()
-        mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
-        notice_list = Notice.objects.order_by('-created_at')[0:12]
-        freeboard_list = Freeboard.objects.order_by('-created_at')[0:12]
-        sitehits = Sitehits.objects.all()[0]
-        sitehits.hits = sitehits.hits + 1
-        sitehits.save()
-        currentpoll = Poll.objects.order_by('-poll_date')[0]
-        currentpoll_choices = Choice.objects.filter(question=currentpoll).order_by('choice_text')
-
-        context = {
-            'question_count': question_count,
-            'reply_count': reply_count,
-            'mentor_count': mentor_count,
-            'mentor_list': mentor_list,
-            'notice_list': notice_list,
-            'freeboard_list': freeboard_list,
-            'hits' : sitehits.hits,
-            'poll' : currentpoll,
-            'poll_choices' : currentpoll_choices,
-        }
-        context['error_message'] = "You didn't select a choice."
-        return render(request, 'blog/index.html', context)
+        pass
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        mentor_count = Profile.objects.filter(is_mentor=True).count()
-        reply_count = Reply.objects.all().count()
-        question_count = Question.objects.all().count()
-        mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
-        notice_list = Notice.objects.order_by('-created_at')[0:12]
-        freeboard_list = Freeboard.objects.order_by('-created_at')[0:12]
-        sitehits = Sitehits.objects.all()[0]
-        sitehits.hits = sitehits.hits + 1
-        sitehits.save()
-        currentpoll = Poll.objects.order_by('-poll_date')[0]
-        currentpoll_choices = Choice.objects.filter(question=currentpoll).order_by('choice_text')
+    mentor_count = Profile.objects.filter(is_mentor=True).count()
+    reply_count = Reply.objects.all().count()
+    question_count = Question.objects.all().count()
+    mentor_list = Profile.objects.filter(is_mentor=True).annotate(review_count=Count('review_mentor__id')).order_by("-review_count")[0:4]
+    notice_list = Notice.objects.order_by('-created_at')[0:12]
+    freeboard_list = Freeboard.objects.order_by('-created_at')[0:12]
+    file_list = Files.objects.order_by('-created_at')
+    sitehits = Sitehits.objects.all()[0]
+    sitehits.hits = sitehits.hits + 1
+    sitehits.save()
+    currentpoll = Poll.objects.order_by('-poll_date')[0]
+    currentpoll_choices = Choice.objects.filter(question=currentpoll).order_by('choice_text')
 
-        context = {
-            'question_count': question_count,
-            'reply_count': reply_count,
-            'mentor_count': mentor_count,
-            'mentor_list': mentor_list,
-            'notice_list': notice_list,
-            'freeboard_list': freeboard_list,
-            'hits' : sitehits.hits,
-            'poll' : currentpoll,
-            'poll_choices' : currentpoll_choices,
-        }
-        return render(request, 'blog/index.html', context)
+    context = {
+        'question_count': question_count,
+        'reply_count': reply_count,
+        'mentor_count': mentor_count,
+        'mentor_list': mentor_list,
+        'notice_list': notice_list,
+        'freeboard_list': freeboard_list,
+        'hits' : sitehits.hits,
+        'poll' : currentpoll,
+        'poll_choices' : currentpoll_choices,
+        'file_list' : file_list,
+    }
+    return render(request, 'blog/index.html', context)
 
 
 

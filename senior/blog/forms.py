@@ -1,6 +1,12 @@
 from django import forms
 from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column
+from blog.models import Files
 
+class FileUploadForm(forms.ModelForm):
+
+    class Meta:
+        model = Files
+        fields = "__all__" 
 
 class QuestionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

@@ -8,6 +8,13 @@ def min_length_validator(value):
     if len(value) > 100:
         raise forms.ValidationError('100글자 이내로 입력하라고 !!!')
 
+class Files(models.Model):
+    file_name = models.FileField(upload_to='%Y/%m/%d')
+    created_at = models.DateTimeField(auto_now_add=True, blank = True)
+    
+    def __str__(self):
+        return file_name.name
+
 class Sitehits(models.Model):
     hits = models.IntegerField(default=0)
 
