@@ -79,14 +79,13 @@ $(document).ready(function() {
 
             <p>사이트 조회수 : {{hits}}</p>
             <p>설문조사 : {{poll.poll_content}}</p>
-            {%if error_message%} {{error_message}} {%endif%}
             <form action="{% url 'blog:vote' poll.id %}" method="post">
             {% csrf_token %}
             {%for choice in poll_choices%}
-            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }} ({{choice.votes}}) </label><br />
+              <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+              <label for="choice{{ forloop.counter }}">{{ choice.choice_text }} ({{choice.votes}}) </label><br />
             {%empty%}
-            <p>문항이 하나도 없네</p>
+              <p>문항이 하나도 없네</p>
             {%endfor%}
             <input class="btn btn-default" type="submit" value="투 표" />
             </form>
@@ -101,12 +100,11 @@ $(document).ready(function() {
                     <p>NO FILE.</p>
                 {% endfor %}
             </ul>
-            <!-- Upload form. Note enctype attribute! -->
             <form action="{% url "blog:index" %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
               <input class="" id="id_file_name" name="file_name" title="" type="file" />
               <button class="btn btn-default" type="submit">
-              <span class="glyphicon glyphicon-upload"></span>올리기
+              <span class="glyphicon glyphicon-upload"></span> 올리기
               </button>
             </form>
 
@@ -157,51 +155,6 @@ $(document).ready(function() {
 
 </div>
 </div>
-<!--
-<div class="row" style="margin-top:40px;">
-    <p class="sidelines text-center" align="center" style="color:red; font-size: 20px; font-weight: bold;"><span>잡설</span></p>
-    <div class="col-sm-2" >
-        <a href="//jr.naver.com" target="_blank">
-        <div class = "thumbnail" style="border:0px;">
-            <img src="{% static 'pics/slide.png' %}">
-            <p align="center" style="font-weight:bold;">재밌는 놀이터</p>
-        </div>
-        </a>
-    </div>
-    <div class="col-sm-2" >
-        <a href="javascript:alert('색깔 진짜 못 고르겠어요... 더 망가지기 전에 좀 도와줘요...')">
-        <div class = "thumbnail" style="border:0px;">
-            <img src="{% static 'pics/ducky.png' %}">
-            <p align="center" style="font-weight:bold;">오리의 변</p>
-        </div>
-        </a>
-    </div>
-    <div class="col-sm-2" >
-        <a href="javascript:alert('메인 사진 크기는 일단 960 * 300 입니다.')">
-        <div class = "thumbnail" style="border:0px;">
-            <img src="{% static 'pics/moomin.png' %}">
-            <p align="center" style="font-weight:bold;">유용한 생활정보</p>
-        </div>
-        </a>
-    </div>
-    <div class="col-sm-2" >
-        <a href="//www.youtube.com/watch?v=MtN1YnoL46Q" target="_blank">
-        <div class = "thumbnail" style="border:0px;">
-            <img src="{% static 'pics/music.png' %}">
-            <p align="center" style="font-weight:bold;">Editor's Pick</p>
-        </div>
-        </a>
-    </div>
-    <div class="col-sm-2" >
-        <a href="javascript:var audio2 = new Audio('{% static 'pics/Dramatic-chipmunk.mp3' %}');audio2.play();">
-        <div class = "thumbnail" style="border:0px;">
-            <img id="myImg" src="{% static 'pics/ducky.png' %}">
-            <p align="center" style="font-weight:bold;">오리의 변 2</p>
-        </div>
-        </a>
-    </div>
-</div>
--->
 
 
 {% endblock %}
