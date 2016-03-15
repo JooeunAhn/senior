@@ -92,10 +92,11 @@ $(document).ready(function() {
             </form>
         </div>
         <div class="col-sm-4"> 
-            <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>FILE UPLOADS</span></p>
+            <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>FILE UPLOADS / DOWNLOADS</span></p>
+            <p> 유니코드 작업중 ... 아직 한글 파일 올리면 안됨. </p>
             <ul>
                 {% for file in file_list %}
-                    <li><a href="{{ file.file_name.url }}">{{ file.file_name.name }}</a></li>
+                    <li><a href="{% url "blog:download" file.id %}">{{ file.file_name.name }}</a></li>
                 {% empty %}
                     <p>NO FILE.</p>
                 {% endfor %}
@@ -105,7 +106,7 @@ $(document).ready(function() {
               {% csrf_token %}
               <input class="" id="id_file_name" name="file_name" title="" type="file" />
               <button class="btn btn-default" type="submit">
-              <span class="glyphicon glyphicon-star"></span> Submit
+              <span class="glyphicon glyphicon-upload"></span>올리기
               </button>
             </form>
 

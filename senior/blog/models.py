@@ -13,7 +13,7 @@ class Files(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank = True)
     
     def __str__(self):
-        return file_name.name
+        return str(self.file_name.name)
 
 class Sitehits(models.Model):
     hits = models.IntegerField(default=0)

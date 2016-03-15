@@ -54,4 +54,6 @@ urlpatterns = [
     url(r'^searching/$', views.integrated_search, name='integrated_search'),
     # temp url for votes
     url(r'^vote/(?P<poll_pk>\d+)/$', views.vote, name='vote'),
+
+    url(r'^download/(?P<file_pk>\d+)/$', views.download_view, name='download')
     ]

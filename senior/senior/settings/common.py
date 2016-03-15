@@ -146,7 +146,7 @@ MESSAGE_TAGS = {
 MESSAGE_LEVEL = messages_constants.DEBUG
 
 ### 미디어 주소
-MEDIA_URL = '/uploads/'
+MEDIA_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
