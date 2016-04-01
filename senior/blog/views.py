@@ -3,9 +3,9 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from accounts.models import Profile
 from blog.models import Question, Review, Notice, Freeboard, Comment, Reply, Column
-from blog.models import Sitehits, Poll, Choice, Files
+from blog.models import Sitehits, Poll, Choice, Files, Chat # pjshwa
 from blog.forms import QuestionForm, ReviewForm, NoticeForm, FreeboardForm, CommentForm, ReplyForm, ColumnForm
-from blog.forms import FileUploadForm
+from blog.forms import FileUploadForm, ChatForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -36,31 +36,30 @@ def mobiles(request):
 
 def download_view(request, file_pk):
     file = get_object_or_404(Files, pk=file_pk)
-    file_path = settings.MEDIA_ROOT + file.file_name.url
-    file_original_name = file.file_name.name
-    fp = open(file_path, 'rb')
+    file_path = file.file_name.path.encode('utf-8')
+    file_original_name = file.file_name.name.encode('utf-8')
+    fp = open(file_path.decode('utf-8'), 'rb')
     response = HttpResponse(fp.read())
     fp.close()
-    type, encoding = mimetypes.guess_type(file.file_name.url)
+    type, encoding = mimetypes.guess_type(file.file_name.name)
     if type is None:
         type = 'application/octet-stream'
     response['Content-Type'] = type
-    response['Content-Length'] = str(os.stat(file_path).st_size)
+    response['Content-Length'] = str(os.stat(file_path.decode('utf-8')).st_size)
     if encoding is not None:    
         response['Content-Encoding'] = encoding
-
     # To inspect details for the below code, see http://greenbytes.de/tech/tc2231/
     if u'WebKit' in request.META['HTTP_USER_AGENT']:
         # Safari 3.0 and Chrome 2.0 accepts UTF-8 encoded string directly.
-        filename_header = 'filename=%s' % smart_str(file_original_name)
+        filename_header = 'filename=%s' % file_original_name.decode('utf-8')
     elif u'MSIE' in request.META['HTTP_USER_AGENT']:
         # IE does not support internationalized filename at all.
         # It can only recognize internationalized URL, so we do the trick via routing rules.
         filename_header = ''
     else:
         # For others like Firefox, we follow RFC2231 (encoding extension in HTTP headers).
-        filename_header = 'filename*=UTF-8\'\'%s' % urllib.quote(smart_str(file_original_name))
-    response['Content-Disposition'] = 'attachment; ' + filename_header
+        filename_header = 'filename*=UTF-8\'\'%s' % urllib.quote(file_original_name.decode('utf-8'))
+    response['Content-Disposition'] = 'attachment;' + filename_header
     return response
 
 
@@ -92,11 +91,17 @@ def index(request):
 
     if request.method == 'POST':
         bform = FileUploadForm(request.POST, request.FILES)
+        bchat = ChatForm(request.POST)
         if bform.is_valid():
             new_file = bform.save(commit=False)
             new_file.save()
+        if bchat.is_valid():
+            new_chat = bchat.save(commit=False)
+            new_chat.chat_user = Profile.objects.get(user=request.user)
+            new_chat.save()
     else:
-        bform = FileUploadForm()        
+        bform = FileUploadForm()
+        bchat = ChatForm()
 
     mentor_count = Profile.objects.filter(is_mentor=True).count()
     reply_count = Reply.objects.all().count()
@@ -110,7 +115,7 @@ def index(request):
     sitehits.save()
     currentpoll = Poll.objects.order_by('-poll_date')[0]
     currentpoll_choices = Choice.objects.filter(question=currentpoll).order_by('choice_text')
-
+    chat = Chat.objects.order_by('-chat_time')[0:10]
     context = {
         'question_count': question_count,
         'reply_count': reply_count,
@@ -122,7 +127,8 @@ def index(request):
         'poll' : currentpoll,
         'poll_choices' : currentpoll_choices,
         'file_list' : file_list,
-        'bform' : bform,
+        'bchat' : bchat,
+        'chat' : chat,
     }
     return render(request, 'blog/index.html', context)
 
@@ -147,7 +153,6 @@ def vote(request, poll_pk):
     sitehits.save()
     currentpoll = Poll.objects.order_by('-poll_date')[0]
     currentpoll_choices = Choice.objects.filter(question=currentpoll).order_by('choice_text')
-
     context = {
         'question_count': question_count,
         'reply_count': reply_count,
@@ -161,6 +166,7 @@ def vote(request, poll_pk):
         'file_list' : file_list,
     }
     return render(request, 'blog/index.html', context)
+
 
 
 

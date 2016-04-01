@@ -36,7 +36,13 @@ $(document).ready(function() {
 
 
 
+});
 
+$(function() {
+    function callAjax(){
+        $('#chatty').load(window.location.pathname+' #chatty');
+    }
+    setInterval(callAjax, 3000 );
 });
 </script>
 <style>
@@ -67,16 +73,12 @@ $(document).ready(function() {
 <div class="container">
 <div class="row" style="margin-top:40px;">
     <div class="count">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
         <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>Some Numbers</span></p>
             <p><a id="numbers" href = "{% url "blog:mentor_list" %}">{{mentor_count}}</a> 명의 멘토가 등록되어 있습니다.</p>
             <p><a id="numbers">{{question_count}}</a> 개의 멘티 질문이 등록되었습니다.</p>
             <p><a id="numbers">{{reply_count}}</a> 개의 멘토 답변이 등록되었습니다.</p>
-        </div>
-
-        <div class="col-sm-4">
-            <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>실험실</span></p>
-
+            <br/>
             <p>사이트 조회수 : {{hits}}</p>
             <p>설문조사 : {{poll.poll_content}}</p>
             <form action="{% url 'blog:vote' poll.id %}" method="post">
@@ -89,6 +91,7 @@ $(document).ready(function() {
             {%endfor%}
             <input class="btn btn-default" type="submit" value="투 표" />
             </form>
+        </div>
         </div>
         <div class="col-sm-4"> 
             <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>FILE UPLOADS / DOWNLOADS</span></p>
@@ -107,6 +110,34 @@ $(document).ready(function() {
               <span class="glyphicon glyphicon-upload"></span> 올리기
               </button>
             </form>
+
+        </div>
+        <div class="col-sm-5"> 
+          <p class="sidelines text-center" style="color:#b24c57; font-size: 20px; font-weight: bold;"><span>Chatting Room</span></p>
+            
+            {%if user.is_authenticated %}
+            
+            <div class="jumbotron" style="padding:20px 5px 20px 5px;">
+            <div id="chatty">
+            <ul class="freeboard">
+              {%for chats in chat%}
+              <li>
+                {{chats.chat_user.user.last_name}}{{chats.chat_user.user.first_name}} : {{chats.chat_content}}
+              </li>
+              {%empty%}
+              <p>채팅 내용 없음</p>
+              {%endfor%}
+            </ul>
+            </div></div>
+              <form action="{% url "blog:index" %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+              <input id="id_chat_content" maxlength="200" name="chat_content" placeholder="내용 입력" required="required" title="" type="text" />
+              <button class="btn btn-success btn-sm" type="submit">GO!</button>
+              </form>
+            {%else%}
+              <p>로그인부터 하세요</p>
+            {%endif%}
+            
 
         </div>
 

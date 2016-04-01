@@ -8,6 +8,14 @@ def min_length_validator(value):
     if len(value) > 100:
         raise forms.ValidationError('100글자 이내로 입력하라고 !!!')
 
+class Chat(models.Model):
+    chat_user = models.ForeignKey(Profile)
+    chat_content = models.CharField(max_length=200)
+    chat_time = models.DateTimeField(auto_now_add=True, blank = True) 
+
+    def __str__(self):
+        return self.chat_content
+
 class Files(models.Model):
     file_name = models.FileField(upload_to='%Y/%m/%d')
     created_at = models.DateTimeField(auto_now_add=True, blank = True)
